@@ -10,10 +10,11 @@ int main(void)
 		
 		gpio_set_pin_level(PIN_USER_LED, false);
 		//pwm_set_duty(PWM_PHASE_A, 8000);
-		delay_ms(500);
+		delay_ms(2000);
+		printf("heya\n");
 		
 		gpio_set_pin_level(PIN_USER_LED, true);
 		//pwm_set_duty(PWM_PHASE_A, 3000);
-		delay_ms(500);
+		delay_ms(2000);
 	}
 }
