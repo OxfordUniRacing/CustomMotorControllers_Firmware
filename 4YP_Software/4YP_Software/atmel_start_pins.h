@@ -1,0 +1,53 @@
+/*
+ * Code generated from Atmel Start.
+ *
+ * This file will be overwritten when reconfiguring your Atmel Start project.
+ * Please copy examples or other code you want to keep to a separate file
+ * to avoid losing it when reconfiguring.
+ */
+#ifndef ATMEL_START_PINS_H_INCLUDED
+#define ATMEL_START_PINS_H_INCLUDED
+
+#include <hal_gpio.h>
+
+// SAME70 has 4 pin functions
+
+#define GPIO_PIN_FUNCTION_A 0
+#define GPIO_PIN_FUNCTION_B 1
+#define GPIO_PIN_FUNCTION_C 2
+#define GPIO_PIN_FUNCTION_D 3
+
+#define PIN_PWM_PHASE_A_LOW GPIO(GPIO_PORTA, 1)
+#define PIN_GPIO_POS_2 GPIO(GPIO_PORTA, 2)
+#define PIN_GPIO_POS_1 GPIO(GPIO_PORTA, 5)
+#define PIN_USER_BUTTON GPIO(GPIO_PORTA, 11)
+#define PIN_PWM_PHASE_C_HIGH GPIO(GPIO_PORTA, 12)
+#define PIN_ADC_TEMP_2 GPIO(GPIO_PORTA, 17)
+#define PIN_GPIO_DCDC_ON_OFF GPIO(GPIO_PORTA, 18)
+#define PIN_ADC_CURR_A GPIO(GPIO_PORTA, 19)
+#define PIN_EDBG_COM_RX GPIO(GPIO_PORTA, 21)
+#define PIN_PWM_PHASE_A_HIGH GPIO(GPIO_PORTA, 23)
+#define PIN_PWM_PHASE_B_HIGH GPIO(GPIO_PORTA, 25)
+#define PIN_GPIO_9 GPIO(GPIO_PORTA, 26)
+#define PIN_GPIO_CAN_STNDBY GPIO(GPIO_PORTA, 28)
+#define PIN_GPIO_8 GPIO(GPIO_PORTA, 29)
+#define PIN_PWM_PHASE_B_LOW GPIO(GPIO_PORTA, 30)
+#define PIN_ADC_TEMP_4 GPIO(GPIO_PORTB, 0)
+#define PIN_ADC_TEMP_5 GPIO(GPIO_PORTB, 1)
+#define PIN_ADC_TEMP_6 GPIO(GPIO_PORTB, 2)
+#define PIN_ADC_CURR_B GPIO(GPIO_PORTB, 3)
+#define PIN_EDBG_COM_TX GPIO(GPIO_PORTB, 4)
+#define PIN_USER_LED GPIO(GPIO_PORTC, 8)
+#define PIN_CAN_RX GPIO(GPIO_PORTC, 12)
+#define PIN_ADC_CURR_C GPIO(GPIO_PORTC, 13)
+#define PIN_CAN_TX GPIO(GPIO_PORTC, 14)
+#define PIN_ADC_TEMP_1 GPIO(GPIO_PORTC, 30)
+#define PIN_ADC_SUPPL_VOLTAGE GPIO(GPIO_PORTC, 31)
+#define PIN_PWM_PHASE_C_LOW GPIO(GPIO_PORTD, 0)
+#define PIN_GPIO_4 GPIO(GPIO_PORTD, 18)
+#define PIN_GPIO_POS_3 GPIO(GPIO_PORTD, 19)
+#define PIN_GPIO_5 GPIO(GPIO_PORTD, 27)
+#define PIN_GPIO_6 GPIO(GPIO_PORTD, 28)
+#define PIN_ADC_TEMP_MOTOR GPIO(GPIO_PORTD, 30)
+
+#endif // ATMEL_START_PINS_H_INCLUDED

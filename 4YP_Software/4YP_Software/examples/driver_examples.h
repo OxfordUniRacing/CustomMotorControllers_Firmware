@@ -1,0 +1,41 @@
+/*
+ * Code generated from Atmel Start.
+ *
+ * This file will be overwritten when reconfiguring your Atmel Start project.
+ * Please copy examples or other code you want to keep to a separate file
+ * to avoid losing it when reconfiguring.
+ */
+
+#include "atmel_start.h"
+#include "utils.h"
+
+#ifndef DRIVER_EXAMPLES_H_INCLUDED
+#define DRIVER_EXAMPLES_H_INCLUDED
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void ADC_0_example(void);
+
+void ADC_1_example(void);
+
+void EXTERNAL_IRQ_D_example(void);
+
+void EXTERNAL_IRQ_A_example(void);
+
+void PWM_0_example(void);
+
+void PWM_1_example(void);
+
+void delay_example(void);
+
+void EDBG_COM_example(void);
+
+void CAN_1_example(void);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // DRIVER_EXAMPLES_H_INCLUDEDD
