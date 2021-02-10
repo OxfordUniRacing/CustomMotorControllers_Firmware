@@ -34,7 +34,7 @@ int main(void)
 		gpio_set_pin_level(PIN_USER_LED, false);
 		//pwm_set_duty(PWM_PHASE_A, 8000);
 		delay_ms(2000);
-		printf("this is working\n");
+		printf("this is \tworking\n");
 		
 		gpio_set_pin_level(PIN_USER_LED, true);
 		//pwm_set_duty(PWM_PHASE_A, 3000);

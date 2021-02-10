@@ -509,6 +509,12 @@
     <Compile Include="custom_code\low_level\User_pwm.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\testing\Inital_Testing.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\testing\Initial_Testing.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Device_Startup\startup_same70q21b.c">
       <SubType>compile</SubType>
     </Compile>

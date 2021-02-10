@@ -3740,7 +3740,7 @@ int main(void)
   401502:	f44f 60fa 	mov.w	r0, #2000	; 0x7d0
   401506:	4c0a      	ldr	r4, [pc, #40]	; (401530 <main+0x4c>)
   401508:	47a0      	blx	r4
-		printf("this is working\n");
+		printf("this is \tworking\n");
   40150a:	480a      	ldr	r0, [pc, #40]	; (401534 <main+0x50>)
   40150c:	4b0a      	ldr	r3, [pc, #40]	; (401538 <main+0x54>)
   40150e:	4798      	blx	r3
@@ -9139,7 +9139,7 @@ void stdio_redirect_init(void)
   404a88:	00000001 001008c0 000100f4 682f2e2e     ............../h
   404a98:	752f6c70 74726173 6c70682f 6173755f     pl/usart/hpl_usa
   404aa8:	632e7472 00000000 73696874 20736920     rt.c....this is 
-  404ab8:	6b726f77 0a676e69 00000000              working.....
+  404ab8:	726f7709 676e696b 0000000a              .working....
 
 00404ac4 <_global_impure_ptr>:
   404ac4:	20400004 00464e49 00666e69 004e414e     ..@ INF.inf.NAN.

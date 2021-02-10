@@ -16,6 +16,8 @@ custom_code\low_level\User_adc.c
 
 custom_code\low_level\User_pwm.c
 
+custom_code\testing\Inital_Testing.c
+
 Device_Startup\startup_same70q21b.c
 
 Device_Startup\system_same70q21b.c
