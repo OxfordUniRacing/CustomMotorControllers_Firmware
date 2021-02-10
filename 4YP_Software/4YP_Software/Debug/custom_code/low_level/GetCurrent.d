@@ -1,6 +1,8 @@
-main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
- ../atmel_start_pins.h ../hal/include/hal_gpio.h \
- ../hal/include/hpl_gpio.h ../hal/utils/include/compiler.h \
+custom_code/low_level/GetCurrent.d custom_code/low_level/GetCurrent.o: \
+ ../custom_code/low_level/GetCurrent.c \
+ ../custom_code/low_level/GetCurrent.h \
+ ../custom_code/low_level/User_adc.h ../hal/include/hal_adc_sync.h \
+ ../hal/include/hpl_adc_sync.h ../hal/utils/include/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
@@ -128,65 +130,30 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  ../hri/hri_tc_e70b.h ../hri/hri_trng_e70b.h ../hri/hri_twihs_e70b.h \
  ../hri/hri_uart_e70b.h ../hri/hri_usart_e70b.h ../hri/hri_usbhs_e70b.h \
  ../hri/hri_utmi_e70b.h ../hri/hri_wdt_e70b.h ../hri/hri_xdmac_e70b.h \
- ../hal/utils/include/err_codes.h ../hpl/pio/hpl_gpio_base.h \
+ ../hal/utils/include/err_codes.h ../hal/include/hpl_missing_features.h \
+ ../custom_code/low_level/User_Config.h ../driver_init.h \
+ ../atmel_start_pins.h ../hal/include/hal_gpio.h \
+ ../hal/include/hpl_gpio.h ../hpl/pio/hpl_gpio_base.h \
  ../hal/utils/include/utils_assert.h ../hal/include/hal_delay.h \
  ../hal/include/hpl_irq.h ../hal/include/hpl_reset.h \
  ../hal/include/hpl_sleep.h ../hal/include/hal_init.h \
  ../hal/include/hpl_init.h ../hal/include/hal_io.h \
- ../hal/include/hal_sleep.h ../hal/include/hal_adc_sync.h \
- ../hal/include/hpl_adc_sync.h ../hal/include/hpl_missing_features.h \
- ../hal/include/hal_ext_irq.h ../hal/include/hpl_ext_irq.h \
- ../hal/include/hal_pwm.h ../hal/include/hpl_pwm.h \
- ../hal/include/hpl_irq.h ../hal/include/hal_usart_sync.h \
- ../hal/include/hal_io.h ../hal/include/hpl_usart_sync.h \
- ../hal/include/hpl_usart.h ../hal/include/hal_can_async.h \
- ../hal/include/hpl_can.h ../hal/include/hpl_can_async.h \
- ../hal/utils/include/utils.h ../stdio_start.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\reent.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_types.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_types.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\lock.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\types.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\endian.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_endian.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\select.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_sigset.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_timeval.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\timespec.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_timespec.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
- ../stdio_redirect/stdio_io.h ../custom_code/low_level/User_Config.h \
- ../driver_init.h ../atmel_start_pins.h \
- ../custom_code/low_level/User_pwm.h ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/GetCurrent.h \
- ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/User_Config.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h \
- C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h
+ ../hal/include/hal_sleep.h ../hal/include/hal_ext_irq.h \
+ ../hal/include/hpl_ext_irq.h ../hal/include/hal_pwm.h \
+ ../hal/include/hpl_pwm.h ../hal/include/hpl_irq.h \
+ ../hal/include/hal_usart_sync.h ../hal/include/hal_io.h \
+ ../hal/include/hpl_usart_sync.h ../hal/include/hpl_usart.h \
+ ../hal/include/hal_can_async.h ../hal/include/hpl_can.h \
+ ../hal/include/hpl_can_async.h ../hal/utils/include/utils.h \
+ ../atmel_start_pins.h
 
-../atmel_start.h:
+../custom_code/low_level/GetCurrent.h:
 
-../driver_init.h:
+../custom_code/low_level/User_adc.h:
 
-../atmel_start_pins.h:
+../hal/include/hal_adc_sync.h:
 
-../hal/include/hal_gpio.h:
-
-../hal/include/hpl_gpio.h:
+../hal/include/hpl_adc_sync.h:
 
 ../hal/utils/include/compiler.h:
 
@@ -498,6 +465,18 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 
 ../hal/utils/include/err_codes.h:
 
+../hal/include/hpl_missing_features.h:
+
+../custom_code/low_level/User_Config.h:
+
+../driver_init.h:
+
+../atmel_start_pins.h:
+
+../hal/include/hal_gpio.h:
+
+../hal/include/hpl_gpio.h:
+
 ../hpl/pio/hpl_gpio_base.h:
 
 ../hal/utils/include/utils_assert.h:
@@ -517,12 +496,6 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 ../hal/include/hal_io.h:
 
 ../hal/include/hal_sleep.h:
-
-../hal/include/hal_adc_sync.h:
-
-../hal/include/hpl_adc_sync.h:
-
-../hal/include/hpl_missing_features.h:
 
 ../hal/include/hal_ext_irq.h:
 
@@ -550,80 +523,4 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 
 ../hal/utils/include/utils.h:
 
-../stdio_start.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\config.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\ieeefp.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\cdefs.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdarg.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\reent.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_types.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_types.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\lock.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\types.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\endian.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\_endian.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\select.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_sigset.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_timeval.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\timespec.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_timespec.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h:
-
-../stdio_redirect/stdio_io.h:
-
-../custom_code/low_level/User_Config.h:
-
-../driver_init.h:
-
 ../atmel_start_pins.h:
-
-../custom_code/low_level/User_pwm.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/GetCurrent.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/User_Config.h:
-
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h:
-
-C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:

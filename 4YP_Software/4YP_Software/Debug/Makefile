@@ -34,6 +34,9 @@ LINKER_SCRIPT_DEP:=
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
 ../Config/ \
+../custom_code/low_level \
+../custom_code/control \
+../custom_code/testing \
 ../Device_Startup/ \
 ../documentation/ \
 ../examples/ \
@@ -55,6 +58,7 @@ SUBDIRS :=  \
 ../hpl/usart/ \
 ../hpl/xdmac/ \
 ../hri/ \
+../custom_code \
 ../stdio_redirect/ \
 ../stdio_redirect/gcc/
 
@@ -62,6 +66,12 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../atmel_start.c \
+../custom_code/control/Control.c \
+../custom_code/control/getTheta.c \
+../custom_code/control/PID.c \
+../custom_code/low_level/GetCurrent.c \
+../custom_code/low_level/User_adc.c \
+../custom_code/low_level/User_pwm.c \
 ../Device_Startup/startup_same70q21b.c \
 ../Device_Startup/system_same70q21b.c \
 ../driver_init.c \
@@ -108,6 +118,12 @@ ASM_SRCS +=
 
 OBJS +=  \
 atmel_start.o \
+custom_code/control/Control.o \
+custom_code/control/getTheta.o \
+custom_code/control/PID.o \
+custom_code/low_level/GetCurrent.o \
+custom_code/low_level/User_adc.o \
+custom_code/low_level/User_pwm.o \
 Device_Startup/startup_same70q21b.o \
 Device_Startup/system_same70q21b.o \
 driver_init.o \
@@ -147,6 +163,12 @@ stdio_start.o
 
 OBJS_AS_ARGS +=  \
 atmel_start.o \
+custom_code/control/Control.o \
+custom_code/control/getTheta.o \
+custom_code/control/PID.o \
+custom_code/low_level/GetCurrent.o \
+custom_code/low_level/User_adc.o \
+custom_code/low_level/User_pwm.o \
 Device_Startup/startup_same70q21b.o \
 Device_Startup/system_same70q21b.o \
 driver_init.o \
@@ -186,6 +208,12 @@ stdio_start.o
 
 C_DEPS +=  \
 atmel_start.d \
+custom_code/control/Control.d \
+custom_code/control/getTheta.d \
+custom_code/control/PID.d \
+custom_code/low_level/GetCurrent.d \
+custom_code/low_level/User_adc.d \
+custom_code/low_level/User_pwm.d \
 Device_Startup/startup_same70q21b.d \
 Device_Startup/system_same70q21b.d \
 driver_init.d \
@@ -225,6 +253,12 @@ stdio_start.d
 
 C_DEPS_AS_ARGS +=  \
 atmel_start.d \
+custom_code/control/Control.d \
+custom_code/control/getTheta.d \
+custom_code/control/PID.d \
+custom_code/low_level/GetCurrent.d \
+custom_code/low_level/User_adc.d \
+custom_code/low_level/User_pwm.d \
 Device_Startup/startup_same70q21b.d \
 Device_Startup/system_same70q21b.d \
 driver_init.d \
@@ -281,259 +315,301 @@ LINKER_SCRIPT_DEP+=  \
 ./atmel_start.o: .././atmel_start.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/control/Control.o: ../custom_code/control/Control.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/control/getTheta.o: ../custom_code/control/getTheta.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/control/PID.o: ../custom_code/control/PID.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/low_level/GetCurrent.o: ../custom_code/low_level/GetCurrent.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/low_level/User_adc.o: ../custom_code/low_level/User_adc.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/low_level/User_pwm.o: ../custom_code/low_level/User_pwm.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Device_Startup/startup_same70q21b.o: ../Device_Startup/startup_same70q21b.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Device_Startup/system_same70q21b.o: ../Device_Startup/system_same70q21b.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./driver_init.o: .././driver_init.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 examples/driver_examples.o: ../examples/driver_examples.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_adc_sync.o: ../hal/src/hal_adc_sync.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_atomic.o: ../hal/src/hal_atomic.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_can_async.o: ../hal/src/hal_can_async.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_delay.o: ../hal/src/hal_delay.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_ext_irq.o: ../hal/src/hal_ext_irq.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_gpio.o: ../hal/src/hal_gpio.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_init.o: ../hal/src/hal_init.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_io.o: ../hal/src/hal_io.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_pwm.o: ../hal/src/hal_pwm.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_sleep.o: ../hal/src/hal_sleep.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/src/hal_usart_sync.o: ../hal/src/hal_usart_sync.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/utils/src/utils_assert.o: ../hal/utils/src/utils_assert.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/utils/src/utils_event.o: ../hal/utils/src/utils_event.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/utils/src/utils_list.o: ../hal/utils/src/utils_list.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/utils/src/utils_ringbuffer.o: ../hal/utils/src/utils_ringbuffer.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hal/utils/src/utils_syscalls.o: ../hal/utils/src/utils_syscalls.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/afec/hpl_afec.o: ../hpl/afec/hpl_afec.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/core/hpl_core_m7_base.o: ../hpl/core/hpl_core_m7_base.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/core/hpl_init.o: ../hpl/core/hpl_init.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/mcan/hpl_mcan.o: ../hpl/mcan/hpl_mcan.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/pio/hpl_pio_ext.o: ../hpl/pio/hpl_pio_ext.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/pmc/hpl_pmc.o: ../hpl/pmc/hpl_pmc.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/pmc/hpl_sleep.o: ../hpl/pmc/hpl_sleep.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/pwm/hpl_pwm.o: ../hpl/pwm/hpl_pwm.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/systick/hpl_systick_ARMv7_base.o: ../hpl/systick/hpl_systick_ARMv7_base.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/usart/hpl_usart.o: ../hpl/usart/hpl_usart.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 hpl/xdmac/hpl_xdmac.o: ../hpl/xdmac/hpl_xdmac.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 stdio_redirect/gcc/read.o: ../stdio_redirect/gcc/read.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 stdio_redirect/gcc/write.o: ../stdio_redirect/gcc/write.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 stdio_redirect/stdio_io.o: ../stdio_redirect/stdio_io.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./stdio_start.o: .././stdio_start.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 

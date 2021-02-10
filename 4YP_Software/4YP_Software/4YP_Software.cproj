@@ -346,6 +346,10 @@
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
       <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
+      <Value>../custom_code</Value>
+      <Value>../custom_code/control</Value>
+      <Value>../custom_code/low_level</Value>
+      <Value>../custom_code/testing</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize debugging experience (-Og)</armgcc.compiler.optimization.level>
@@ -464,6 +468,45 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Config\stdio_redirect_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\Control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\Control.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\getTheta.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\getTheta.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\PID.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\PID.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\GetCurrent.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\GetCurrent.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\User_adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\User_adc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\User_Config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\User_pwm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\User_pwm.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Device_Startup\startup_same70q21b.c">
@@ -847,6 +890,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Config\" />
+    <Folder Include="custom_code\low_level" />
+    <Folder Include="custom_code\control" />
+    <Folder Include="custom_code\testing" />
     <Folder Include="Device_Startup\" />
     <Folder Include="documentation\" />
     <Folder Include="examples\" />
@@ -868,6 +914,7 @@
     <Folder Include="hpl\usart\" />
     <Folder Include="hpl\xdmac\" />
     <Folder Include="hri\" />
+    <Folder Include="custom_code" />
     <Folder Include="stdio_redirect\" />
     <Folder Include="stdio_redirect\gcc\" />
   </ItemGroup>

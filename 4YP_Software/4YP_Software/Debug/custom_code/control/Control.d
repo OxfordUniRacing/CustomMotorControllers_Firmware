@@ -1,6 +1,8 @@
-main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
- ../atmel_start_pins.h ../hal/include/hal_gpio.h \
- ../hal/include/hpl_gpio.h ../hal/utils/include/compiler.h \
+custom_code/control/Control.d custom_code/control/Control.o: \
+ ../custom_code/control/Control.c ../custom_code/control/Control.h \
+ ../atmel_start.h ../driver_init.h ../atmel_start_pins.h \
+ ../hal/include/hal_gpio.h ../hal/include/hpl_gpio.h \
+ ../hal/utils/include/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
@@ -165,18 +167,19 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
- ../stdio_redirect/stdio_io.h ../custom_code/low_level/User_Config.h \
- ../driver_init.h ../atmel_start_pins.h \
- ../custom_code/low_level/User_pwm.h ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/GetCurrent.h \
- ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/User_Config.h \
+ ../stdio_redirect/stdio_io.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../custom_code/control/getTheta.h ../custom_code/low_level/GetCurrent.h \
+ ../custom_code/low_level/User_adc.h \
+ ../custom_code/low_level/User_Config.h ../driver_init.h \
+ ../atmel_start_pins.h ../custom_code/control/PID.h
+
+../custom_code/control/Control.h:
 
 ../atmel_start.h:
 
@@ -600,22 +603,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../stdio_redirect/stdio_io.h:
 
-../custom_code/low_level/User_Config.h:
-
-../driver_init.h:
-
-../atmel_start_pins.h:
-
-../custom_code/low_level/User_pwm.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/GetCurrent.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/User_Config.h:
-
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h:
@@ -627,3 +614,17 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../custom_code/control/getTheta.h:
+
+../custom_code/low_level/GetCurrent.h:
+
+../custom_code/low_level/User_adc.h:
+
+../custom_code/low_level/User_Config.h:
+
+../driver_init.h:
+
+../atmel_start_pins.h:
+
+../custom_code/control/PID.h:

@@ -4,6 +4,18 @@
 
 atmel_start.c
 
+custom_code\control\Control.c
+
+custom_code\control\getTheta.c
+
+custom_code\control\PID.c
+
+custom_code\low_level\GetCurrent.c
+
+custom_code\low_level\User_adc.c
+
+custom_code\low_level\User_pwm.c
+
 Device_Startup\startup_same70q21b.c
 
 Device_Startup\system_same70q21b.c
