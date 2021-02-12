@@ -8,14 +8,20 @@
 	general file with simple routines for testing the basic functionality of the MCU
 */
 
-#include "Initial_Testing.h"
+//add these 3 lines before every instance of arm_math.h ;
+//configuration macro to enable the correct code within the library
+#ifndef ARM_MATH_CM7
+#define ARM_MATH_CM7
+#endif
+//always have atmel_start.h before arm_math.h -> seems to be fixing some issiues
+#include <atmel_start.h>
+#include "arm_math.h"
 
 #include "User_Config.h"
 #include "User_pwm.h"
 #include "User_adc.h"
 #include "GetCurrent.h"
 
-#include <atmel_start.h>
 
 
 void Temp_Initial_Test (void){
@@ -59,6 +65,27 @@ void Current_Voltage_Inital_Test (void){
 	printf("Raw Data \n");
 	printf("CurrA = %i \t\t CurrB = %i \t\t CurrC = %i \n",current_test_data[0], current_test_data[1], current_test_data[2]);
 	printf("Supply Voltage = %i  \n",voltage_test_data);
+}
+
+void first_slow_spin (void){
+	float omega = 94.25;    //Gives electrical frequency of 15Hz (one spin of the rotor every second)
+	float T = 0;
+	float V_supply = 20;
+	float V_pp_test = 5;
+	while (1)
+	{
+		float pwm_testing_a, pwm_testing_b, pwm_testing_c;
+		pwm_testing_a = (sin(omega*T)+1)*500*V_pp_test/V_supply;
+		pwm_testing_b = (sin(omega*T+PI/3)+1)*500*V_pp_test/V_supply;
+		pwm_testing_c = (sin(omega*T-PI/3)+1)*500*V_pp_test/V_supply;
+		
+		pwm_set_duty(PWM_PHASE_A,pwm_testing_a);
+		pwm_set_duty(PWM_PHASE_B,pwm_testing_b);
+		pwm_set_duty(PWM_PHASE_C,pwm_testing_c);
+		
+		delay_us(333)
+		T = T + 0.000333;			//Updates the duty cycle every switch at 3kHz switching frequency
+	}
 }
 
 

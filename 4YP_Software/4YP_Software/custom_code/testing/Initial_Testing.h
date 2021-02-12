@@ -9,6 +9,7 @@
 #ifndef INITIAL_TESTING_H_
 #define INITIAL_TESTING_H_
 
+void first_slow_spin (void);
 void Temp_Initial_Test (void);
 void Current_Voltage_Inital_Test (void);
 void PWM_Initial_Test (void);

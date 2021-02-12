@@ -1,8 +1,6 @@
 custom_code/testing/Inital_Testing.d custom_code/testing/Inital_Testing.o: \
- ../custom_code/testing/Inital_Testing.c \
- ../custom_code/testing/Initial_Testing.h \
- ../custom_code/low_level/User_Config.h ../driver_init.h \
- ../atmel_start_pins.h ../hal/include/hal_gpio.h \
+ ../custom_code/testing/Inital_Testing.c ../atmel_start.h \
+ ../driver_init.h ../atmel_start_pins.h ../hal/include/hal_gpio.h \
  ../hal/include/hpl_gpio.h ../hal/utils/include/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
@@ -144,12 +142,7 @@ custom_code/testing/Inital_Testing.d custom_code/testing/Inital_Testing.o: \
  ../hal/include/hal_io.h ../hal/include/hpl_usart_sync.h \
  ../hal/include/hpl_usart.h ../hal/include/hal_can_async.h \
  ../hal/include/hpl_can.h ../hal/include/hpl_can_async.h \
- ../hal/utils/include/utils.h ../atmel_start_pins.h \
- ../custom_code/low_level/User_pwm.h ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/GetCurrent.h \
- ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/User_Config.h ../atmel_start.h ../driver_init.h \
- ../stdio_start.h \
+ ../hal/utils/include/utils.h ../stdio_start.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\_ansi.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\newlib.h \
@@ -173,11 +166,21 @@ custom_code/testing/Inital_Testing.d custom_code/testing/Inital_Testing.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
- ../stdio_redirect/stdio_io.h
+ ../stdio_redirect/stdio_io.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
+ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
+ ../custom_code/low_level/User_Config.h ../driver_init.h \
+ ../atmel_start_pins.h ../custom_code/low_level/User_pwm.h \
+ ../custom_code/low_level/User_adc.h \
+ ../custom_code/low_level/GetCurrent.h \
+ ../custom_code/low_level/User_adc.h \
+ ../custom_code/low_level/User_Config.h
 
-../custom_code/testing/Initial_Testing.h:
-
-../custom_code/low_level/User_Config.h:
+../atmel_start.h:
 
 ../driver_init.h:
 
@@ -549,22 +552,6 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 
 ../hal/utils/include/utils.h:
 
-../atmel_start_pins.h:
-
-../custom_code/low_level/User_pwm.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/GetCurrent.h:
-
-../custom_code/low_level/User_adc.h:
-
-../custom_code/low_level/User_Config.h:
-
-../atmel_start.h:
-
-../driver_init.h:
-
 ../stdio_start.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdio.h:
@@ -614,3 +601,31 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h:
 
 ../stdio_redirect/stdio_io.h:
+
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h:
+
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h:
+
+c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h:
+
+../custom_code/low_level/User_Config.h:
+
+../driver_init.h:
+
+../atmel_start_pins.h:
+
+../custom_code/low_level/User_pwm.h:
+
+../custom_code/low_level/User_adc.h:
+
+../custom_code/low_level/GetCurrent.h:
+
+../custom_code/low_level/User_adc.h:
+
+../custom_code/low_level/User_Config.h:
