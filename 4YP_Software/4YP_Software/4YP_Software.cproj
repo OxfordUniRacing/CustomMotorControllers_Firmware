@@ -185,7 +185,7 @@
           <AcmeProjectActionInfo Action="File" Source="config/hpl_mcan_config.h" IsConfig="true" Hash="UijegEpuEmUcdyj73V9VKA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pio_config.h" IsConfig="true" Hash="aFugXTrOi4N+iA1nyim0bw" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pmc_config.h" IsConfig="true" Hash="3XKiIx+uop95HFsqB+QIEA" />
-          <AcmeProjectActionInfo Action="File" Source="config/hpl_pwm_config.h" IsConfig="true" Hash="Ql8Uz540EeGnLwinz1RzHg" />
+          <AcmeProjectActionInfo Action="File" Source="config/hpl_pwm_config.h" IsConfig="true" Hash="nCws4W6AQligt5tpCle6nA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_systick_ARMv7_config.h" IsConfig="true" Hash="t3cQayNiIVFMCFQK142dew" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_usart_config.h" IsConfig="true" Hash="880KOvoY08lzBDUpbWPwbQ" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_xdmac_config.h" IsConfig="true" Hash="DDZ2H+b5anPm9+Iz2dR2AQ" />
@@ -227,6 +227,7 @@
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -244,7 +245,6 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -266,6 +266,7 @@
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsame70q21b_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -283,11 +284,11 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -305,7 +306,6 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>
@@ -328,6 +328,11 @@
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
+      <Value>../custom_code</Value>
+      <Value>../custom_code/control</Value>
+      <Value>../custom_code/low_level</Value>
+      <Value>../custom_code/testing</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -345,11 +350,6 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
-      <Value>../custom_code</Value>
-      <Value>../custom_code/control</Value>
-      <Value>../custom_code/low_level</Value>
-      <Value>../custom_code/testing</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize debugging experience (-Og)</armgcc.compiler.optimization.level>
@@ -366,8 +366,8 @@
   </armgcc.linker.libraries.Libraries>
   <armgcc.linker.libraries.LibrarySearchPaths>
     <ListValues>
+      <Value>..\..\Lib</Value>
       <Value>%24(ProjectDir)\Device_Startup</Value>
-      <Value>../../Lib</Value>
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
@@ -380,6 +380,7 @@
   </armgcc.linker.miscellaneous.OtherObjects>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -397,12 +398,12 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.assembler.debugging.DebugLevel>Default (-g)</armgcc.assembler.debugging.DebugLevel>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -420,7 +421,6 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
-      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
   <armgcc.preprocessingassembler.debugging.DebugLevel>Default (-Wa,-g)</armgcc.preprocessingassembler.debugging.DebugLevel>
@@ -900,6 +900,7 @@
     <Folder Include="custom_code\control" />
     <Folder Include="custom_code\testing" />
     <Folder Include="Device_Startup\" />
+    <Folder Include="custom_code" />
     <Folder Include="documentation\" />
     <Folder Include="examples\" />
     <Folder Include="hal\" />
@@ -920,7 +921,6 @@
     <Folder Include="hpl\usart\" />
     <Folder Include="hpl\xdmac\" />
     <Folder Include="hri\" />
-    <Folder Include="custom_code" />
     <Folder Include="stdio_redirect\" />
     <Folder Include="stdio_redirect\gcc\" />
   </ItemGroup>

@@ -11,7 +11,6 @@
   </armgcc.compiler.symbols.DefSymbols>
   <armgcc.compiler.directories.IncludePaths>
     <ListValues>
-      <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -29,6 +28,7 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.compiler.directories.IncludePaths>
   <armgcc.compiler.optimization.level>Optimize for size (-Os)</armgcc.compiler.optimization.level>
@@ -50,7 +50,6 @@
   <armgcc.linker.miscellaneous.LinkerFlags>-Tsame70q21b_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
-      <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -68,11 +67,11 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.assembler.general.IncludePaths>
   <armgcc.preprocessingassembler.general.IncludePaths>
     <ListValues>
-      <Value>%24(PackRepoDir)\arm\CMSIS\5.4.0\CMSIS\Core\Include\</Value>
       <Value>../Config</Value>
       <Value>../</Value>
       <Value>../examples</Value>
@@ -90,6 +89,7 @@
       <Value>../hri</Value>
       <Value>../stdio_redirect</Value>
       <Value>%24(PackRepoDir)\Atmel\SAME70_DFP\2.4.166\same70b\include</Value>
+      <Value>%24(PackRepoDir)\ARM\CMSIS\5.3.0\CMSIS\Include\</Value>
     </ListValues>
   </armgcc.preprocessingassembler.general.IncludePaths>
 </ArmGcc>

@@ -760,7 +760,7 @@ drivers:
       pwm_cvm5: The comparison value is performed when this counter is incrementing.
       pwm_cvm6: The comparison value is performed when this counter is incrementing.
       pwm_cvm7: The comparison value is performed when this counter is incrementing.
-      pwm_diva: 5
+      pwm_diva: 25
       pwm_divb: 1
       pwm_elmr0_csel0_enable: false
       pwm_elmr0_csel1_enable: false
@@ -997,7 +997,7 @@ drivers:
       pwm_cvm5: The comparison value is performed when this counter is incrementing.
       pwm_cvm6: The comparison value is performed when this counter is incrementing.
       pwm_cvm7: The comparison value is performed when this counter is incrementing.
-      pwm_diva: 5
+      pwm_diva: 25
       pwm_divb: 1
       pwm_elmr0_csel0_enable: false
       pwm_elmr0_csel1_enable: false
