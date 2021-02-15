@@ -54,3 +54,28 @@ void pwm_set_duty(struct  pwm_descriptor * const descr, const uint8_t channel, c
 	//hri_pwm_write_CPRDUPD_reg(device->hw, cfg->ch[i].index, period);			//period is constant; only altering duty cycle
 	//}
 }
+
+void pwm_deadtime_init(void){													//Check section 51.6.2.5 Dead-Time Generator in datasheet
+	/*
+	*((unsigned int *)0x40020200) |= (1<<16);									//Set dead time enable to 1 in all the PWM 0 registers
+	*((unsigned int *)0x40020220) |= (1<<16);
+	*((unsigned int *)0x40020240) |= (1<<16);
+	*((unsigned int *)0x40020260) |= (1<<16);
+	
+	*((unsigned int *)0x4005C200) |= (1<<16);									//Set dead time enable to 1 in all the PWM 1 registers
+	*((unsigned int *)0x40020220) |= (1<<16);
+	*((unsigned int *)0x40020240) |= (1<<16);
+	*((unsigned int *)0x40020260) |= (1<<16);
+	*/
+	
+	
+	hri_pwmchnum_set_CMR_DTE_bit(PWM1);											//Set dead time enable to 1 in all the PWM 1 registers
+	hri_pwmchnum_set_CMR_DTE_bit(PWM0);											//Set dead time enable to 1 in all the PWM 0 registers
+	
+	int DT = 3;																	//Dead time of 3 (for 3kHz (6MHz) corresponds to 0.5us)
+	
+	hri_pwmchnum_write_DT_DTH_bf(PWM0, DT);										//Set high dead time for high side of PWM0
+	hri_pwmchnum_write_DT_DTL_bf(PWM0, DT);										//Set high dead time for low side of PWM0
+	hri_pwmchnum_write_DT_DTH_bf(PWM1, DT);										//Set high dead time for high side of PWM1
+	hri_pwmchnum_write_DT_DTL_bf(PWM1, DT);										//Set high dead time for low side of PWM1
+}

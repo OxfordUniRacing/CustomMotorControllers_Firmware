@@ -75,9 +75,9 @@ void first_slow_spin (void){
 	while (1)
 	{
 		float pwm_testing_a, pwm_testing_b, pwm_testing_c;
-		pwm_testing_a = (sin(omega*T)+1)*500*V_pp_test/V_supply;
-		pwm_testing_b = (sin(omega*T+PI/3)+1)*500*V_pp_test/V_supply;
-		pwm_testing_c = (sin(omega*T-PI/3)+1)*500*V_pp_test/V_supply;
+		pwm_testing_a = 1000 - (sin(omega*T)+1)*500*V_pp_test/V_supply;
+		pwm_testing_b = 1000 - (sin(omega*T+PI/3)+1)*500*V_pp_test/V_supply;
+		pwm_testing_c = 1000 - (sin(omega*T-PI/3)+1)*500*V_pp_test/V_supply;
 		
 		pwm_set_duty(PWM_PHASE_A,pwm_testing_a);
 		pwm_set_duty(PWM_PHASE_B,pwm_testing_b);

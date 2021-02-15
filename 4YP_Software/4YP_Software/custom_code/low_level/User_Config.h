@@ -19,7 +19,7 @@
 //Clock divide can be done through 1/2^n or by a single linear divider between 1/2, 1/3 and 1/255
 
 //Using no dividers and setting period to 10 000 gives precisely 15KHz with resolution of ~14-bit
-#define PWM_PERIOD 10000
+#define PWM_PERIOD 1000
 
 /*
 PWM functions look like this:

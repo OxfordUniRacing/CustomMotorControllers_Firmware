@@ -171,6 +171,7 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  ../custom_code/low_level/GetCurrent.h \
  ../custom_code/low_level/User_adc.h \
  ../custom_code/low_level/User_Config.h \
+ ../custom_code/testing/Initial_Testing.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/core_cm7.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
@@ -615,6 +616,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/low_level/User_adc.h:
 
 ../custom_code/low_level/User_Config.h:
+
+../custom_code/testing/Initial_Testing.h:
 
 C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include/arm_math.h:
 
