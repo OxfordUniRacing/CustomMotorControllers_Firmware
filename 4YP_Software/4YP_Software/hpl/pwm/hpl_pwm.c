@@ -399,11 +399,20 @@ int32_t _pwm_init(struct _pwm_device *const device, void *const hw)
 	hri_pwm_write_FPE_reg(hw, cfg->pwm_fpe);
 	hri_pwm_write_ETRG1_reg(hw, cfg->pwm_etrg1);
 	hri_pwm_write_ETRG2_reg(hw, cfg->pwm_etrg2);
+	
+	//hri_pwmchnum_set_CMR_DTE_bit(PWM1->);											//Set dead time enable to 1 in all the PWM 1 registers										//Set dead time enable to 1 in all the PWM 0 registers
+	
+	//int DT = 3;																	//Dead time of 3 (for 3kHz (6MHz) corresponds to 0.5us)
+	
+	//hri_pwmchnum_write_DT_DTH_bf(PWM0, DT);
 
 	/* Init Channel */
 	for (i = 0; i < cfg->ch_num; i++) {
 		ch = cfg->ch + i;
 		hri_pwm_write_CMR_reg(hw, ch->index, ch->mode);
+		hri_pwmchnum_set_CMR_DTE_bit((void *) &((Pwm *)hw)->PwmChNum[ch->index]);
+		hri_pwm_set_DT_DTH_bf(hw, ch->index, 10);
+		hri_pwm_set_DT_DTL_bf(hw, ch->index, 10);
 		hri_pwm_write_CDTY_reg(hw, ch->index, ch->duty_cycle);
 		hri_pwm_write_CPRD_reg(hw, ch->index, ch->period);
 	}

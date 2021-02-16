@@ -144,7 +144,8 @@ custom_code/low_level/User_pwm.d custom_code/low_level/User_pwm.o: \
  ../hal/include/hpl_usart_sync.h ../hal/include/hpl_usart.h \
  ../hal/include/hal_can_async.h ../hal/include/hpl_can.h \
  ../hal/include/hpl_can_async.h ../hal/utils/include/utils.h \
- ../atmel_start_pins.h
+ ../atmel_start_pins.h ../hpl/pwm/hpl_pwm_base.h \
+ ../Config/hpl_pwm_config.h ../Config/peripheral_clk_config.h
 
 ../custom_code/low_level/User_pwm.h:
 
@@ -521,3 +522,9 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 ../hal/utils/include/utils.h:
 
 ../atmel_start_pins.h:
+
+../hpl/pwm/hpl_pwm_base.h:
+
+../Config/hpl_pwm_config.h:
+
+../Config/peripheral_clk_config.h:
