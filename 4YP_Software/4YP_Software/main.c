@@ -35,13 +35,16 @@ int main(void)
 	adc_enable_all();
 	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);
 	
-
+	timer_start(&ENCODER_A);
+	timer_start(&ENCODER_B);
+	
+	
+	//test timers for encoder
+	Timer_Counter_Initial_Test();
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up
-	
-	
-	first_slow_spin();
+	//first_slow_spin();
 
 	/* Replace with your application code */
 	while (1) {

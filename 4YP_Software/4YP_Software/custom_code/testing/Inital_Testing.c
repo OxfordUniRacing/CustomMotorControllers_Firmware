@@ -91,3 +91,31 @@ void first_slow_spin (void){
 
 void PWM_Initial_Test (void);
 void POS_Sensor_Initial_Test (void);
+
+
+void Timer_Counter_Initial_Test (void){
+	
+	/*
+		Finction to observe the functionality of the counters
+		Generates a square wave on GPIO_6 that can be used to drive the counters
+		Displays the coutners syncronously with the generated wave
+	*/
+	printf("Testing Timer Counters");
+	
+	while(1){
+		
+		printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));
+		printf("Encoder B = \t %u ; \t %u \n\n", (unsigned int) hri_tc_read_CV_CV_bf(TC3,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC3,1));
+		
+		gpio_set_pin_level(PIN_USER_LED, true);
+		gpio_set_pin_level(PIN_GPIO_6, true);
+		delay_ms(500);
+		
+		printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));
+		printf("Encoder B = \t %u ; \t %u \n\n", (unsigned int) hri_tc_read_CV_CV_bf(TC3,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC3,1));
+		
+		gpio_set_pin_level(PIN_USER_LED, false);
+		gpio_set_pin_level(PIN_GPIO_6, false);
+		delay_ms(500);
+	}
+}

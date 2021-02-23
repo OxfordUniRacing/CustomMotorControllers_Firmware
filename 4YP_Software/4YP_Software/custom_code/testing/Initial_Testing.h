@@ -15,6 +15,8 @@ void Current_Voltage_Inital_Test (void);
 void PWM_Initial_Test (void);
 void POS_Sensor_Initial_Test (void);
 
+void Timer_Counter_Initial_Test (void);
+
 
 
 #endif /* INITIAL_TESTING_H_ */
