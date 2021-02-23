@@ -206,6 +206,7 @@ void ENCODER_A_PORT_init(void)
 static void ENCODER_A_init(void)
 {
 	_pmc_enable_periph_clock(ID_TC0_CHANNEL0);
+	_pmc_enable_periph_clock(ID_TC0_CHANNEL1);
 	ENCODER_A_PORT_init();
 	timer_init(&ENCODER_A, TC0, _tc_get_timer());
 }
@@ -223,6 +224,7 @@ void ENCODER_B_PORT_init(void)
 static void ENCODER_B_init(void)
 {
 	_pmc_enable_periph_clock(ID_TC3_CHANNEL0);
+	_pmc_enable_periph_clock(ID_TC3_CHANNEL1);
 	ENCODER_B_PORT_init();
 	timer_init(&ENCODER_B, TC3, _tc_get_timer());
 }
