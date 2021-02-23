@@ -428,7 +428,7 @@ void system_init(void)
 
 	EDBG_COM_init();
 
-	CAN_1_init();
+	//CAN_1_init();
 
 	ext_irq_init();
 }
