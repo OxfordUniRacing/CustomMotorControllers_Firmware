@@ -46,6 +46,8 @@ hal\src\hal_pwm.c
 
 hal\src\hal_sleep.c
 
+hal\src\hal_timer.c
+
 hal\src\hal_usart_sync.c
 
 hal\utils\src\utils_assert.c
@@ -75,6 +77,8 @@ hpl\pmc\hpl_sleep.c
 hpl\pwm\hpl_pwm.c
 
 hpl\systick\hpl_systick_ARMv7_base.c
+
+hpl\tc\hpl_tc.c
 
 hpl\usart\hpl_usart.c
 

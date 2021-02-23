@@ -143,6 +143,11 @@ static void _tc_init_irq_param(const void *const hw, void *dev)
  */
 int32_t _timer_init(struct _timer_device *const device, void *const hw)
 {
+	
+	/*
+	Old function code
+	
+	
 	struct tc_configuration *cfg     = get_cfg(hw);
 	uint32_t                 ch_mode = cfg->channel_mode;
 
@@ -150,7 +155,7 @@ int32_t _timer_init(struct _timer_device *const device, void *const hw)
 	ASSERT(ARRAY_SIZE(_tcs));
 
 	if (ch_mode & TC_CMR_WAVE) {
-		/* Enable event control mode */
+		
 		ch_mode |= (0x02 << 13) | (0x01 << 16) | (0x02 << 18);
 	}
 
@@ -168,6 +173,54 @@ int32_t _timer_init(struct _timer_device *const device, void *const hw)
 	NVIC_EnableIRQ(cfg->irq);
 
 	return ERR_NONE;
+	
+	*/
+		
+		
+		/*
+			Modified function to enable not only channel 0, but also channel 1 of the timer counters
+			Clock is set to external 2 (TCLK 2 and TCLK 11 for Encoder A and B respectively)
+		*/
+		
+		struct tc_configuration *cfg     = get_cfg(hw);
+		
+		uint32_t ra = cfg->ra;
+		uint32_t rb = cfg->rb;
+		uint32_t rc = cfg->rc;
+		uint32_t ext_mode = cfg->ext_mode;
+		
+		
+
+		device->hw = hw;
+		ASSERT(ARRAY_SIZE(_tcs));
+
+		
+		
+
+		hri_tc_write_CMR_reg(hw, 0, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk);						//wave mode (counting up); external clock
+		hri_tc_write_RA_reg(hw, 0, ra);
+		hri_tc_write_RB_reg(hw, 0, rb);
+		hri_tc_write_EMR_reg(hw, 0, ext_mode);
+		hri_tc_write_RC_reg(hw, 0, rc);
+		hri_tc_set_IMR_reg(hw, 0, 0);	//no interrupts
+		
+		hri_tc_write_CMR_reg(hw, 1, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk | TC_CMR_CLKI_Msk);		//wave mode (counting up); external clock; inverted
+		hri_tc_write_RA_reg(hw, 1, ra);
+		hri_tc_write_RB_reg(hw, 1, rb);
+		hri_tc_write_EMR_reg(hw, 1, ext_mode);
+		hri_tc_write_RC_reg(hw, 1, rc);
+		hri_tc_set_IMR_reg(hw, 1, 0);	//no interrupts
+		
+		hri_tc_write_FMR_reg(hw, cfg->fmr);
+		
+		//hri_tc_write_BMR_reg(hw,TC_BMR_TC0XC0S_TIOA2);
+
+		_tc_init_irq_param(hw, device);
+		NVIC_DisableIRQ(cfg->irq);
+		NVIC_ClearPendingIRQ(cfg->irq);
+		NVIC_EnableIRQ(cfg->irq);
+
+		return ERR_NONE;
 }
 
 /**
@@ -178,6 +231,7 @@ void _timer_deinit(struct _timer_device *const device)
 	struct tc_configuration *cfg = get_cfg(device->hw);
 	NVIC_DisableIRQ(cfg->irq);
 	hri_tc_write_CCR_reg(device->hw, 0, TC_CCR_CLKDIS);
+	hri_tc_write_CCR_reg(device->hw, 1, TC_CCR_CLKDIS);
 }
 
 /**
@@ -186,6 +240,7 @@ void _timer_deinit(struct _timer_device *const device)
 void _timer_start(struct _timer_device *const device)
 {
 	hri_tc_write_CCR_reg(device->hw, 0, TC_CCR_CLKEN | TC_CCR_SWTRG);
+	hri_tc_write_CCR_reg(device->hw, 1, TC_CCR_CLKEN | TC_CCR_SWTRG);
 }
 
 /**
@@ -194,6 +249,7 @@ void _timer_start(struct _timer_device *const device)
 void _timer_stop(struct _timer_device *const device)
 {
 	hri_tc_write_CCR_reg(device->hw, 0, TC_CCR_CLKDIS);
+	hri_tc_write_CCR_reg(device->hw, 1, TC_CCR_CLKDIS);
 }
 
 /**
@@ -202,6 +258,7 @@ void _timer_stop(struct _timer_device *const device)
 void _timer_set_period(struct _timer_device *const device, const uint32_t clock_cycles)
 {
 	hri_tc_write_RC_reg(device->hw, 0, clock_cycles);
+	hri_tc_write_RC_reg(device->hw, 1, clock_cycles);
 }
 
 /**
@@ -217,7 +274,7 @@ uint32_t _timer_get_period(const struct _timer_device *const device)
  */
 bool _timer_is_started(const struct _timer_device *const device)
 {
-	return hri_tc_get_SR_CLKSTA_bit(device->hw, 0);
+	return hri_tc_get_SR_CLKSTA_bit(device->hw, 0) | hri_tc_get_SR_CLKSTA_bit(device->hw, 1);
 }
 
 /**
