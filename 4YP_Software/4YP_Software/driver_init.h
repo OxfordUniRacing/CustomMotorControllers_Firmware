@@ -30,6 +30,8 @@ extern "C" {
 #include <hal_pwm.h>
 
 #include <hal_pwm.h>
+#include <hal_timer.h>
+#include <hal_timer.h>
 
 #include <hal_delay.h>
 
@@ -61,7 +63,9 @@ extern struct adc_sync_descriptor ADC_1;
 
 extern struct pwm_descriptor PWM_0;
 
-extern struct pwm_descriptor PWM_1;
+extern struct pwm_descriptor   PWM_1;
+extern struct timer_descriptor ENCODER_A;
+extern struct timer_descriptor ENCODER_B;
 
 extern struct usart_sync_descriptor EDBG_COM;
 extern struct can_async_descriptor  CAN_1;

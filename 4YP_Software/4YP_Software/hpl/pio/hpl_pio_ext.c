@@ -53,7 +53,7 @@
 #define CONF_EXTIRQ_4_ENABLE 0
 #endif
 
-#define EXT_IRQ_AMOUNT (0 + 1 + 2)
+#define EXT_IRQ_AMOUNT (0 + 1 + 3)
 
 struct ext_irq_configuration {
 	uint8_t  number;

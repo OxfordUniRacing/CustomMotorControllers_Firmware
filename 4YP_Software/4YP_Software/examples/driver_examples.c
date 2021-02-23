@@ -80,6 +80,9 @@ static void button_on_PA2_pressed(void)
 static void button_on_PA5_pressed(void)
 {
 }
+static void button_on_PA26_pressed(void)
+{
+}
 
 /**
  * Example of using EXTERNAL_IRQ_A
@@ -88,6 +91,7 @@ void EXTERNAL_IRQ_A_example(void)
 {
 	ext_irq_register(PIO_PA2_IDX, button_on_PA2_pressed);
 	ext_irq_register(PIO_PA5_IDX, button_on_PA5_pressed);
+	ext_irq_register(PIO_PA26_IDX, button_on_PA26_pressed);
 }
 
 static void period_cb_PWM_0(const struct pwm_descriptor *const descr)
@@ -114,6 +118,60 @@ void PWM_1_example(void)
 {
 	pwm_register_callback(&PWM_1, PWM_PERIOD_CB, period_cb_PWM_1);
 	pwm_enable(&PWM_1);
+}
+
+/**
+ * Example of using ENCODER_A.
+ */
+static struct timer_task ENCODER_A_task1, ENCODER_A_task2;
+
+static void ENCODER_A_task1_cb(const struct timer_task *const timer_task)
+{
+}
+
+static void ENCODER_A_task2_cb(const struct timer_task *const timer_task)
+{
+}
+
+void ENCODER_A_example(void)
+{
+	ENCODER_A_task1.interval = 100;
+	ENCODER_A_task1.cb       = ENCODER_A_task1_cb;
+	ENCODER_A_task1.mode     = TIMER_TASK_REPEAT;
+	ENCODER_A_task2.interval = 200;
+	ENCODER_A_task2.cb       = ENCODER_A_task2_cb;
+	ENCODER_A_task2.mode     = TIMER_TASK_REPEAT;
+
+	timer_add_task(&ENCODER_A, &ENCODER_A_task1);
+	timer_add_task(&ENCODER_A, &ENCODER_A_task2);
+	timer_start(&ENCODER_A);
+}
+
+/**
+ * Example of using ENCODER_B.
+ */
+static struct timer_task ENCODER_B_task1, ENCODER_B_task2;
+
+static void ENCODER_B_task1_cb(const struct timer_task *const timer_task)
+{
+}
+
+static void ENCODER_B_task2_cb(const struct timer_task *const timer_task)
+{
+}
+
+void ENCODER_B_example(void)
+{
+	ENCODER_B_task1.interval = 100;
+	ENCODER_B_task1.cb       = ENCODER_B_task1_cb;
+	ENCODER_B_task1.mode     = TIMER_TASK_REPEAT;
+	ENCODER_B_task2.interval = 200;
+	ENCODER_B_task2.cb       = ENCODER_B_task2_cb;
+	ENCODER_B_task2.mode     = TIMER_TASK_REPEAT;
+
+	timer_add_task(&ENCODER_B, &ENCODER_B_task1);
+	timer_add_task(&ENCODER_B, &ENCODER_B_task2);
+	timer_start(&ENCODER_B);
 }
 
 void delay_example(void)

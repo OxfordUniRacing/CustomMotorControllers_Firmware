@@ -28,6 +28,10 @@ void PWM_0_example(void);
 
 void PWM_1_example(void);
 
+void ENCODER_A_example(void);
+
+void ENCODER_B_example(void);
+
 void delay_example(void);
 
 void EDBG_COM_example(void);

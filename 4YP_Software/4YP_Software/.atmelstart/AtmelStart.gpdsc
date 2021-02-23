@@ -54,6 +54,7 @@
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/can_async.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/ext_irq.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/pwm.rst"/>
+        <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/timer.rst"/>
         <file category="doc" condition="ARMCC, GCC, IAR" name="hal/documentation/usart_sync.rst"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_atomic.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_can_async.h"/>
@@ -151,18 +152,21 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="examples/driver_examples.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_adc_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_pwm.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_timer.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hal_usart_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_adc_async.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_adc_sync.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_missing_features.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_pwm.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_reset.h"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_timer.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_async.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_dma.h"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/include/hpl_usart_sync.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_adc_sync.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_ext_irq.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_pwm.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_timer.c"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hal/src/hal_usart_sync.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hal/utils/include/parts.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/afec/hpl_afec.c"/>
@@ -179,6 +183,8 @@
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/pwm/hpl_pwm.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hpl/pwm/hpl_pwm_base.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/systick/hpl_systick_ARMv7_base.c"/>
+        <file category="source" condition="ARMCC, GCC, IAR" name="hpl/tc/hpl_tc.c"/>
+        <file category="header" condition="ARMCC, GCC, IAR" name="hpl/tc/hpl_tc.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/usart/hpl_usart.c"/>
         <file category="header" condition="ARMCC, GCC, IAR" name="hpl/usart/hpl_usart_base.h"/>
         <file category="source" condition="ARMCC, GCC, IAR" name="hpl/xdmac/hpl_xdmac.c"/>
@@ -192,6 +198,7 @@
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_pmc_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_pwm_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_systick_ARMv7_config.h"/>
+        <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_tc_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_usart_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/hpl_xdmac_config.h"/>
         <file attr="config" category="header" condition="ARMCC, GCC, IAR" name="config/peripheral_clk_config.h"/>
@@ -208,6 +215,7 @@
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/pmc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/pwm"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/systick"/>
+        <file category="include" condition="ARMCC, GCC, IAR" name="hpl/tc"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/usart"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hpl/xdmac"/>
         <file category="include" condition="ARMCC, GCC, IAR" name="hri"/>

@@ -516,6 +516,13 @@ drivers:
       definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::PIOA.P.5
       name: PIOA/P/5
       label: P/5
+    - identifier: EXTERNAL_IRQ_A:P/26
+      pad: PA26
+      mode: Ext IRQ Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::PIOA.P.26
+      name: PIOA/P/26
+      label: P/26
     variant: null
     clocks:
       domain_group: null
@@ -1122,6 +1129,76 @@ drivers:
           external_frequency: 0
         configuration:
           pwm_clock_source: Master Clock (MCK)
+  ENCODER_A:
+    user_label: ENCODER_A
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::TC0::driver_config_definition::Timer::HAL:Driver:Timer
+    functionality: Timer
+    api: HAL:Driver:Timer
+    configuration:
+      timer_abetrg: TIOB is used as an external trigger
+      timer_div_clock: true
+      timer_etrgedg: The clock is not gated by an external signal
+      timer_event_output_wave: false
+      timer_external_trigger_enable: false
+      timer_fault_chan0_enable: false
+      timer_fault_chan1_enable: false
+      timer_fault_control: false
+      timer_prescaler: TIMER_CLOCK2 (MCK/8)
+      timer_ra_tick: 500
+      timer_tick: 1000
+    optional_signals:
+    - identifier: ENCODER_A:TCLK/2
+      pad: PA29
+      mode: Enable
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::TC0.TCLK.2
+      name: TC0/TCLK/2
+      label: TCLK/2
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          tc_clock_source: Master Clock (MCK)
+  ENCODER_B:
+    user_label: ENCODER_B
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::TC3::driver_config_definition::Timer::HAL:Driver:Timer
+    functionality: Timer
+    api: HAL:Driver:Timer
+    configuration:
+      timer_abetrg: TIOB is used as an external trigger
+      timer_div_clock: true
+      timer_etrgedg: The clock is not gated by an external signal
+      timer_event_output_wave: false
+      timer_external_trigger_enable: false
+      timer_fault_chan0_enable: false
+      timer_fault_chan1_enable: false
+      timer_fault_control: false
+      timer_prescaler: TIMER_CLOCK2 (MCK/8)
+      timer_ra_tick: 500
+      timer_tick: 1000
+    optional_signals:
+    - identifier: ENCODER_B:TCLK/11
+      pad: PD24
+      mode: Enable
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::TC3.TCLK.11
+      name: TC3/TCLK/11
+      label: TCLK/11
+    variant: null
+    clocks:
+      domain_group:
+        nodes:
+        - name: TC
+          input: Master Clock (MCK)
+          external: false
+          external_frequency: 0
+        configuration:
+          tc_clock_source: Master Clock (MCK)
   DELAY_0:
     user_label: DELAY_0
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::SysTick::driver_config_definition::Delay::HAL:Driver:Delay
@@ -1596,17 +1673,23 @@ pads:
     mode: Digital output
     user_label: PIN_GPIO_5
     configuration: null
+  PIN_ENCODER_B:
+    name: PD24
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PD24
+    mode: Peripheral IO
+    user_label: PIN_ENCODER_B
+    configuration: null
   PIN_PWM_PHASE_B_HIGH:
     name: PA25
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA25
     mode: Peripheral IO
     user_label: PIN_PWM_PHASE_B_HIGH
     configuration: null
-  PIN_GPIO_9:
+  PIN_ENCODER_Z:
     name: PA26
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA26
-    mode: Digital output
-    user_label: PIN_GPIO_9
+    mode: Digital input
+    user_label: PIN_ENCODER_Z
     configuration: null
   PIN_USER_BUTTON:
     name: PA11
@@ -1651,6 +1734,12 @@ pads:
     mode: Digital output
     user_label: PIN_USER_LED
     configuration: null
+  PIN_GPIO_11:
+    name: PC9
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PC9
+    mode: Digital output
+    user_label: PIN_GPIO_11
+    configuration: null
   PIN_GPIO_POS_2:
     name: PA2
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA2
@@ -1687,10 +1776,10 @@ pads:
     mode: Peripheral IO
     user_label: PIN_PWM_PHASE_B_LOW
     configuration: null
-  PIN_GPIO_8:
+  PIN_ENCODER_A:
     name: PA29
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::pad::PA29
-    mode: Digital output
-    user_label: PIN_GPIO_8
+    mode: Peripheral IO
+    user_label: PIN_ENCODER_A
     configuration: null
 toolchain_options: []

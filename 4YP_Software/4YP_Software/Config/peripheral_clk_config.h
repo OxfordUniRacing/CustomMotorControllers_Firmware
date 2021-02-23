@@ -118,6 +118,38 @@
 #define CONF_PWM1_FREQUENCY 150000000
 #endif
 
+// <y> TC Clock Source
+// <CONF_SRC_MCK"> Master Clock (MCK)
+// <id> tc_clock_source
+// <i> Select the clock source for TC.
+#ifndef CONF_TC0_SRC
+#define CONF_TC0_SRC CONF_SRC_MCK
+#endif
+
+/**
+ * \def CONF_TC0_FREQUENCY
+ * \brief TC0's Clock frequency
+ */
+#ifndef CONF_TC0_FREQUENCY
+#define CONF_TC0_FREQUENCY 150000000
+#endif
+
+// <y> TC Clock Source
+// <CONF_SRC_MCK"> Master Clock (MCK)
+// <id> tc_clock_source
+// <i> Select the clock source for TC.
+#ifndef CONF_TC3_SRC
+#define CONF_TC3_SRC CONF_SRC_MCK
+#endif
+
+/**
+ * \def CONF_TC3_FREQUENCY
+ * \brief TC3's Clock frequency
+ */
+#ifndef CONF_TC3_FREQUENCY
+#define CONF_TC3_FREQUENCY 150000000
+#endif
+
 // <h> USART Clock Settings
 // <o> USART Clock source
 

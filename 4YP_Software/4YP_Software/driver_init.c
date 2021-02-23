@@ -15,8 +15,14 @@
 
 #include <hpl_pwm_base.h>
 
+#include <hpl_tc.h>
+
+#include <hpl_tc.h>
+
 #include <hpl_usart_base.h>
 
+struct timer_descriptor     ENCODER_A;
+struct timer_descriptor     ENCODER_B;
 struct can_async_descriptor CAN_1;
 
 struct adc_sync_descriptor ADC_0;
@@ -128,6 +134,19 @@ void EXTERNAL_IRQ_A_init(void)
 	                       GPIO_PULL_OFF);
 
 	gpio_set_pin_function(PIN_GPIO_POS_1, GPIO_PIN_FUNCTION_OFF);
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PIN_ENCODER_Z, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PIN_ENCODER_Z,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PIN_ENCODER_Z, GPIO_PIN_FUNCTION_OFF);
 }
 
 void PWM_0_PORT_init(void)
@@ -172,6 +191,40 @@ void PWM_1_init(void)
 	PWM_1_CLOCK_init();
 	PWM_1_PORT_init();
 	pwm_init(&PWM_1, PWM1, _pwm_get_pwm());
+}
+
+void ENCODER_A_PORT_init(void)
+{
+
+	gpio_set_pin_function(PIN_ENCODER_A, MUX_PA29B_TC0_TCLK2);
+}
+/**
+ * \brief Timer initialization function
+ *
+ * Enables Timer peripheral, clocks and initializes Timer driver
+ */
+static void ENCODER_A_init(void)
+{
+	_pmc_enable_periph_clock(ID_TC0_CHANNEL0);
+	ENCODER_A_PORT_init();
+	timer_init(&ENCODER_A, TC0, _tc_get_timer());
+}
+
+void ENCODER_B_PORT_init(void)
+{
+
+	gpio_set_pin_function(PIN_ENCODER_B, MUX_PD24C_TC3_TCLK11);
+}
+/**
+ * \brief Timer initialization function
+ *
+ * Enables Timer peripheral, clocks and initializes Timer driver
+ */
+static void ENCODER_B_init(void)
+{
+	_pmc_enable_periph_clock(ID_TC3_CHANNEL0);
+	ENCODER_B_PORT_init();
+	timer_init(&ENCODER_B, TC3, _tc_get_timer());
 }
 
 void delay_driver_init(void)
@@ -275,20 +328,6 @@ void system_init(void)
 
 	gpio_set_pin_function(PIN_GPIO_DCDC_ON_OFF, GPIO_PIN_FUNCTION_OFF);
 
-	/* GPIO on PA26 */
-
-	gpio_set_pin_level(PIN_GPIO_9,
-	                   // <y> Initial level
-	                   // <id> pad_initial_level
-	                   // <false"> Low
-	                   // <true"> High
-	                   false);
-
-	// Set pin direction to output
-	gpio_set_pin_direction(PIN_GPIO_9, GPIO_DIRECTION_OUT);
-
-	gpio_set_pin_function(PIN_GPIO_9, GPIO_PIN_FUNCTION_OFF);
-
 	/* GPIO on PA28 */
 
 	gpio_set_pin_level(PIN_GPIO_CAN_STNDBY,
@@ -303,20 +342,6 @@ void system_init(void)
 
 	gpio_set_pin_function(PIN_GPIO_CAN_STNDBY, GPIO_PIN_FUNCTION_OFF);
 
-	/* GPIO on PA29 */
-
-	gpio_set_pin_level(PIN_GPIO_8,
-	                   // <y> Initial level
-	                   // <id> pad_initial_level
-	                   // <false"> Low
-	                   // <true"> High
-	                   false);
-
-	// Set pin direction to output
-	gpio_set_pin_direction(PIN_GPIO_8, GPIO_DIRECTION_OUT);
-
-	gpio_set_pin_function(PIN_GPIO_8, GPIO_PIN_FUNCTION_OFF);
-
 	/* GPIO on PC8 */
 
 	gpio_set_pin_level(PIN_USER_LED,
@@ -330,6 +355,20 @@ void system_init(void)
 	gpio_set_pin_direction(PIN_USER_LED, GPIO_DIRECTION_OUT);
 
 	gpio_set_pin_function(PIN_USER_LED, GPIO_PIN_FUNCTION_OFF);
+
+	/* GPIO on PC9 */
+
+	gpio_set_pin_level(PIN_GPIO_11,
+	                   // <y> Initial level
+	                   // <id> pad_initial_level
+	                   // <false"> Low
+	                   // <true"> High
+	                   false);
+
+	// Set pin direction to output
+	gpio_set_pin_direction(PIN_GPIO_11, GPIO_DIRECTION_OUT);
+
+	gpio_set_pin_function(PIN_GPIO_11, GPIO_PIN_FUNCTION_OFF);
 
 	/* GPIO on PD18 */
 
@@ -382,12 +421,14 @@ void system_init(void)
 	PWM_0_init();
 
 	PWM_1_init();
+	ENCODER_A_init();
+	ENCODER_B_init();
 
 	delay_driver_init();
 
 	EDBG_COM_init();
 
-	//CAN_1_init();
+	CAN_1_init();
 
 	ext_irq_init();
 }
