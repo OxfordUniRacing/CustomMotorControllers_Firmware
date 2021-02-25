@@ -347,38 +347,9 @@ static void _pwm_init_irq_param(const void *const hw, struct _pwm_device *dev)
 	}
 }
 
-/**
- * \internal interrupt handler for PWM
- *
- * \param[in] instance PWM instance number
- */
-static void _pwm_interrupt_handler(struct _pwm_device *device)
-{
-	if (hri_pwm_read_ISR1_reg(device->hw)) {
-		if (NULL != device->callback.pwm_period_cb) {
-			device->callback.pwm_period_cb(device);
-		}
-	}
-}
-
-/**
- * \internal PWM interrupt handler
- */
-void PWM0_Handler(void)
-{
-	_pwm_interrupt_handler(_pwm0_dev);
-}
-
-/**
- * \internal PWM interrupt handler
- */
-void PWM1_Handler(void)
-{
-	_pwm_interrupt_handler(_pwm1_dev);
-}
-
 int32_t _pwm_init(struct _pwm_device *const device, void *const hw)
 {
+	
 	ASSERT(hw);
 
 	int8_t                      i;
@@ -400,19 +371,14 @@ int32_t _pwm_init(struct _pwm_device *const device, void *const hw)
 	hri_pwm_write_ETRG1_reg(hw, cfg->pwm_etrg1);
 	hri_pwm_write_ETRG2_reg(hw, cfg->pwm_etrg2);
 	
-	//hri_pwmchnum_set_CMR_DTE_bit(PWM1->);											//Set dead time enable to 1 in all the PWM 1 registers										//Set dead time enable to 1 in all the PWM 0 registers
-	
-	//int DT = 3;																	//Dead time of 3 (for 3kHz (6MHz) corresponds to 0.5us)
-	
-	//hri_pwmchnum_write_DT_DTH_bf(PWM0, DT);
 
 	/* Init Channel */
 	for (i = 0; i < cfg->ch_num; i++) {
 		ch = cfg->ch + i;
-		hri_pwm_write_CMR_reg(hw, ch->index, ch->mode);
-		hri_pwmchnum_set_CMR_DTE_bit((void *) &((Pwm *)hw)->PwmChNum[ch->index]);
-		hri_pwm_set_DT_DTH_bf(hw, ch->index, 10);
-		hri_pwm_set_DT_DTL_bf(hw, ch->index, 10);
+		hri_pwm_write_CMR_reg(hw, ch->index, ch->mode | PWM_CMR_DTE);					//enable dead time
+		//hri_pwmchnum_set_CMR_DTE_bit((void *) &((Pwm *)hw)->PwmChNum[ch->index]);		//another less elegant way of enabling dead time
+		hri_pwm_set_DT_DTH_bf(hw, ch->index, 10);										//set high side deadtime in PWM clock counts
+		hri_pwm_set_DT_DTL_bf(hw, ch->index, 10);										//set high side deadtime in PWM clock counts
 		hri_pwm_write_CDTY_reg(hw, ch->index, ch->duty_cycle);
 		hri_pwm_write_CPRD_reg(hw, ch->index, ch->period);
 	}
@@ -422,6 +388,7 @@ int32_t _pwm_init(struct _pwm_device *const device, void *const hw)
 		hri_pwm_write_CMPM_reg(hw, comp->index, comp->comp_cmpm);
 		hri_pwm_write_CMPV_reg(hw, comp->index, comp->comp_cmpv);
 	}
+	//hri_pwm_set_IMR1_CHID1_bit
 
 	_pwm_init_irq_param(hw, device);
 	NVIC_DisableIRQ(cfg->irq);

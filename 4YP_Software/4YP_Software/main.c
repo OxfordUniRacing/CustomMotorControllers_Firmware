@@ -26,10 +26,8 @@ int main(void)
 	//CAN is currently disabled
 	//Temp 3 currently disabled as pin is shared with edbg com
 	
-	
-	//Initialise dead time on PWMs 
-	pwm_deadtime_init();	
-	
+		
+	gpio_set_pin_level(PIN_USER_LED, true);
 	
 	pwm_enable_all();
 	adc_enable_all();
@@ -40,7 +38,7 @@ int main(void)
 	
 	
 	//test timers for encoder
-	Timer_Counter_Initial_Test();
+	//Timer_Counter_Initial_Test();
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up
@@ -50,8 +48,8 @@ int main(void)
 	while (1) {
 		
 		
-		Current_Voltage_Inital_Test();
-		delay_ms(500);
+		//Current_Voltage_Inital_Test();
+		//delay_ms(500);
 		/*
 		gpio_set_pin_level(PIN_USER_LED, false);
 		pwm_set_duty(PWM_PHASE_A, 800);
