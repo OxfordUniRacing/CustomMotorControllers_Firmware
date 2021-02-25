@@ -515,6 +515,12 @@
     <Compile Include="custom_code\low_level\GetCurrent.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\low_level\PositionSensors.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\PositionSensors.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="custom_code\low_level\User_adc.c">
       <SubType>compile</SubType>
     </Compile>
