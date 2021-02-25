@@ -503,6 +503,12 @@
     <Compile Include="custom_code\control\PID.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\low_level\Encoder.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\low_level\Encoder.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="custom_code\low_level\GetCurrent.c">
       <SubType>compile</SubType>
     </Compile>

@@ -139,6 +139,8 @@ PID_q               0x1c              custom_code/control/Control.o
 V_DC                0x4               custom_code/control/Control.o
 CAN_1               0x28              driver_init.o
 theta_e             0x4               custom_code/control/Control.o
+encoder_inital_offset
+                    0x4               custom_code/low_level/Encoder.o
 I_data              0xc               custom_code/control/Control.o
 EDBG_COM            0xc               driver_init.o
 ENCODER_A           0x1c              driver_init.o
@@ -148,6 +150,7 @@ PID_d               0x1c              custom_code/control/Control.o
 _irq_table          0x128             hpl/core/hpl_core_m7_base.o
 PWM                 0x8               custom_code/control/Control.o
 I                   0x8               custom_code/control/Control.o
+encoder_rotations   0x4               custom_code/low_level/Encoder.o
 PWM_1               0x1c              driver_init.o
 PWM_data            0xc               custom_code/control/Control.o
 ADC_1               0x4               driver_init.o
@@ -732,10 +735,10 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 custom_code/control/Control.o
  .debug_macro   0x00000000      0x1e1 custom_code/control/Control.o
  .debug_macro   0x00000000       0xd6 custom_code/control/Control.o
- .debug_macro   0x00000000       0x6a custom_code/control/Control.o
+ .debug_macro   0x00000000       0x76 custom_code/control/Control.o
  .debug_macro   0x00000000       0x4c custom_code/control/Control.o
  .debug_line    0x00000000     0x1096 custom_code/control/Control.o
- .debug_str     0x00000000   0x137359 custom_code/control/Control.o
+ .debug_str     0x00000000   0x137385 custom_code/control/Control.o
  .comment       0x00000000       0x5a custom_code/control/Control.o
  .debug_frame   0x00000000       0x84 custom_code/control/Control.o
  .ARM.attributes
@@ -1137,6 +1140,401 @@ Discarded input sections
  .debug_frame   0x00000000       0x40 custom_code/control/PID.o
  .ARM.attributes
                 0x00000000       0x37 custom_code/control/PID.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .group         0x00000000        0x8 custom_code/low_level/Encoder.o
+ .text          0x00000000        0x0 custom_code/low_level/Encoder.o
+ .data          0x00000000        0x0 custom_code/low_level/Encoder.o
+ .bss           0x00000000        0x0 custom_code/low_level/Encoder.o
+ .text.encoder_enable
+                0x00000000       0x3c custom_code/low_level/Encoder.o
+ .text.encoder_get_counter
+                0x00000000       0x24 custom_code/low_level/Encoder.o
+ .text.Encoder_Z_Interrupt
+                0x00000000       0x24 custom_code/low_level/Encoder.o
+ .text.encoder_get_angle
+                0x00000000       0x34 custom_code/low_level/Encoder.o
+ .text.encoder_get_rotations
+                0x00000000        0xc custom_code/low_level/Encoder.o
+ .debug_info    0x00000000     0x1389 custom_code/low_level/Encoder.o
+ .debug_abbrev  0x00000000      0x314 custom_code/low_level/Encoder.o
+ .debug_loc     0x00000000      0x183 custom_code/low_level/Encoder.o
+ .debug_aranges
+                0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_ranges  0x00000000       0x30 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x9b4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x8bc custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x16d custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x87 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x51 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xef custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x6a custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1df custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xd7 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x1c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xdf custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x1295 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xe2 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x19 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x3e2 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x5a9 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x1797 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x3bb custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x830 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x316 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x269d custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x105e custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x60b custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x555 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0xb8f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x602 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x3ac9 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x83ff custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x31db custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x24d0 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x87f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x17d custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x118 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x909 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x125 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x503 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x3e0 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x709 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0xb64 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0xf03 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0xff2 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xa6 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x124 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0xbc2 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x5c5 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x1afb custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x56f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x41a7 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x3a1 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xc4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x12d custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x2a5f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x7c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x14e custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xf4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xf4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x7c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x623 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x7ce custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x6a custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x6a custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x88 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xac custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x142 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x138 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x138 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x187 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x180 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x180 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x180 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x180 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x121 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x352 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x352 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x82 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x58 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x28 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x64 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x94 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x7c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x7c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x8e custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x34 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1a8 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1a8 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1a8 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1a8 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x3a custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x82 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x82 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x82 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x70 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x70 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x70 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x70 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x70 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xf4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xf4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xf4 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x71f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x22 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x9bf custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x583 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000     0x283a custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x169 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x27e custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x373 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xa9 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xca custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x1c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xe8 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xc9 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x76 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x58 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x35 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x9c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x35 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x34d custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x58 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x1f custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x43 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x20 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x187 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x1c custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x52 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x40 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xd7 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x18b custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x12 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x12 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0x16 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000      0x1e1 custom_code/low_level/Encoder.o
+ .debug_macro   0x00000000       0xd6 custom_code/low_level/Encoder.o
+ .debug_line    0x00000000     0x1043 custom_code/low_level/Encoder.o
+ .debug_str     0x00000000   0x137246 custom_code/low_level/Encoder.o
+ .comment       0x00000000       0x5a custom_code/low_level/Encoder.o
+ .debug_frame   0x00000000       0x78 custom_code/low_level/Encoder.o
+ .ARM.attributes
+                0x00000000       0x37 custom_code/low_level/Encoder.o
+ COMMON         0x00000000        0x8 custom_code/low_level/Encoder.o
  .group         0x00000000        0x8 custom_code/low_level/GetCurrent.o
  .group         0x00000000        0x8 custom_code/low_level/GetCurrent.o
  .group         0x00000000        0x8 custom_code/low_level/GetCurrent.o
@@ -1465,9 +1863,9 @@ Discarded input sections
  .debug_macro   0x00000000       0xe8 custom_code/low_level/GetCurrent.o
  .debug_macro   0x00000000       0xc9 custom_code/low_level/GetCurrent.o
  .debug_macro   0x00000000       0x40 custom_code/low_level/GetCurrent.o
- .debug_macro   0x00000000       0x6a custom_code/low_level/GetCurrent.o
+ .debug_macro   0x00000000       0x76 custom_code/low_level/GetCurrent.o
  .debug_line    0x00000000      0xe60 custom_code/low_level/GetCurrent.o
- .debug_str     0x00000000   0x13239a custom_code/low_level/GetCurrent.o
+ .debug_str     0x00000000   0x1323c6 custom_code/low_level/GetCurrent.o
  .comment       0x00000000       0x5a custom_code/low_level/GetCurrent.o
  .debug_frame   0x00000000       0x48 custom_code/low_level/GetCurrent.o
  .ARM.attributes
@@ -1792,7 +2190,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xe8 custom_code/low_level/User_adc.o
  .debug_macro   0x00000000       0xc9 custom_code/low_level/User_adc.o
  .debug_macro   0x00000000       0x40 custom_code/low_level/User_adc.o
- .debug_macro   0x00000000       0x6a custom_code/low_level/User_adc.o
+ .debug_macro   0x00000000       0x76 custom_code/low_level/User_adc.o
  .group         0x00000000        0x8 custom_code/low_level/User_pwm.o
  .group         0x00000000        0x8 custom_code/low_level/User_pwm.o
  .group         0x00000000        0x8 custom_code/low_level/User_pwm.o
@@ -2117,7 +2515,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xe8 custom_code/low_level/User_pwm.o
  .debug_macro   0x00000000       0xc9 custom_code/low_level/User_pwm.o
  .debug_macro   0x00000000       0x40 custom_code/low_level/User_pwm.o
- .debug_macro   0x00000000       0x6a custom_code/low_level/User_pwm.o
+ .debug_macro   0x00000000       0x76 custom_code/low_level/User_pwm.o
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
@@ -2492,7 +2890,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000      0x1e1 custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000       0xd6 custom_code/testing/Inital_Testing.o
- .debug_macro   0x00000000       0x6a custom_code/testing/Inital_Testing.o
+ .debug_macro   0x00000000       0x76 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 Device_Startup/startup_same70q21b.o
  .group         0x00000000        0x8 Device_Startup/startup_same70q21b.o
  .group         0x00000000        0x8 Device_Startup/startup_same70q21b.o
@@ -13369,7 +13767,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xd7 main.o
  .debug_macro   0x00000000       0x16 main.o
  .debug_macro   0x00000000      0x18b main.o
- .debug_macro   0x00000000       0x6a main.o
+ .debug_macro   0x00000000       0x76 main.o
  .debug_macro   0x00000000       0x12 main.o
  .debug_macro   0x00000000       0x12 main.o
  .debug_macro   0x00000000       0x16 main.o
@@ -15151,6 +15549,7 @@ LOAD atmel_start.o
 LOAD custom_code/control/Control.o
 LOAD custom_code/control/getTheta.o
 LOAD custom_code/control/PID.o
+LOAD custom_code/low_level/Encoder.o
 LOAD custom_code/low_level/GetCurrent.o
 LOAD custom_code/low_level/User_adc.o
 LOAD custom_code/low_level/User_pwm.o
@@ -16747,70 +17146,70 @@ OUTPUT(4YP_Software.elf elf32-littlearm)
  .debug_line    0x0001a045      0xd70 stdio_redirect/stdio_io.o
  .debug_line    0x0001adb5      0xf67 stdio_start.o
 
-.debug_str      0x00000000   0x154613
+.debug_str      0x00000000   0x15463f
  .debug_str     0x00000000   0x1354d1 atmel_start.o
                              0x135f4a (size before relaxing)
- .debug_str     0x001354d1      0x2fa custom_code/low_level/User_adc.o
-                             0x1323eb (size before relaxing)
- .debug_str     0x001357cb     0x5e89 custom_code/low_level/User_pwm.o
-                             0x1381f5 (size before relaxing)
- .debug_str     0x0013b654     0x12cb custom_code/testing/Inital_Testing.o
-                             0x1375af (size before relaxing)
- .debug_str     0x0013c91f      0x78b Device_Startup/startup_same70q21b.o
+ .debug_str     0x001354d1      0x326 custom_code/low_level/User_adc.o
+                             0x132417 (size before relaxing)
+ .debug_str     0x001357f7     0x5e89 custom_code/low_level/User_pwm.o
+                             0x138221 (size before relaxing)
+ .debug_str     0x0013b680     0x12cb custom_code/testing/Inital_Testing.o
+                             0x1375db (size before relaxing)
+ .debug_str     0x0013c94b      0x78b Device_Startup/startup_same70q21b.o
                              0x12bce0 (size before relaxing)
- .debug_str     0x0013d0aa      0xc17 driver_init.o
+ .debug_str     0x0013d0d6      0xc17 driver_init.o
                              0x13363d (size before relaxing)
- .debug_str     0x0013dcc1      0x3ed hal/src/hal_adc_sync.o
+ .debug_str     0x0013dced      0x3ed hal/src/hal_adc_sync.o
                              0x13162f (size before relaxing)
- .debug_str     0x0013e0ae       0x9c hal/src/hal_atomic.o
+ .debug_str     0x0013e0da       0x9c hal/src/hal_atomic.o
                              0x131043 (size before relaxing)
- .debug_str     0x0013e14a       0x89 hal/src/hal_delay.o
+ .debug_str     0x0013e176       0x89 hal/src/hal_delay.o
                              0x1310ad (size before relaxing)
- .debug_str     0x0013e1d3       0xd6 hal/src/hal_ext_irq.o
+ .debug_str     0x0013e1ff       0xd6 hal/src/hal_ext_irq.o
                              0x131100 (size before relaxing)
- .debug_str     0x0013e2a9       0x2c hal/src/hal_io.o
+ .debug_str     0x0013e2d5       0x2c hal/src/hal_io.o
                              0x1310de (size before relaxing)
- .debug_str     0x0013e2d5      0x15a hal/src/hal_pwm.o
+ .debug_str     0x0013e301      0x15a hal/src/hal_pwm.o
                              0x1317ce (size before relaxing)
- .debug_str     0x0013e42f      0x2cc hal/src/hal_timer.o
+ .debug_str     0x0013e45b      0x2cc hal/src/hal_timer.o
                              0x131970 (size before relaxing)
- .debug_str     0x0013e6fb      0x4aa hal/src/hal_usart_sync.o
+ .debug_str     0x0013e727      0x4aa hal/src/hal_usart_sync.o
                              0x131b7e (size before relaxing)
- .debug_str     0x0013eba5       0x2a hal/utils/src/utils_assert.o
+ .debug_str     0x0013ebd1       0x2a hal/utils/src/utils_assert.o
                              0x131053 (size before relaxing)
- .debug_str     0x0013ebcf       0x31 hal/utils/src/utils_list.o
+ .debug_str     0x0013ebfb       0x31 hal/utils/src/utils_list.o
                              0x1310fd (size before relaxing)
- .debug_str     0x0013ec00      0x756 hal/utils/src/utils_syscalls.o
+ .debug_str     0x0013ec2c      0x756 hal/utils/src/utils_syscalls.o
                                0x73e4 (size before relaxing)
- .debug_str     0x0013f356     0x86d5 hpl/afec/hpl_afec.o
+ .debug_str     0x0013f382     0x86d5 hpl/afec/hpl_afec.o
                              0x13a174 (size before relaxing)
- .debug_str     0x00147a2b      0x1ce hpl/core/hpl_core_m7_base.o
+ .debug_str     0x00147a57      0x1ce hpl/core/hpl_core_m7_base.o
                              0x131fc7 (size before relaxing)
- .debug_str     0x00147bf9     0x306a hpl/core/hpl_init.o
+ .debug_str     0x00147c25     0x306a hpl/core/hpl_init.o
                              0x134602 (size before relaxing)
- .debug_str     0x0014ac63     0x148b hpl/mcan/hpl_mcan.o
+ .debug_str     0x0014ac8f     0x148b hpl/mcan/hpl_mcan.o
                              0x135dd2 (size before relaxing)
- .debug_str     0x0014c0ee     0x5a0d hpl/pio/hpl_pio_ext.o
+ .debug_str     0x0014c11a     0x5a0d hpl/pio/hpl_pio_ext.o
                              0x13768b (size before relaxing)
- .debug_str     0x00151afb      0x1d6 hpl/pmc/hpl_pmc.o
+ .debug_str     0x00151b27      0x1d6 hpl/pmc/hpl_pmc.o
                              0x132232 (size before relaxing)
- .debug_str     0x00151cd1      0x989 hpl/pwm/hpl_pwm.o
+ .debug_str     0x00151cfd      0x989 hpl/pwm/hpl_pwm.o
                              0x1382bd (size before relaxing)
- .debug_str     0x0015265a       0xde hpl/systick/hpl_systick_ARMv7_base.o
+ .debug_str     0x00152686       0xde hpl/systick/hpl_systick_ARMv7_base.o
                              0x1310ac (size before relaxing)
- .debug_str     0x00152738      0xb5b hpl/tc/hpl_tc.o
+ .debug_str     0x00152764      0xb5b hpl/tc/hpl_tc.o
                              0x132ab9 (size before relaxing)
- .debug_str     0x00153293     0x1291 hpl/usart/hpl_usart.o
+ .debug_str     0x001532bf     0x1291 hpl/usart/hpl_usart.o
                              0x13344c (size before relaxing)
- .debug_str     0x00154524       0x20 main.o
-                             0x137459 (size before relaxing)
- .debug_str     0x00154544       0x2b stdio_redirect/gcc/read.o
+ .debug_str     0x00154550       0x20 main.o
+                             0x137485 (size before relaxing)
+ .debug_str     0x00154570       0x2b stdio_redirect/gcc/read.o
                              0x134e00 (size before relaxing)
- .debug_str     0x0015456f       0x2d stdio_redirect/gcc/write.o
+ .debug_str     0x0015459b       0x2d stdio_redirect/gcc/write.o
                              0x134e02 (size before relaxing)
- .debug_str     0x0015459c       0x4b stdio_redirect/stdio_io.o
+ .debug_str     0x001545c8       0x4b stdio_redirect/stdio_io.o
                              0x134e89 (size before relaxing)
- .debug_str     0x001545e7       0x2c stdio_start.o
+ .debug_str     0x00154613       0x2c stdio_start.o
                              0x135f6e (size before relaxing)
 
 .debug_frame    0x00000000     0x2bf0

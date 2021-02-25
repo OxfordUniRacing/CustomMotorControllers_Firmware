@@ -213,7 +213,6 @@ int32_t _timer_init(struct _timer_device *const device, void *const hw)
 		
 		hri_tc_write_FMR_reg(hw, cfg->fmr);
 		
-		//hri_tc_write_BMR_reg(hw,TC_BMR_TC0XC0S_TIOA2);
 
 		_tc_init_irq_param(hw, device);
 		NVIC_DisableIRQ(cfg->irq);

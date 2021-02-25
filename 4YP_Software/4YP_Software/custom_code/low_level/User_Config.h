@@ -89,4 +89,11 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define ADC_TEMP_MOTOR		&ADC_0, CONF_ADC_0_CHANNEL_0
 
 
+
+//--------------------------------------------------------------ENCODER------------------------------------------------------------------------------
+
+#define ENCODER_STEPS 4096
+#define ENCODER_LAXIS_OFFSET 123
+
+
 #endif /* USER_CONFIG_H_ */
