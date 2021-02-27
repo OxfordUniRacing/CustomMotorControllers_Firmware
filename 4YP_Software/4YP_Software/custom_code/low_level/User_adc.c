@@ -75,14 +75,20 @@ void dma_adc_init(void){
 }
 
 void dma_adc_0_enable_for_one_transaction(void){
+	//reset to base address
 	_dma_set_destination_address	(DMA_ADC_0_CHANNEL, dma_adc_0_buff);
+	//set how much data to move (in bytes)
 	_dma_set_data_amount			(DMA_ADC_0_CHANNEL, ADC_0_SIZE_OF_GENERATED_DATA);
+	//enable for one transaction
 	_dma_enable_transaction			(DMA_ADC_0_CHANNEL, true);
 }
 
 void dma_adc_1_enable_for_one_transaction(void){
+	//reset to base address
 	_dma_set_destination_address	(DMA_ADC_1_CHANNEL, dma_adc_1_buff);
+	//set how much data to move (in bytes)
 	_dma_set_data_amount			(DMA_ADC_1_CHANNEL, ADC_1_SIZE_OF_GENERATED_DATA);
+	//enable for one transaction
 	_dma_enable_transaction			(DMA_ADC_1_CHANNEL, true);
 }
 
