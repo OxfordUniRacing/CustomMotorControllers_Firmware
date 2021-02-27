@@ -196,7 +196,7 @@
 // <e> Channel 1 settings
 // <id> dmac_channel_1_settings
 #ifndef CONF_DMAC_CHANNEL_1_SETTINGS
-#define CONF_DMAC_CHANNEL_1_SETTINGS 0
+#define CONF_DMAC_CHANNEL_1_SETTINGS 1
 #endif
 
 // <o> Burst Size
@@ -229,7 +229,7 @@
 // <i> Defines the size of one beat
 // <id> dmac_beatsize_1
 #ifndef CONF_DMAC_BEATSIZE_1
-#define CONF_DMAC_BEATSIZE_1 0x0
+#define CONF_DMAC_BEATSIZE_1 0x2
 #endif
 
 // <o> Source Interface Identifier
@@ -238,7 +238,7 @@
 // <i> Define the data is read through the system bus interface 0 or 1
 // <id> dma_src_interface_1
 #ifndef CONF_DMAC_SRC_INTERFACE_1
-#define CONF_DMAC_SRC_INTERFACE_1 0x0
+#define CONF_DMAC_SRC_INTERFACE_1 0x1
 #endif
 
 // <o> Destination Interface Identifier
@@ -261,7 +261,7 @@
 // <i> Indicates whether the destination address incremented as beat size or not
 // <id> dmac_dstinc_1
 #ifndef CONF_DMAC_DSTINC_1
-#define CONF_DMAC_DSTINC_1 0
+#define CONF_DMAC_DSTINC_1 1
 #endif
 
 // <o> Transfer Type
@@ -271,7 +271,7 @@
 // <i> Define the data transfer type
 // <id> dma_trans_type_1
 #ifndef CONF_DMAC_TRANS_TYPE_1
-#define CONF_DMAC_TRANS_TYPE_1 0x0
+#define CONF_DMAC_TRANS_TYPE_1 0x1
 #endif
 
 // <o> Trigger source
@@ -330,7 +330,7 @@
 // <i> Define the DMA trigger source
 // <id> dmac_trifsrc_1
 #ifndef CONF_DMAC_TRIGSRC_1
-#define CONF_DMAC_TRIGSRC_1 0xff
+#define CONF_DMAC_TRIGSRC_1 0x24
 #endif
 
 // </e>

@@ -21,9 +21,8 @@ extern "C" {
 #include <hal_io.h>
 #include <hal_sleep.h>
 
-#include <hal_adc_sync.h>
-
-#include <hal_adc_sync.h>
+#include <hal_adc_async.h>
+#include <hal_adc_async.h>
 #include <hal_ext_irq.h>
 #include <hal_ext_irq.h>
 
@@ -39,26 +38,27 @@ extern "C" {
 
 #include <hal_can_async.h>
 
-extern struct adc_sync_descriptor ADC_0;
+extern struct adc_async_descriptor ADC_0;
+
+/* The enabled channel for ADC */
 #define CONF_ADC_0_CHANNEL_0 0
 
 #define CONF_ADC_0_CHANNEL_2 2
 
 #define CONF_ADC_0_CHANNEL_5 5
-
 #define CONF_ADC_0_CHANNEL_6 6
 
 #define CONF_ADC_0_CHANNEL_8 8
 
 #define CONF_ADC_0_CHANNEL_10 10
 
-extern struct adc_sync_descriptor ADC_1;
-#define CONF_ADC_1_CHANNEL_0 0
+extern struct adc_async_descriptor ADC_1;
 
+/* The enabled channel for ADC */
+#define CONF_ADC_1_CHANNEL_0 0
 #define CONF_ADC_1_CHANNEL_1 1
 
 #define CONF_ADC_1_CHANNEL_5 5
-
 #define CONF_ADC_1_CHANNEL_6 6
 
 extern struct pwm_descriptor PWM_0;
@@ -69,14 +69,6 @@ extern struct timer_descriptor ENCODER_B;
 
 extern struct usart_sync_descriptor EDBG_COM;
 extern struct can_async_descriptor  CAN_1;
-
-void ADC_0_PORT_init(void);
-void ADC_0_CLOCK_init(void);
-void ADC_0_init(void);
-
-void ADC_1_PORT_init(void);
-void ADC_1_CLOCK_init(void);
-void ADC_1_init(void);
 
 void PWM_0_PORT_init(void);
 void PWM_0_CLOCK_init(void);

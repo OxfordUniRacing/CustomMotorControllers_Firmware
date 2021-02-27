@@ -21,13 +21,71 @@
 
 #include <hpl_usart_base.h>
 
+/* The channel amount for ADC */
+#define ADC_0_CH_AMOUNT 6
+
+/* The buffer size for ADC */
+#define ADC_0_CH0_BUF_SIZE 16
+#define ADC_0_CH2_BUF_SIZE 16
+#define ADC_0_CH5_BUF_SIZE 16
+#define ADC_0_CH6_BUF_SIZE 16
+#define ADC_0_CH8_BUF_SIZE 16
+#define ADC_0_CH10_BUF_SIZE 16
+
+/* The maximal channel number of enabled channels */
+#define ADC_0_CH_MAX 10
+
+/* The channel amount for ADC */
+#define ADC_1_CH_AMOUNT 4
+
+/* The buffer size for ADC */
+#define ADC_1_CH0_BUF_SIZE 16
+#define ADC_1_CH1_BUF_SIZE 16
+#define ADC_1_CH5_BUF_SIZE 16
+#define ADC_1_CH6_BUF_SIZE 16
+
+/* The maximal channel number of enabled channels */
+#define ADC_1_CH_MAX 6
+
+struct adc_async_descriptor ADC_0;
+#if ADC_0_CH_AMOUNT < 1
+/* Avoid compiling errors. */
+struct adc_async_channel_descriptor ADC_0_ch[1];
+#warning none of ADC channel is enabled, please check
+#else
+struct adc_async_channel_descriptor ADC_0_ch[ADC_0_CH_AMOUNT];
+#endif
+struct adc_async_descriptor ADC_1;
+#if ADC_1_CH_AMOUNT < 1
+/* Avoid compiling errors. */
+struct adc_async_channel_descriptor ADC_1_ch[1];
+#warning none of ADC channel is enabled, please check
+#else
+struct adc_async_channel_descriptor ADC_1_ch[ADC_1_CH_AMOUNT];
+#endif
 struct timer_descriptor     ENCODER_A;
 struct timer_descriptor     ENCODER_B;
 struct can_async_descriptor CAN_1;
 
-struct adc_sync_descriptor ADC_0;
+static uint8_t ADC_0_ch0_buf[ADC_0_CH0_BUF_SIZE];
+static uint8_t ADC_0_ch2_buf[ADC_0_CH2_BUF_SIZE];
+static uint8_t ADC_0_ch5_buf[ADC_0_CH5_BUF_SIZE];
+static uint8_t ADC_0_ch6_buf[ADC_0_CH6_BUF_SIZE];
+static uint8_t ADC_0_ch8_buf[ADC_0_CH8_BUF_SIZE];
+static uint8_t ADC_0_ch10_buf[ADC_0_CH10_BUF_SIZE];
 
-struct adc_sync_descriptor ADC_1;
+#ifdef ADC_0_CH_MAX
+static uint8_t ADC_0_map[ADC_0_CH_MAX + 1];
+#endif
+
+static uint8_t ADC_1_ch0_buf[ADC_1_CH0_BUF_SIZE];
+static uint8_t ADC_1_ch1_buf[ADC_1_CH1_BUF_SIZE];
+static uint8_t ADC_1_ch5_buf[ADC_1_CH5_BUF_SIZE];
+static uint8_t ADC_1_ch6_buf[ADC_1_CH6_BUF_SIZE];
+
+#ifdef ADC_1_CH_MAX
+static uint8_t ADC_1_map[ADC_1_CH_MAX + 1];
+#endif
 
 struct pwm_descriptor PWM_0;
 
@@ -35,8 +93,28 @@ struct pwm_descriptor PWM_1;
 
 struct usart_sync_descriptor EDBG_COM;
 
-void ADC_0_PORT_init(void)
+/**
+ * \brief ADC initialization function
+ *
+ * Enables ADC peripheral, clocks and initializes ADC driver
+ */
+static void ADC_0_init(void)
 {
+	_pmc_enable_periph_clock(ID_AFEC0);
+#ifdef ADC_0_CH_MAX
+	adc_async_init(&ADC_0, AFEC0, ADC_0_map, ADC_0_CH_MAX, ADC_0_CH_AMOUNT, &ADC_0_ch[0], (void *)NULL);
+#endif
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_0, ADC_0_ch0_buf, ADC_0_CH0_BUF_SIZE);
+
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_2, ADC_0_ch2_buf, ADC_0_CH2_BUF_SIZE);
+
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_5, ADC_0_ch5_buf, ADC_0_CH5_BUF_SIZE);
+
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_6, ADC_0_ch6_buf, ADC_0_CH6_BUF_SIZE);
+
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_8, ADC_0_ch8_buf, ADC_0_CH8_BUF_SIZE);
+
+	adc_async_register_channel_buffer(&ADC_0, CONF_ADC_0_CHANNEL_10, ADC_0_ch10_buf, ADC_0_CH10_BUF_SIZE);
 
 	gpio_set_pin_function(PIN_ADC_TEMP_MOTOR, GPIO_PIN_FUNCTION_OFF);
 
@@ -51,21 +129,24 @@ void ADC_0_PORT_init(void)
 	gpio_set_pin_function(PIN_ADC_TEMP_4, GPIO_PIN_FUNCTION_OFF);
 }
 
-void ADC_0_CLOCK_init(void)
+/**
+ * \brief ADC initialization function
+ *
+ * Enables ADC peripheral, clocks and initializes ADC driver
+ */
+static void ADC_1_init(void)
 {
+	_pmc_enable_periph_clock(ID_AFEC1);
+#ifdef ADC_1_CH_MAX
+	adc_async_init(&ADC_1, AFEC1, ADC_1_map, ADC_1_CH_MAX, ADC_1_CH_AMOUNT, &ADC_1_ch[0], (void *)NULL);
+#endif
+	adc_async_register_channel_buffer(&ADC_1, CONF_ADC_1_CHANNEL_0, ADC_1_ch0_buf, ADC_1_CH0_BUF_SIZE);
 
-	_pmc_enable_periph_clock(ID_AFEC0);
-}
+	adc_async_register_channel_buffer(&ADC_1, CONF_ADC_1_CHANNEL_1, ADC_1_ch1_buf, ADC_1_CH1_BUF_SIZE);
 
-void ADC_0_init(void)
-{
-	ADC_0_CLOCK_init();
-	ADC_0_PORT_init();
-	adc_sync_init(&ADC_0, AFEC0, (void *)NULL);
-}
+	adc_async_register_channel_buffer(&ADC_1, CONF_ADC_1_CHANNEL_5, ADC_1_ch5_buf, ADC_1_CH5_BUF_SIZE);
 
-void ADC_1_PORT_init(void)
-{
+	adc_async_register_channel_buffer(&ADC_1, CONF_ADC_1_CHANNEL_6, ADC_1_ch6_buf, ADC_1_CH6_BUF_SIZE);
 
 	gpio_set_pin_function(PIN_ADC_TEMP_5, GPIO_PIN_FUNCTION_OFF);
 
@@ -74,19 +155,6 @@ void ADC_1_PORT_init(void)
 	gpio_set_pin_function(PIN_ADC_TEMP_1, GPIO_PIN_FUNCTION_OFF);
 
 	gpio_set_pin_function(PIN_ADC_SUPPL_VOLTAGE, GPIO_PIN_FUNCTION_OFF);
-}
-
-void ADC_1_CLOCK_init(void)
-{
-
-	_pmc_enable_periph_clock(ID_AFEC1);
-}
-
-void ADC_1_init(void)
-{
-	ADC_1_CLOCK_init();
-	ADC_1_PORT_init();
-	adc_sync_init(&ADC_1, AFEC1, (void *)NULL);
 }
 
 void EXTERNAL_IRQ_D_init(void)
@@ -413,7 +481,6 @@ void system_init(void)
 	gpio_set_pin_function(PIN_GPIO_6, GPIO_PIN_FUNCTION_OFF);
 
 	ADC_0_init();
-
 	ADC_1_init();
 	EXTERNAL_IRQ_D_init();
 	EXTERNAL_IRQ_A_init();
@@ -428,7 +495,7 @@ void system_init(void)
 
 	EDBG_COM_init();
 
-	//CAN_1_init();
+	CAN_1_init();
 
 	ext_irq_init();
 }

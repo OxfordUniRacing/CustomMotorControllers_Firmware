@@ -149,6 +149,10 @@ static const struct afec_configuration _afecs[] = {
 };
 #endif
 
+static struct _adc_async_device *_afec0_dev = NULL;
+
+static struct _adc_async_device *_afec1_dev = NULL;
+
 /**
  * \brief Retrieve ordinal number of the given afec hardware instance
  */
@@ -201,6 +205,12 @@ static IRQn_Type _afec_get_irq_num(const struct _adc_async_device *const device)
  */
 static void _afec_init_irq_param(const void *const hw, struct _adc_async_device *dev)
 {
+	if (hw == AFEC0) {
+		_afec0_dev = dev;
+	}
+	if (hw == AFEC1) {
+		_afec1_dev = dev;
+	}
 }
 
 /**
@@ -272,6 +282,22 @@ static void _afec_interrupt_handler(struct _adc_async_device *device)
 		status &= ~(1 << cnt);
 		cnt = 32 - clz(status);
 	}
+}
+
+/**
+ * \internal ADC interrupt handler
+ */
+void AFEC0_Handler(void)
+{
+	_afec_interrupt_handler(_afec0_dev);
+}
+
+/**
+ * \internal ADC interrupt handler
+ */
+void AFEC1_Handler(void)
+{
+	_afec_interrupt_handler(_afec1_dev);
 }
 
 /**

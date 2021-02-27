@@ -30,9 +30,9 @@ middlewares:
 drivers:
   ADC_0:
     user_label: ADC_0
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::AFEC0::driver_config_definition::ADC::HAL:Driver:ADC.Sync
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::AFEC0::driver_config_definition::ADC::HAL:Driver:ADC.Async
     functionality: ADC
-    api: HAL:Driver:ADC_Sync
+    api: HAL:Driver:ADC_Async
     configuration:
       afec_advanced_settings: false
       afec_channel0_enable: true
@@ -198,9 +198,9 @@ drivers:
           afec_clock_source: Master Clock (MCK)
   ADC_1:
     user_label: ADC_1
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::AFEC1::driver_config_definition::ADC::HAL:Driver:ADC.Sync
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::AFEC1::driver_config_definition::ADC::HAL:Driver:ADC.Async
     functionality: ADC
-    api: HAL:Driver:ADC_Sync
+    api: HAL:Driver:ADC_Async
     configuration:
       afec_advanced_settings: false
       afec_channel0_enable: true
@@ -289,7 +289,7 @@ drivers:
       afec_offsetcorr: 0
       afec_prescaler: 49
       afec_resolution: 12-bit
-      afec_sign_mode: 'Single-Ended channels: Unsigned. Differential channels: Signed.'
+      afec_sign_mode: 'All channels: Unsigned.'
       afec_sleep_mode: false
       afec_startup_time: 64 periods of AFE clock
       afec_stm: true
@@ -1293,7 +1293,7 @@ drivers:
       dma_des_interface_8: AHB_IF0
       dma_des_interface_9: AHB_IF0
       dma_src_interface_0: AHB_IF1
-      dma_src_interface_1: AHB_IF0
+      dma_src_interface_1: AHB_IF1
       dma_src_interface_10: AHB_IF0
       dma_src_interface_11: AHB_IF0
       dma_src_interface_12: AHB_IF0
@@ -1317,7 +1317,7 @@ drivers:
       dma_src_interface_8: AHB_IF0
       dma_src_interface_9: AHB_IF0
       dma_trans_type_0: Peripheral to Memory Transfer
-      dma_trans_type_1: Memory to Memory Transfer
+      dma_trans_type_1: Peripheral to Memory Transfer
       dma_trans_type_10: Memory to Memory Transfer
       dma_trans_type_11: Memory to Memory Transfer
       dma_trans_type_12: Memory to Memory Transfer
@@ -1341,7 +1341,7 @@ drivers:
       dma_trans_type_8: Memory to Memory Transfer
       dma_trans_type_9: Memory to Memory Transfer
       dmac_beatsize_0: 32-bit bus transfer
-      dmac_beatsize_1: 8-bit bus transfer
+      dmac_beatsize_1: 32-bit bus transfer
       dmac_beatsize_10: 8-bit bus transfer
       dmac_beatsize_11: 8-bit bus transfer
       dmac_beatsize_12: 8-bit bus transfer
@@ -1399,7 +1399,7 @@ drivers:
       dmac_channel_17_settings: false
       dmac_channel_18_settings: false
       dmac_channel_19_settings: false
-      dmac_channel_1_settings: false
+      dmac_channel_1_settings: true
       dmac_channel_20_settings: false
       dmac_channel_21_settings: false
       dmac_channel_22_settings: false
@@ -1437,7 +1437,7 @@ drivers:
       dmac_chunksize_8: 1 data transferred
       dmac_chunksize_9: 1 data transferred
       dmac_dstinc_0: true
-      dmac_dstinc_1: false
+      dmac_dstinc_1: true
       dmac_dstinc_10: false
       dmac_dstinc_11: false
       dmac_dstinc_12: false
@@ -1485,7 +1485,7 @@ drivers:
       dmac_srcinc_8: false
       dmac_srcinc_9: false
       dmac_trifsrc_0: AFEC0 RX Trigger
-      dmac_trifsrc_1: Software Trigger
+      dmac_trifsrc_1: AFEC1 RX Trigger
       dmac_trifsrc_10: Software Trigger
       dmac_trifsrc_11: Software Trigger
       dmac_trifsrc_12: Software Trigger
