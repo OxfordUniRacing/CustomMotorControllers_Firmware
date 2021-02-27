@@ -34,6 +34,7 @@ int main(void)
 	dma_adc_init();
 	pwm_init_user();
 	encoder_init();
+	pos_sens_init();
 	
 	/* Enable all devices */
 	pwm_enable_all();
@@ -58,6 +59,7 @@ int main(void)
 	/* Replace with your application code */
 	while (1) {
 		
+		gpio_set_pin_level(PIN_GPIO_6,true);
 		gpio_set_pin_level(PIN_USER_LED,true);
 		delay_ms(500);
 		
@@ -67,7 +69,8 @@ int main(void)
 		adc_async_start_conversion(&ADC_1);
 		//printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
 		//AFEC0_Handler
-
+		
+		gpio_set_pin_level(PIN_GPIO_6,false);
 		gpio_set_pin_level(PIN_USER_LED,false);
 		delay_ms(500);
 		

@@ -38,14 +38,17 @@ static inline void Position_General_Interrupt(void){
 
 static void Position_1_Interrupt (void){
 	Position_General_Interrupt();
+	printf("POS 1\n");
 }
 
 static void Position_2_Interrupt (void){
 	Position_General_Interrupt();
+	printf("POS 2\n");
 }
 
 static void Position_3_Interrupt (void){
 	Position_General_Interrupt();
+	printf("POS 3\n");
 }
 
 void pos_sens_init (void){
@@ -59,6 +62,7 @@ void pos_sens_init (void){
 	
 	NVIC_EnableIRQ	(PIOD_IRQn);
 	NVIC_SetPriority(PIOD_IRQn, IRQ_PRIORITY_PERIPHERAL);
+
 	
 	//SysTick starting from 0
 	pos_sens_last_SysTick_count = 0;
