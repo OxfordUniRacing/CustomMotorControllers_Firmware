@@ -23,12 +23,13 @@ static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
 	//just for testing
-	printf("interrupt - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3],\
+	printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3],\
 		(int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
 }
 
 static void dma_adc_1_callback(struct _dma_resource *resource){
-	
+	//just for testing
+	printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
 }
 
 void dma_adc_init(void){
@@ -109,44 +110,44 @@ const uint16_t length);
 void adc_enable_all(void){
 	//note that it is possible to enable individual channels
 	//functions from hal_adc_sync.h
-	adc_sync_enable_channel(ADC_CURRENT_A);
-	adc_sync_enable_channel(ADC_CURRENT_B);
-	adc_sync_enable_channel(ADC_CURRENT_C);
+	adc_async_enable_channel(ADC_CURRENT_A);
+	adc_async_enable_channel(ADC_CURRENT_B);
+	adc_async_enable_channel(ADC_CURRENT_C);
 	
-	adc_sync_enable_channel(ADC_SUPPL_VOLTAGE);
+	adc_async_enable_channel(ADC_SUPPL_VOLTAGE);
 	
-	adc_sync_enable_channel(ADC_TEMP_1);
-	adc_sync_enable_channel(ADC_TEMP_2);
+	adc_async_enable_channel(ADC_TEMP_1);
+	adc_async_enable_channel(ADC_TEMP_2);
 	//adc_sync_enable_channel(ADC_TEMP_3);
-	adc_sync_enable_channel(ADC_TEMP_4);
-	adc_sync_enable_channel(ADC_TEMP_5);
-	adc_sync_enable_channel(ADC_TEMP_6);
-	adc_sync_enable_channel(ADC_TEMP_MOTOR);
+	adc_async_enable_channel(ADC_TEMP_4);
+	adc_async_enable_channel(ADC_TEMP_5);
+	adc_async_enable_channel(ADC_TEMP_6);
+	adc_async_enable_channel(ADC_TEMP_MOTOR);
 }
 
 void adc_disable_all(void){
 	//functions from hal_adc_sync.h
-	adc_sync_disable_channel(ADC_CURRENT_A);
-	adc_sync_disable_channel(ADC_CURRENT_B);
-	adc_sync_disable_channel(ADC_CURRENT_C);
+	adc_async_disable_channel(ADC_CURRENT_A);
+	adc_async_disable_channel(ADC_CURRENT_B);
+	adc_async_disable_channel(ADC_CURRENT_C);
 		
-	adc_sync_disable_channel(ADC_SUPPL_VOLTAGE);
+	adc_async_disable_channel(ADC_SUPPL_VOLTAGE);
 	
-	adc_sync_disable_channel(ADC_TEMP_1);
-	adc_sync_disable_channel(ADC_TEMP_2);
+	adc_async_disable_channel(ADC_TEMP_1);
+	adc_async_disable_channel(ADC_TEMP_2);
 	//adc_sync_disable_channel(ADC_TEMP_3);
-	adc_sync_disable_channel(ADC_TEMP_4);
-	adc_sync_disable_channel(ADC_TEMP_5);
-	adc_sync_disable_channel(ADC_TEMP_6);
-	adc_sync_disable_channel(ADC_TEMP_MOTOR);
+	adc_async_disable_channel(ADC_TEMP_4);
+	adc_async_disable_channel(ADC_TEMP_5);
+	adc_async_disable_channel(ADC_TEMP_6);
+	adc_async_disable_channel(ADC_TEMP_MOTOR);
 }
 
 //reads ADC value
-uint16_t adc_read(struct adc_sync_descriptor *const descr, const uint8_t channel){
+uint16_t adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
 	
 	uint16_t temp;
 	
-	adc_sync_read_channel(descr, channel, (uint8_t *)&temp, 2);
+	adc_async_read_channel(descr, channel, (uint8_t *)&temp, 2);
 	
 	return temp;
 }

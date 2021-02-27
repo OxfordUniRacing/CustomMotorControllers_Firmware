@@ -30,7 +30,7 @@ driver_init.c
 
 examples\driver_examples.c
 
-hal\src\hal_adc_sync.c
+hal\src\hal_adc_async.c
 
 hal\src\hal_atomic.c
 

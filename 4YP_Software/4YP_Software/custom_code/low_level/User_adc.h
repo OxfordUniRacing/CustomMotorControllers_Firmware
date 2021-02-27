@@ -9,7 +9,7 @@
 #ifndef USER_ADC_H_
 #define USER_ADC_H_
 
-#include <hal_adc_sync.h>
+#include <hal_adc_async.h>
 
 void dma_adc_init(void);
 void dma_adc_0_enable_for_one_transaction(void);
@@ -20,7 +20,7 @@ void adc_enable_all(void);
 void adc_disable_all(void);
 
 //reads ADC value
-uint16_t adc_read(struct adc_sync_descriptor *const descr, const uint8_t channel);
+uint16_t adc_read(struct adc_async_descriptor *const descr, const uint8_t channel);
 
 
 
