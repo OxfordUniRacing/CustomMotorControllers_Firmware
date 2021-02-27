@@ -7,6 +7,7 @@
 
 
 #include "PositionSensors.h"
+#include "User_Config.h"
 //atmel start gives access to the SysTick
 #include <atmel_start.h>
 
@@ -53,11 +54,17 @@ void pos_sens_init (void){
 	ext_irq_register(PIO_PA2_IDX, Position_2_Interrupt);		//POS 2
 	ext_irq_register(PIO_PA5_IDX, Position_1_Interrupt);		//POS 1
 	
+	NVIC_EnableIRQ	(PIOA_IRQn);
+	NVIC_SetPriority(PIOA_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	
+	NVIC_EnableIRQ	(PIOD_IRQn);
+	NVIC_SetPriority(PIOD_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	
 	//SysTick starting from 0
 	pos_sens_last_SysTick_count = 0;
 	SysTick->VAL = 0;
 	//make the load value max, so that the overflows are as rare as possible
-	SysTick->LOAD = (1<<25) - 1UL;
+	SysTick->LOAD = (0xFFFFFF);
 }
 
 //returns how many time steps are recorded in the times array

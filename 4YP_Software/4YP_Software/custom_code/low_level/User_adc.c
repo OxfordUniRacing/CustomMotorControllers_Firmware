@@ -151,6 +151,17 @@ void dma_adc_init(void){
 	//_dma_set_irq_state(DMA_ADC_1_CHANNEL,DMA_TRANSFER_ERROR_CB,true);
 		
 	
+	
+	
+	
+	//set interrupts
+	NVIC_EnableIRQ	(XDMAC_IRQn);
+	NVIC_SetPriority(XDMAC_IRQn, IRQ_PRIORITY_DMA_ADC);
+	
+	NVIC_DisableIRQ		(AFEC0_IRQn);
+	NVIC_ClearPendingIRQ(AFEC0_IRQn);
+	NVIC_DisableIRQ		(AFEC1_IRQn);
+	NVIC_ClearPendingIRQ(AFEC1_IRQn);
 }
 
 void dma_adc_0_enable_for_one_transaction(void){

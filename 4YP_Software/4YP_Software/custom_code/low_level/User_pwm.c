@@ -46,10 +46,10 @@ void pwm_init_user(void){
 	pwm_register_callback(&PWM_0, PWM_PERIOD_CB, pwm_0_callback);
 
 	NVIC_EnableIRQ(PWM0_IRQn);
-	NVIC_SetPriority(PWM0_IRQn, 2);
+	NVIC_SetPriority(PWM0_IRQn, IRQ_PRIORITY_PWM);
 	
 	NVIC_DisableIRQ(PWM1_IRQn);
-	NVIC_ClearPendingIRQ(PWM0_IRQn);
+	NVIC_ClearPendingIRQ(PWM1_IRQn);
 }
 
 

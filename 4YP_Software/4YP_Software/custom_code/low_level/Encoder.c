@@ -127,6 +127,9 @@ void encoder_init(void){
 	//enable external interrupt on the Z line 
 	ext_irq_register(PIO_PA26_IDX,Encoder_Z_Interrupt);
 	
+	NVIC_EnableIRQ	(PIOA_IRQn);
+	NVIC_SetPriority(PIOA_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	
 	//make sure interrupts from the Timer counters are disabled
 	NVIC_DisableIRQ			(TC0_IRQn);
 	NVIC_ClearPendingIRQ	(TC0_IRQn);
@@ -136,6 +139,22 @@ void encoder_init(void){
 	NVIC_ClearPendingIRQ	(TC2_IRQn);
 	NVIC_DisableIRQ			(TC3_IRQn);
 	NVIC_ClearPendingIRQ	(TC3_IRQn);
+	NVIC_DisableIRQ			(TC4_IRQn);
+	NVIC_ClearPendingIRQ	(TC4_IRQn);
+	NVIC_DisableIRQ			(TC5_IRQn);
+	NVIC_ClearPendingIRQ	(TC5_IRQn);
+	NVIC_DisableIRQ			(TC6_IRQn);
+	NVIC_ClearPendingIRQ	(TC6_IRQn);
+	NVIC_DisableIRQ			(TC7_IRQn);
+	NVIC_ClearPendingIRQ	(TC7_IRQn);
+	NVIC_DisableIRQ			(TC8_IRQn);
+	NVIC_ClearPendingIRQ	(TC8_IRQn);
+	NVIC_DisableIRQ			(TC9_IRQn);
+	NVIC_ClearPendingIRQ	(TC9_IRQn);
+	NVIC_DisableIRQ			(TC10_IRQn);
+	NVIC_ClearPendingIRQ	(TC10_IRQn);
+	NVIC_DisableIRQ			(TC11_IRQn);
+	NVIC_ClearPendingIRQ	(TC11_IRQn);
 }
 
 void encoder_enable(void){

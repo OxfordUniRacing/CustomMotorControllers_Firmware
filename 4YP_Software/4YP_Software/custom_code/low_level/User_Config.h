@@ -287,11 +287,15 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 
 
 
-//--------------------------------------------------------------Interrupt------------------------------------------------------------------------------
+//--------------------------------------------------------------Interrupts------------------------------------------------------------------------------
 
 
-
-
+//consult program diagram for interrupt priority
+//lower number meas higher priority
+#define IRQ_PRIORITY_PERIPHERAL		1
+#define IRQ_PRIORITY_PWM			2
+#define IRQ_PRIORITY_DMA_ADC		3
+#define IRQ_PRIORITY_CAN			4
 
 
 
