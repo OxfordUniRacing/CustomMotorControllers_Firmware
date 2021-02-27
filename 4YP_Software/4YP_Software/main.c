@@ -83,7 +83,7 @@ int main(void)
 		printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
 		//AFEC0_Handler
 		_dma_set_destination_address(0,afec_buf);
-		_dma_set_data_amount(0,4*6);
+		_dma_set_data_amount(0,ADC_0_SIZE_OF_GENERATED_DATA);
 		_dma_enable_transaction(0,true);
 		gpio_set_pin_level(PIN_USER_LED,false);
 		delay_ms(500);
