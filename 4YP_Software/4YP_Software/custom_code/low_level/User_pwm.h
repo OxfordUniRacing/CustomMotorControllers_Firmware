@@ -19,6 +19,8 @@ The .c file also contains an explanation of what needs to be modified in the sys
 
 #include <hal_pwm.h>
 
+void pwm_init_user(void);
+
 //enable/disable pwm pins
 //also sets periods and other variables which might not have been set at initialization
 void pwm_enable_all(void);

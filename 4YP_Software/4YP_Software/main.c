@@ -33,6 +33,7 @@ int main(void)
 		
 	gpio_set_pin_level(PIN_USER_LED, true);
 	dma_adc_init();
+	pwm_init_user();
 	
 	pwm_enable_all();
 	adc_enable_all();
@@ -41,6 +42,16 @@ int main(void)
 	timer_start(&ENCODER_A);
 	timer_start(&ENCODER_B);
 	
+	printf("systick priority %i\n", (int) NVIC_GetPriority(SysTick_IRQn));
+	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
+	
+	//NVIC_DisableIRQ(PWM0_IRQn);
+	//NVIC_SetPriority(PWM0_IRQn, 2);
+	//NVIC_ClearPendingIRQ(PWM0_IRQn);
+	//NVIC_EnableIRQ(PWM0_IRQn);
+	
+	//printf("2 systick priority %i\n", (int) NVIC_GetPriority(SysTick_IRQn));
+	//printf("2 pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
 	
 	//test timers for encoder
 	//Timer_Counter_Initial_Test();

@@ -36,11 +36,24 @@ Remove PWM Handler functions from _pwm_init
 #include <hpl_pwm_config.h>
 
 
+int pwm_counter = 0;
 
-void PWM0_Handler(void){
-	
+void pwm_0_callback(void){
+	pwm_counter++;
+	if (pwm_counter > 3000){
+		pwm_counter = 0;
+		printf("PWM 0 \n");
+	}
 }
 
+
+void pwm_init_user(void){
+	pwm_register_callback(&PWM_0, PWM_PERIOD_CB, pwm_0_callback);
+	NVIC_EnableIRQ(PWM0_IRQn);
+	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
+	NVIC_SetPriority(PWM0_IRQn, 2);
+	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
+}
 
 
 //enable/disable pwm pins
