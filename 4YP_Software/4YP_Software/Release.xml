@@ -24,6 +24,7 @@
       <Value>../hpl/pmc</Value>
       <Value>../hpl/pwm</Value>
       <Value>../hpl/systick</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usart</Value>
       <Value>../hpl/xdmac</Value>
       <Value>../hri</Value>
@@ -63,6 +64,7 @@
       <Value>../hpl/pmc</Value>
       <Value>../hpl/pwm</Value>
       <Value>../hpl/systick</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usart</Value>
       <Value>../hpl/xdmac</Value>
       <Value>../hri</Value>
@@ -85,6 +87,7 @@
       <Value>../hpl/pmc</Value>
       <Value>../hpl/pwm</Value>
       <Value>../hpl/systick</Value>
+      <Value>../hpl/tc</Value>
       <Value>../hpl/usart</Value>
       <Value>../hpl/xdmac</Value>
       <Value>../hri</Value>

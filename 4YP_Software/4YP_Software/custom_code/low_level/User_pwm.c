@@ -55,7 +55,7 @@ void pwm_enable_all(void){
 	hri_pwm_set_IMR1_CHID0_bit(PWM0);
 	
 	//enable interrupt on PWM 0 and disable on PWM 1
-	NVIC_EnableIRQ(PWM0_IRQn);
+	NVIC_DisableIRQ(PWM0_IRQn);
 	NVIC_DisableIRQ(PWM1_IRQn);
 	
 	

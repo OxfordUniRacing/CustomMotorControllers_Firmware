@@ -58,7 +58,7 @@
 // <i>  Defines the bit resolution for the AFEC sample values (RES)
 // <id> afec_sign_mode
 #ifndef CONF_AFEC_0_SIGNMODE
-#define CONF_AFEC_0_SIGNMODE 0x0
+#define CONF_AFEC_0_SIGNMODE 0x2
 #endif
 
 // <e> Trigger Enable
