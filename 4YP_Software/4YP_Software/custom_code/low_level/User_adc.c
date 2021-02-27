@@ -10,7 +10,7 @@
 #include "User_Config.h"
 #include "hpl_dma.h"
 
-
+#include "component/afec.h"
 
 
 
@@ -20,17 +20,90 @@
 static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];
 static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
 
+//arrays for passing on the values to the control functions
+int currents[3];
+int voltage;
+
+//curr A,B,C are 0,1,2 and voltage is 3
+static char ready_values = 0;
+#define ALL_VALUES_READY (0b1111)
+
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
 	//just for testing
 	printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3],\
 		(int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
+	
+	
+	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
+	for (int i =0; i<ADC_0_NUM_ACTIVE_CHANNELS; i++){
+		
+		switch((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk)){
+			
+			case AFEC_LCDR_CHNB(ADC_CURRENT_A_CHANNEL):
+				currents[0] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				ready_values |= (1<<0);
+				break;
+			
+			case AFEC_LCDR_CHNB(ADC_CURRENT_B_CHANNEL):
+				currents[1] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				ready_values |= (1<<1);
+				break;
+			
+			default:
+				;
+		}
+	}
+	
+	if(ready_values == ALL_VALUES_READY){
+		//means we have collected the data from all ADCs
+		
+		//we would need new values for next loop
+		ready_values = 0;
+		
+		//launch control loop
+		printf("Data collected, launching control loop from adc 0\n");
+		printf("%i %i %i %i  \n", voltage, currents[0], currents[1], currents[2],currents[3]);
+	}
+	
 }
 
 static void dma_adc_1_callback(struct _dma_resource *resource){
 	//just for testing
 	printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
+	
+	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
+	for (int i =0; i < ADC_1_NUM_ACTIVE_CHANNELS; i++){
+		
+		switch((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk)){
+			
+			case AFEC_LCDR_CHNB(ADC_CURRENT_C_CHANNEL):
+				currents[2] = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				ready_values |= (1<<2);
+				break;
+			
+			case AFEC_LCDR_CHNB(ADC_SUPPL_VOLTAGE_CHANNEL):
+				voltage = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				ready_values |= (1<<3);
+				break;
+			
+			default:
+				;
+		}
+	}
+	
+	if(ready_values == ALL_VALUES_READY){
+		//means we have collected the data from all ADCs
+		
+		//we would need new values for next loop
+		ready_values = 0;
+		
+		//launch control loop
+		printf("Data collected, launching control loop from adc 1 \n");
+		printf("%i %i %i %i  \n", voltage, currents[0], currents[1], currents[2],currents[3]);
+	}
 }
+
 
 void dma_adc_init(void){
 	//initialises the standard values for the DMA controller

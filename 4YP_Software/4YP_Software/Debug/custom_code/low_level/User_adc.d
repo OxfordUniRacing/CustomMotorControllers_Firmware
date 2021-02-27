@@ -148,7 +148,8 @@ custom_code/low_level/User_adc.d custom_code/low_level/User_adc.o: \
  ../hal/include/hal_can_async.h ../hal/include/hpl_can.h \
  ../hal/include/hpl_can_async.h ../hal/utils/include/utils.h \
  ../custom_code/low_level/User_Config.h ../atmel_start_pins.h \
- ../hal/include/hpl_dma.h
+ ../hal/include/hpl_dma.h \
+ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include/component/afec.h
 
 ../custom_code/low_level/User_adc.h:
 
@@ -541,3 +542,5 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 ../atmel_start_pins.h:
 
 ../hal/include/hpl_dma.h:
+
+C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include/component/afec.h:
