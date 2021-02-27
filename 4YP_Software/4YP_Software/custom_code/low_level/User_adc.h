@@ -19,8 +19,6 @@ void dma_adc_1_enable_for_one_transaction(void);
 void adc_enable_all(void);
 void adc_disable_all(void);
 
-//reads ADC value
-uint16_t adc_read(struct adc_async_descriptor *const descr, const uint8_t channel);
 
 
 

@@ -142,12 +142,3 @@ void adc_disable_all(void){
 	adc_async_disable_channel(ADC_TEMP_MOTOR);
 }
 
-//reads ADC value
-uint16_t adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
-	
-	uint16_t temp;
-	
-	adc_async_read_channel(descr, channel, (uint8_t *)&temp, 2);
-	
-	return temp;
-}

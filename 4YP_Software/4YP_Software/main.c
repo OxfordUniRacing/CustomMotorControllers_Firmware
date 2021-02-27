@@ -59,8 +59,6 @@ int main(void)
 		dma_adc_1_enable_for_one_transaction();
 		adc_async_start_conversion(&ADC_0);
 		adc_async_start_conversion(&ADC_1);
-		//int a = (int) adc_read(ADC_TEMP_2);
-		//printf("main - %i \n",a);
 		//printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
 		//AFEC0_Handler
 

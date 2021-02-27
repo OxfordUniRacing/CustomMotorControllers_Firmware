@@ -17,23 +17,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .comment      00000059  00000000  00000000  00020246  2**0
                   CONTENTS, READONLY
-  7 .debug_info   00023fa5  00000000  00000000  0002029f  2**0
+  7 .debug_info   00023f26  00000000  00000000  0002029f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 00004ad5  00000000  00000000  00044244  2**0
+  8 .debug_abbrev 00004ab9  00000000  00000000  000441c5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    0000b80b  00000000  00000000  00048d19  2**0
+  9 .debug_loc    0000b791  00000000  00000000  00048c7e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00000d30  00000000  00000000  00054524  2**0
+ 10 .debug_aranges 00000d28  00000000  00000000  0005440f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000b68  00000000  00000000  00055254  2**0
+ 11 .debug_ranges 00000b60  00000000  00000000  00055137  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  00046368  00000000  00000000  00055dbc  2**0
+ 12 .debug_macro  00046368  00000000  00000000  00055c97  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0001cad6  00000000  00000000  0009c124  2**0
+ 13 .debug_line   0001cac4  00000000  00000000  0009bfff  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    001558f7  00000000  00000000  000b8bfa  2**0
+ 14 .debug_str    001558ee  00000000  00000000  000b8ac3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002e2c  00000000  00000000  0020e4f4  2**2
+ 15 .debug_frame  00002e0c  00000000  00000000  0020e3b4  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -5785,7 +5785,6 @@ int main(void)
   40208c:	47b8      	blx	r7
 	((Pio *)hw)->PIO_CODR = mask;
   40208e:	636e      	str	r6, [r5, #52]	; 0x34
-		//printf("main - %i \n",a);
 		//printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
 		//AFEC0_Handler
 
