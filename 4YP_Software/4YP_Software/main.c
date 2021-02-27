@@ -30,17 +30,21 @@ int main(void)
 	//CAN is currently disabled
 	//Temp 3 currently disabled as pin is shared with edbg com
 	
-		
-	gpio_set_pin_level(PIN_USER_LED, true);
+	/* Additional User initialisation */
 	dma_adc_init();
 	pwm_init_user();
+	encoder_init();
 	
+	/* Enable all devices */
 	pwm_enable_all();
 	adc_enable_all();
-	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);
+	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);		//enables the DC-DC converter for the HV side
 	
 	timer_start(&ENCODER_A);
 	timer_start(&ENCODER_B);
+	
+	
+	//----------------------------------------End of Startup Code--------------------------------------------------
 	
 	
 	

@@ -25,6 +25,7 @@ The .c file also contains an explanation of what needs to be modified in the sys
 int encoder_rotations;	//for total rotations on Z
 int encoder_inital_offset;	//to store the offet between the last reset point (start point) and the place where Z counts;
 
+void encoder_init(void);
 
 void encoder_enable(void);
 float encoder_get_angle(void);

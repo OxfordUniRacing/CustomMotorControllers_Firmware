@@ -38,21 +38,21 @@ Replace function with
 		
 		
 
-		hri_tc_write_CMR_reg(hw, 0, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk);						//wave mode (counting up); external clock
-		hri_tc_write_RA_reg(hw, 0, ra);
-		hri_tc_write_RB_reg(hw, 0, rb);
-		hri_tc_write_EMR_reg(hw, 0, ext_mode);
-		hri_tc_write_RC_reg(hw, 0, rc);
-		hri_tc_set_IMR_reg(hw, 0, 0);	//no interrupts
+		hri_tc_write_CMR_reg	(hw, 0, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk);						//wave mode (counting up); external clock
+		hri_tc_write_RA_reg		(hw, 0, ra);
+		hri_tc_write_RB_reg		(hw, 0, rb);
+		hri_tc_write_EMR_reg	(hw, 0, ext_mode);
+		hri_tc_write_RC_reg		(hw, 0, rc);
+		hri_tc_set_IMR_reg		(hw, 0, 0);	//no interrupts
 		
-		hri_tc_write_CMR_reg(hw, 1, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk | TC_CMR_CLKI_Msk);		//wave mode (counting up); external clock; inverted
-		hri_tc_write_RA_reg(hw, 1, ra);
-		hri_tc_write_RB_reg(hw, 1, rb);
-		hri_tc_write_EMR_reg(hw, 1, ext_mode);
-		hri_tc_write_RC_reg(hw, 1, rc);
-		hri_tc_set_IMR_reg(hw, 1, 0);	//no interrupts
+		hri_tc_write_CMR_reg	(hw, 1, TC_CMR_TCCLKS_XC2 | TC_CMR_WAVE_Msk | TC_CMR_CLKI_Msk);		//wave mode (counting up); external clock; inverted
+		hri_tc_write_RA_reg		(hw, 1, ra);
+		hri_tc_write_RB_reg		(hw, 1, rb);
+		hri_tc_write_EMR_reg	(hw, 1, ext_mode);
+		hri_tc_write_RC_reg		(hw, 1, rc);
+		hri_tc_set_IMR_reg		(hw, 1, 0);	//no interrupts
 		
-		hri_tc_write_FMR_reg(hw, cfg->fmr);
+		hri_tc_write_FMR_reg	(hw, cfg->fmr);
 		
 
 		_tc_init_irq_param(hw, device);
@@ -123,6 +123,21 @@ static void Encoder_Z_Interrupt (void){
 	encoder_rotations ++;
 }
 
+void encoder_init(void){
+	//enable external interrupt on the Z line 
+	ext_irq_register(PIO_PA26_IDX,Encoder_Z_Interrupt);
+	
+	//make sure interrupts from the Timer counters are disabled
+	NVIC_DisableIRQ			(TC0_IRQn);
+	NVIC_ClearPendingIRQ	(TC0_IRQn);
+	NVIC_DisableIRQ			(TC1_IRQn);
+	NVIC_ClearPendingIRQ	(TC1_IRQn);
+	NVIC_DisableIRQ			(TC2_IRQn);
+	NVIC_ClearPendingIRQ	(TC2_IRQn);
+	NVIC_DisableIRQ			(TC3_IRQn);
+	NVIC_ClearPendingIRQ	(TC3_IRQn);
+}
+
 void encoder_enable(void){
 	//start Timer counters
 	//set variables to zero
@@ -134,7 +149,7 @@ void encoder_enable(void){
 	encoder_rotations = 0;
 	encoder_inital_offset = 0;
 	
-	ext_irq_register(PIO_PA26_IDX,Encoder_Z_Interrupt);
+	
 }
 
 float encoder_get_angle(void){

@@ -50,9 +50,6 @@ void pwm_init_user(void){
 	
 	NVIC_DisableIRQ(PWM1_IRQn);
 	NVIC_ClearPendingIRQ(PWM0_IRQn);
-	
-	
-	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
 }
 
 
