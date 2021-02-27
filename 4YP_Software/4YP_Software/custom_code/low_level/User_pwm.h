@@ -7,9 +7,8 @@
 
 /*
 
-This file contains all functions relating to working with the encoder
+This file contains all functions relating to working with the PWM
 
-The .c file also contains an explanation of what needs to be modified in the system files to configure the Timer counters
 
 
 */

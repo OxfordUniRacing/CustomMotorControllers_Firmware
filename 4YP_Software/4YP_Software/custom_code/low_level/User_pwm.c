@@ -6,26 +6,6 @@
  */ 
 
 
-/*
-The following modifications need to be done to hpl_pwm.c:
-
-In _pwm_init function, add the following 3 lines to the corresponding place
-
-	// Init Channel 
-	for (i = 0; i < cfg->ch_num; i++) {
-		ch = cfg->ch + i;
-->		hri_pwm_write_CMR_reg(hw, ch->index, ch->mode | PWM_CMR_DTE);					//enable dead time
-		//hri_pwmchnum_set_CMR_DTE_bit((void *) &((Pwm *)hw)->PwmChNum[ch->index]);		//another less elegant way of enabling dead time
-->		hri_pwm_set_DT_DTH_bf(hw, ch->index, 10);										//set high side deadtime in PWM clock counts
-->		hri_pwm_set_DT_DTL_bf(hw, ch->index, 10);										//set high side deadtime in PWM clock counts
-		hri_pwm_write_CDTY_reg(hw, ch->index, ch->duty_cycle);
-		hri_pwm_write_CPRD_reg(hw, ch->index, ch->period);
-	}
-
-
-Remove PWM Handler functions from _pwm_init
-
-*/
 
 #include "User_pwm.h"
 
@@ -36,22 +16,42 @@ Remove PWM Handler functions from _pwm_init
 #include <hpl_pwm_config.h>
 
 
-int pwm_counter = 0;
 
 void pwm_0_callback(void){
-	pwm_counter++;
-	if (pwm_counter > 3000){
-		pwm_counter = 0;
-		printf("PWM 0 \n");
-	}
+	
 }
 
 
 void pwm_init_user(void){
+	//initialises aditional funcitonality on the PWM channels
+	
+	
+	//set dead time
+	hri_pwm_set_CMR_reg		(PWM0, PWM_PHASE_A_CHANNEL, PWM_CMR_DTE);		//enable dead time on the corresponding channel
+	hri_pwm_set_DT_DTH_bf	(PWM0, PWM_PHASE_A_CHANNEL, PWM_DEADTIME);		//set high side deadtime in PWM clock counts
+	hri_pwm_set_DT_DTL_bf	(PWM0, PWM_PHASE_A_CHANNEL, PWM_DEADTIME);		//set low side deadtime
+
+	hri_pwm_set_CMR_reg		(PWM0, PWM_PHASE_B_CHANNEL, PWM_CMR_DTE);		//enable dead time on the corresponding channel
+	hri_pwm_set_DT_DTH_bf	(PWM0, PWM_PHASE_B_CHANNEL, PWM_DEADTIME);		//set high side deadtime in PWM clock counts
+	hri_pwm_set_DT_DTL_bf	(PWM0, PWM_PHASE_B_CHANNEL, PWM_DEADTIME);		//set low side deadtime
+
+	hri_pwm_set_CMR_reg		(PWM1, PWM_PHASE_C_CHANNEL, PWM_CMR_DTE);		//enable dead time on the corresponding channel
+	hri_pwm_set_DT_DTH_bf	(PWM1, PWM_PHASE_C_CHANNEL, PWM_DEADTIME);		//set high side deadtime in PWM clock counts
+	hri_pwm_set_DT_DTL_bf	(PWM1, PWM_PHASE_C_CHANNEL, PWM_DEADTIME);		//set low side deadtime
+	
+	
+	//we want interrupt from one of the PWMs so that we can start the control loop
+	//interrupt on PWM 0, channel 0 is enabled ; on PWM 1 is disabled
+	hri_pwm_set_IMR1_CHID0_bit(PWM0);									//enable the interrupt from ADC 0, channel 0
 	pwm_register_callback(&PWM_0, PWM_PERIOD_CB, pwm_0_callback);
+
 	NVIC_EnableIRQ(PWM0_IRQn);
-	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
 	NVIC_SetPriority(PWM0_IRQn, 2);
+	
+	NVIC_DisableIRQ(PWM1_IRQn);
+	NVIC_ClearPendingIRQ(PWM0_IRQn);
+	
+	
 	printf("pwm priority %i\n", (int) NVIC_GetPriority(PWM0_IRQn));
 }
 
@@ -59,18 +59,8 @@ void pwm_init_user(void){
 //enable/disable pwm pins
 //also sets periods and other variables which might not have been set at initialization
 void pwm_enable_all(void){
-	//note it's possible to individual channels, but not through these functions
+	//note it's possible to eable individual channels, but not through these functions
 	//functions from hal_pwm.h
-	
-	
-	//enable hardware interrupt on PWM0 channel 0
-	// we dont need redundant calls
-	hri_pwm_set_IMR1_CHID0_bit(PWM0);
-	
-	//enable interrupt on PWM 0 and disable on PWM 1
-	NVIC_DisableIRQ(PWM0_IRQn);
-	NVIC_DisableIRQ(PWM1_IRQn);
-	
 	
 	
 	//enable PWM0 and PWM1
@@ -98,6 +88,7 @@ void pwm_disable_all(void){
 //sets individual channel pwm duty cycle
 void pwm_set_duty(struct  pwm_descriptor * const descr, const uint8_t channel, const pwm_period_t duty_cycle){
 	// based on available code from <hpl_pwm.h>
+	// the default function doesn't allow to set the PWM cycle on individual channels
 	
 	hri_pwm_write_CDTYUPD_reg(descr->device.hw, channel, duty_cycle);
 	//hri_pwm_write_CPRDUPD_reg(device->hw, cfg->ch[i].index, period);			//period is constant; only altering duty cycle
