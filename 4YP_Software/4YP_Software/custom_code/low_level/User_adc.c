@@ -11,13 +11,7 @@
 #include "hpl_dma.h"
 
 
-static void dma_adc_0_callback(struct _dma_resource *resource){
-	
-}
 
-static void dma_adc_1_callback(struct _dma_resource *resource){
-	
-}
 
 
 
@@ -25,6 +19,17 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 //buffers for the DMA to put the output of the ADCs
 static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];
 static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
+
+//callback functions for when transactions are complete
+static void dma_adc_0_callback(struct _dma_resource *resource){
+	//just for testing
+	printf("interrupt - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3],\
+		(int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
+}
+
+static void dma_adc_1_callback(struct _dma_resource *resource){
+	
+}
 
 void dma_adc_init(void){
 	//initialises the standard values for the DMA controller

@@ -17,17 +17,8 @@
 //#include <atmel_start.h>	//already inclued earlier in the file
 #include "arm_math.h"
 
-#include "hpl_dma.h"
-//#include "hri_afec_e70b.h"
 
 
-static uint32_t afec_buf[12];
-
-static void dma_interrupt(struct _dma_resource *resource)
-{
-	/* period interrupt */
-	printf("interrupt - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
-}
 
 int main(void)
 {
@@ -41,21 +32,7 @@ int main(void)
 	
 		
 	gpio_set_pin_level(PIN_USER_LED, true);
-	//_dma_set_source_address(0,(void *) ((Afec *)((&ADC_0)->device.hw) + AFEC_LCDR_OFFSET));
-	_dma_set_source_address(0,(void *)0x4003C020);
-	_dma_set_destination_address(0,afec_buf);
-	_dma_set_data_amount(0,4*6);
-	
-	struct _dma_resource **res;
-	_dma_get_channel_resource(res, 0);
-	(*res)->dma_cb.transfer_done = dma_interrupt;
-	
-	//NVIC_DisableIRQ(XDMAC_IRQn);
-	_dma_set_irq_state(0,DMA_TRANSFER_COMPLETE_CB,true);
-	//_dma_set_irq_state(0,DMA_TRANSFER_ERROR_CB,true);
-	//NVIC_EnableIRQ(XDMAC_IRQn);
-	
-	_dma_enable_transaction(0,true);
+	dma_adc_init();
 	
 	pwm_enable_all();
 	adc_enable_all();
@@ -80,11 +57,9 @@ int main(void)
 		
 		int a = (int) adc_read(ADC_TEMP_2);
 		printf("main - %i \n",a);
-		printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
+		//printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
 		//AFEC0_Handler
-		_dma_set_destination_address(0,afec_buf);
-		_dma_set_data_amount(0,ADC_0_SIZE_OF_GENERATED_DATA);
-		_dma_enable_transaction(0,true);
+		dma_adc_0_enable_for_one_transaction();
 		gpio_set_pin_level(PIN_USER_LED,false);
 		delay_ms(500);
 		
