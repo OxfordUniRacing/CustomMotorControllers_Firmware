@@ -171,14 +171,7 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define  ADC_0_CHANNEL_11_IS_ACTIVE 0
 #endif
 
-//combine them
-#define ADC_0_NUM_ACTIVE_CHANNELS	(ADC_0_CHANNEL_0_IS_ACTIVE + ADC_0_CHANNEL_1_IS_ACTIVE + ADC_0_CHANNEL_2_IS_ACTIVE + ADC_0_CHANNEL_3_IS_ACTIVE + \
-									 ADC_0_CHANNEL_4_IS_ACTIVE + ADC_0_CHANNEL_5_IS_ACTIVE + ADC_0_CHANNEL_6_IS_ACTIVE + ADC_0_CHANNEL_7_IS_ACTIVE + \
-									 ADC_0_CHANNEL_8_IS_ACTIVE + ADC_0_CHANNEL_9_IS_ACTIVE + ADC_0_CHANNEL_10_IS_ACTIVE + ADC_0_CHANNEL_11_IS_ACTIVE)
-									 
-//The generated read register from the ADC is 32bit (4byte) of which 12-16 bits are the actual data, 3 are channel id. We need to load the whole thing
-//the DMA requires the number of bytes that we are transmitting
-#define ADC_0_SIZE_OF_GENERATED_DATA (ADC_0_NUM_ACTIVE_CHANNELS << 2)
+
 									 
 									 
 #ifdef CONF_ADC_1_CHANNEL_0
@@ -253,6 +246,16 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define  ADC_1_CHANNEL_11_IS_ACTIVE 0
 #endif
 
+
+//combine them
+#define ADC_0_NUM_ACTIVE_CHANNELS	(ADC_0_CHANNEL_0_IS_ACTIVE + ADC_0_CHANNEL_1_IS_ACTIVE + ADC_0_CHANNEL_2_IS_ACTIVE + ADC_0_CHANNEL_3_IS_ACTIVE + \
+									 ADC_0_CHANNEL_4_IS_ACTIVE + ADC_0_CHANNEL_5_IS_ACTIVE + ADC_0_CHANNEL_6_IS_ACTIVE + ADC_0_CHANNEL_7_IS_ACTIVE + \
+									 ADC_0_CHANNEL_8_IS_ACTIVE + ADC_0_CHANNEL_9_IS_ACTIVE + ADC_0_CHANNEL_10_IS_ACTIVE + ADC_0_CHANNEL_11_IS_ACTIVE)
+
+//The generated read register from the ADC is 32bit (4byte) of which 12-16 bits are the actual data, 3 are channel id. We need to load the whole thing
+//the DMA requires the number of bytes that we are transmitting
+#define ADC_0_SIZE_OF_GENERATED_DATA (ADC_0_NUM_ACTIVE_CHANNELS << 2)
+
 //combine them
 #define ADC_1_NUM_ACTIVE_CHANNELS	(ADC_1_CHANNEL_0_IS_ACTIVE + ADC_1_CHANNEL_1_IS_ACTIVE + ADC_1_CHANNEL_2_IS_ACTIVE + ADC_1_CHANNEL_3_IS_ACTIVE + \
 									 ADC_1_CHANNEL_4_IS_ACTIVE + ADC_1_CHANNEL_5_IS_ACTIVE + ADC_1_CHANNEL_6_IS_ACTIVE + ADC_1_CHANNEL_7_IS_ACTIVE + \
@@ -261,5 +264,10 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 //The generated read register from the ADC is 32bit (4byte) of which 12-16 bits are the actual data, 3 are channel id. We need to load the whole thing
 //the DMA requires the number of bytes that we are transmitting				 
 #define ADC_1_SIZE_OF_GENERATED_DATA (ADC_1_NUM_ACTIVE_CHANNELS << 2)
+
+//USING THE XDMAC channel 0 for ADC 0
+//using the XDMAC channel 1 for ADC 1
+#define DMA_ADC_0_CHANNEL 0
+#define DMA_ADC_1_CHANNEL 1
 
 #endif /* USER_CONFIG_H_ */

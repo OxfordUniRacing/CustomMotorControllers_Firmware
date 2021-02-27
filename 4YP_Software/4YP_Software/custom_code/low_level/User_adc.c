@@ -8,6 +8,83 @@
 #include "User_adc.h"
 #include "driver_init.h"
 #include "User_Config.h"
+#include "hpl_dma.h"
+
+
+static void dma_adc_0_callback(struct _dma_resource *resource){
+	
+}
+
+static void dma_adc_1_callback(struct _dma_resource *resource){
+	
+}
+
+
+
+
+//buffers for the DMA to put the output of the ADCs
+static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];
+static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
+
+void dma_adc_init(void){
+	//initialises the standard values for the DMA controller
+	
+	
+	
+	
+	//channel 0 for ADC 0
+	
+	//source address = AFEC 0->LCDR
+	//_dma_set_source_address(0,(void *) ((Afec *)((&ADC_0)->device.hw) + AFEC_LCDR_OFFSET));
+	_dma_set_source_address			(DMA_ADC_0_CHANNEL,(void *)0x4003C020);	//there is a more adequate way of defining this, but I coundt get it to work
+	_dma_set_destination_address	(DMA_ADC_0_CHANNEL, dma_adc_0_buff);
+	_dma_set_data_amount			(DMA_ADC_0_CHANNEL , ADC_0_SIZE_OF_GENERATED_DATA);
+	
+	//set callback function
+	struct _dma_resource **res0;
+	_dma_get_channel_resource(res0, DMA_ADC_0_CHANNEL);
+	(*res0)->dma_cb.transfer_done = dma_adc_0_callback;
+	
+	//enable interrupt on successful transfer
+	_dma_set_irq_state(DMA_ADC_0_CHANNEL, DMA_TRANSFER_COMPLETE_CB, true);
+	//not handling errors at this point in time
+	//_dma_set_irq_state(DMA_ADC_0_CHANNEL,DMA_TRANSFER_ERROR_CB,true);
+	
+	
+	
+	
+	//channel 0 for ADC 0
+	
+	//source address = AFEC 1->LCDR
+	//_dma_set_source_address(0,(void *) ((Afec *)((&ADC_0)->device.hw) + AFEC_LCDR_OFFSET));
+	_dma_set_source_address			(DMA_ADC_1_CHANNEL,(void *)0x40064020);	//there is a more adequate way of defining this, but I coundt get it to work
+	_dma_set_destination_address	(DMA_ADC_1_CHANNEL, dma_adc_1_buff);
+	_dma_set_data_amount			(DMA_ADC_1_CHANNEL , ADC_1_SIZE_OF_GENERATED_DATA);
+	
+	//set callback function
+	struct _dma_resource **res1;
+	_dma_get_channel_resource(res1, DMA_ADC_1_CHANNEL);
+	(*res1)->dma_cb.transfer_done = dma_adc_1_callback;
+	
+	//enable interrupt on successful transfer
+	_dma_set_irq_state(DMA_ADC_1_CHANNEL, DMA_TRANSFER_COMPLETE_CB, true);
+	//not handling errors at this point in time
+	//_dma_set_irq_state(DMA_ADC_1_CHANNEL,DMA_TRANSFER_ERROR_CB,true);
+		
+	
+}
+
+void dma_adc_0_enable_for_one_transaction(void){
+	_dma_set_destination_address	(DMA_ADC_0_CHANNEL, dma_adc_0_buff);
+	_dma_set_data_amount			(DMA_ADC_0_CHANNEL, ADC_0_SIZE_OF_GENERATED_DATA);
+	_dma_enable_transaction			(DMA_ADC_0_CHANNEL, true);
+}
+
+void dma_adc_1_enable_for_one_transaction(void){
+	_dma_set_destination_address	(DMA_ADC_1_CHANNEL, dma_adc_1_buff);
+	_dma_set_data_amount			(DMA_ADC_1_CHANNEL, ADC_1_SIZE_OF_GENERATED_DATA);
+	_dma_enable_transaction			(DMA_ADC_1_CHANNEL, true);
+}
 
 
 /*

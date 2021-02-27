@@ -11,7 +11,9 @@
 
 #include <hal_adc_sync.h>
 
-
+void dma_adc_init(void);
+void dma_adc_0_enable_for_one_transaction(void);
+void dma_adc_1_enable_for_one_transaction(void);
 
 //enables/disables all AFECs
 void adc_enable_all(void);
