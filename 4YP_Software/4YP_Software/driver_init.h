@@ -25,6 +25,7 @@ extern "C" {
 #include <hal_adc_async.h>
 #include <hal_ext_irq.h>
 #include <hal_ext_irq.h>
+#include <hal_ext_irq.h>
 
 #include <hal_pwm.h>
 

@@ -24,6 +24,8 @@ void EXTERNAL_IRQ_D_example(void);
 
 void EXTERNAL_IRQ_A_example(void);
 
+void EXTERNAL_IRQ_B_example(void);
+
 void PWM_0_example(void);
 
 void PWM_1_example(void);

@@ -202,6 +202,10 @@ void EXTERNAL_IRQ_A_init(void)
 	                       GPIO_PULL_OFF);
 
 	gpio_set_pin_function(PIN_GPIO_POS_1, GPIO_PIN_FUNCTION_OFF);
+}
+
+void EXTERNAL_IRQ_B_init(void)
+{
 
 	// Set pin direction to input
 	gpio_set_pin_direction(PIN_ENCODER_Z, GPIO_DIRECTION_IN);
@@ -360,6 +364,8 @@ void system_init(void)
 
 	_pmc_enable_periph_clock(ID_PIOA);
 
+	_pmc_enable_periph_clock(ID_PIOB);
+
 	_pmc_enable_periph_clock(ID_PIOC);
 
 	_pmc_enable_periph_clock(ID_PIOD);
@@ -484,6 +490,7 @@ void system_init(void)
 	ADC_1_init();
 	EXTERNAL_IRQ_D_init();
 	EXTERNAL_IRQ_A_init();
+	EXTERNAL_IRQ_B_init();
 
 	PWM_0_init();
 
