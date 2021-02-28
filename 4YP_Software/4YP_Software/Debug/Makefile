@@ -71,6 +71,7 @@ C_SRCS +=  \
 ../custom_code/control/ControlStartup.c \
 ../custom_code/control/getTheta.c \
 ../custom_code/control/PID.c \
+../custom_code/low_level/AnalogSensorConversion.c \
 ../custom_code/low_level/Encoder.c \
 ../custom_code/low_level/GetCurrent.c \
 ../custom_code/low_level/PositionSensors.c \
@@ -129,6 +130,7 @@ custom_code/control/Control.o \
 custom_code/control/ControlStartup.o \
 custom_code/control/getTheta.o \
 custom_code/control/PID.o \
+custom_code/low_level/AnalogSensorConversion.o \
 custom_code/low_level/Encoder.o \
 custom_code/low_level/GetCurrent.o \
 custom_code/low_level/PositionSensors.o \
@@ -180,6 +182,7 @@ custom_code/control/Control.o \
 custom_code/control/ControlStartup.o \
 custom_code/control/getTheta.o \
 custom_code/control/PID.o \
+custom_code/low_level/AnalogSensorConversion.o \
 custom_code/low_level/Encoder.o \
 custom_code/low_level/GetCurrent.o \
 custom_code/low_level/PositionSensors.o \
@@ -231,6 +234,7 @@ custom_code/control/Control.d \
 custom_code/control/ControlStartup.d \
 custom_code/control/getTheta.d \
 custom_code/control/PID.d \
+custom_code/low_level/AnalogSensorConversion.d \
 custom_code/low_level/Encoder.d \
 custom_code/low_level/GetCurrent.d \
 custom_code/low_level/PositionSensors.d \
@@ -282,6 +286,7 @@ custom_code/control/Control.d \
 custom_code/control/ControlStartup.d \
 custom_code/control/getTheta.d \
 custom_code/control/PID.d \
+custom_code/low_level/AnalogSensorConversion.d \
 custom_code/low_level/Encoder.d \
 custom_code/low_level/GetCurrent.d \
 custom_code/low_level/PositionSensors.d \
@@ -372,6 +377,13 @@ custom_code/control/getTheta.o: ../custom_code/control/getTheta.c
 	
 
 custom_code/control/PID.o: ../custom_code/control/PID.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing" -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/tc" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/low_level/AnalogSensorConversion.o: ../custom_code/low_level/AnalogSensorConversion.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing" -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/tc" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

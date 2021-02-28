@@ -12,6 +12,8 @@ custom_code\control\getTheta.c
 
 custom_code\control\PID.c
 
+custom_code\low_level\AnalogSensorConversion.c
+
 custom_code\low_level\Encoder.c
 
 custom_code\low_level\GetCurrent.c
