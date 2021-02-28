@@ -13,6 +13,11 @@
 #include "driver_init.h"
 #include "atmel_start_pins.h"
 
+//--------------------------------------------------------------POSITION SENSORS------------------------------------------------------------------------------
+
+//how many sector timings we are saving
+#define POS_SENS_DELTAS_SIZE 2
+
 //--------------------------------------------------------------PWM------------------------------------------------------------------------------
 //Clock is set to 150MHz by def (could go up to 300MHz)
 //Required freq 15KHz

@@ -12,9 +12,12 @@
 #include <atmel_start.h>
 
 
+
+
 static inline void Position_General_Interrupt(void){
 	//records the delta value in systick and uses that to calculate delta t from the last position sensor interrupt
 	
+	//get systick value immediately for most accurate result
 	int current_systick = SysTick->VAL;
 	int delta = current_systick - pos_sens_last_SysTick_count;
 		
@@ -69,12 +72,58 @@ void pos_sens_init (void){
 	SysTick->VAL = 0;
 	//make the load value max, so that the overflows are as rare as possible
 	SysTick->LOAD = (0xFFFFFF);
+	
+	/*
+	From motor datasheet
+						Step1	Step2	Step3	Step4	Step5	Step6	Error1	Error2
+	Phase A(U)		->	+		Z		-		-		Z		+		Z		Z
+	Phase B(V)		->	Z		+		+		Z		-		-		Z		Z
+	Phase C(W)		->	-		-		Z		+		+		Z		Z		Z
+	Sensor A (POS1)	->	1		1		0		0		0		1		0		1
+	Sensor B (POS2)	->	0		1		1		1		0		0		0		1
+	Sensor C (POS3)	->	0		0		0		1		1		1		0		1
+
+	Position convention:
+	Step 1 <=> first 60 degree sector
+	Step 2 <=> second 60 degree sector etc.
+
+	this means that the moment we transition to state (POS1=1, POS2=0 POS3=0) we are at 0 electrical degrees
+	*/
+
+	// sector_lookup_table[POS3][POS2][POS1];
+	sector_lookup_table[0][0][1] = 1;
+	sector_lookup_table[0][1][1] = 2;
+	sector_lookup_table[0][1][0] = 3;
+	sector_lookup_table[1][1][0] = 4;
+	sector_lookup_table[1][0][0] = 5;
+	sector_lookup_table[1][0][1] = 6;
+	//Error states
+	sector_lookup_table[0][0][0] = -1;
+	sector_lookup_table[1][1][1] = -1;
 }
 
-//returns how many time steps are recorded in the times array
-int pos_sens_get_deltas_us (float * deltas){
-	//return pointer to the local times array
-	deltas = &(pos_sens_deltas[0]);
+//returns time spent in previous sectors
+// which sector we are at currently (see above for position convention)
+// how much time has elapsed since we entered this sector
+void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_in_current_sector){
+	//get systick value immediately for most accurate result
+	int current_systick = SysTick->VAL;
+	int delta = current_systick - pos_sens_last_SysTick_count;
 	
-	return POS_SENS_DELTAS_SIZE;
+	//if there was an overflow, account for it
+	//NB this can only handle one overflow at max <=> if systick frequency < interrupt frequency timing will be very inaccurate
+	if(delta <= 0) delta += (1<<25);	//systick is 24 bit counter
+	
+	//systick clock frequency equals MCU clock at 300MHz
+	(*time_in_current_sector) = (float) delta / 300;
+	
+	
+	//return pointer to the local times array
+	previous_deltas = &(pos_sens_deltas[0]);
+	
+	//get which sector we are in
+	(*current_sector) = sector_lookup_table	[gpio_get_pin_level(PIN_GPIO_POS_3)]\
+											[gpio_get_pin_level(PIN_GPIO_POS_2)]\
+											[gpio_get_pin_level(PIN_GPIO_POS_1)];
+
 }
