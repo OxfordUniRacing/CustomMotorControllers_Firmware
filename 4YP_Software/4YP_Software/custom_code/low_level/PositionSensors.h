@@ -45,9 +45,9 @@ int pos_sens_last_SysTick_count;
 
 void pos_sens_init (void);
 
-//returns time spent in previous sectors
-// which sector we are at currently (see above for position convention)
-// how much time has elapsed since we entered this sector
+//	returns time spent in previous sectors								- input an empty pointer
+// which sector we are at currently (see above for position convention) - input address of existing variable
+// how much time has elapsed since we entered this sector				- input address of existing variable
 void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_in_current_sector);
 
 
