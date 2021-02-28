@@ -1,7 +1,8 @@
 custom_code/low_level/User_adc.d custom_code/low_level/User_adc.o: \
  ../custom_code/low_level/User_adc.c ../custom_code/low_level/User_adc.h \
- ../hal/include/hal_adc_async.h ../hal/include/hpl_adc_async.h \
- ../hal/include/hpl_adc_sync.h ../hal/utils/include/compiler.h \
+ ../custom_code/low_level/User_Config.h ../driver_init.h \
+ ../atmel_start_pins.h ../hal/include/hal_gpio.h \
+ ../hal/include/hpl_gpio.h ../hal/utils/include/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\stdint.h \
@@ -129,17 +130,16 @@ custom_code/low_level/User_adc.d custom_code/low_level/User_adc.o: \
  ../hri/hri_tc_e70b.h ../hri/hri_trng_e70b.h ../hri/hri_twihs_e70b.h \
  ../hri/hri_uart_e70b.h ../hri/hri_usart_e70b.h ../hri/hri_usbhs_e70b.h \
  ../hri/hri_utmi_e70b.h ../hri/hri_wdt_e70b.h ../hri/hri_xdmac_e70b.h \
- ../hal/utils/include/err_codes.h ../hal/include/hpl_irq.h \
- ../hal/utils/include/utils_ringbuffer.h ../hal/utils/include/compiler.h \
- ../hal/utils/include/utils_assert.h \
- ../hal/include/hpl_missing_features.h ../driver_init.h \
- ../atmel_start_pins.h ../hal/include/hal_gpio.h \
- ../hal/include/hpl_gpio.h ../hpl/pio/hpl_gpio_base.h \
+ ../hal/utils/include/err_codes.h ../hpl/pio/hpl_gpio_base.h \
  ../hal/utils/include/utils_assert.h ../hal/include/hal_delay.h \
  ../hal/include/hpl_irq.h ../hal/include/hpl_reset.h \
  ../hal/include/hpl_sleep.h ../hal/include/hal_init.h \
  ../hal/include/hpl_init.h ../hal/include/hal_io.h \
- ../hal/include/hal_sleep.h ../hal/include/hal_ext_irq.h \
+ ../hal/include/hal_sleep.h ../hal/include/hal_adc_async.h \
+ ../hal/include/hpl_adc_async.h ../hal/include/hpl_adc_sync.h \
+ ../hal/include/hpl_irq.h ../hal/utils/include/utils_ringbuffer.h \
+ ../hal/utils/include/compiler.h ../hal/utils/include/utils_assert.h \
+ ../hal/include/hpl_missing_features.h ../hal/include/hal_ext_irq.h \
  ../hal/include/hpl_ext_irq.h ../hal/include/hal_pwm.h \
  ../hal/include/hpl_pwm.h ../hal/include/hal_timer.h \
  ../hal/utils/include/utils_list.h ../hal/include/hpl_timer.h \
@@ -147,17 +147,20 @@ custom_code/low_level/User_adc.d custom_code/low_level/User_adc.o: \
  ../hal/include/hpl_usart_sync.h ../hal/include/hpl_usart.h \
  ../hal/include/hal_can_async.h ../hal/include/hpl_can.h \
  ../hal/include/hpl_can_async.h ../hal/utils/include/utils.h \
- ../custom_code/low_level/User_Config.h ../atmel_start_pins.h \
- ../hal/include/hpl_dma.h \
+ ../atmel_start_pins.h ../hal/include/hpl_dma.h \
  C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include/component/afec.h
 
 ../custom_code/low_level/User_adc.h:
 
-../hal/include/hal_adc_async.h:
+../custom_code/low_level/User_Config.h:
 
-../hal/include/hpl_adc_async.h:
+../driver_init.h:
 
-../hal/include/hpl_adc_sync.h:
+../atmel_start_pins.h:
+
+../hal/include/hal_gpio.h:
+
+../hal/include/hpl_gpio.h:
 
 ../hal/utils/include/compiler.h:
 
@@ -469,24 +472,6 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 
 ../hal/utils/include/err_codes.h:
 
-../hal/include/hpl_irq.h:
-
-../hal/utils/include/utils_ringbuffer.h:
-
-../hal/utils/include/compiler.h:
-
-../hal/utils/include/utils_assert.h:
-
-../hal/include/hpl_missing_features.h:
-
-../driver_init.h:
-
-../atmel_start_pins.h:
-
-../hal/include/hal_gpio.h:
-
-../hal/include/hpl_gpio.h:
-
 ../hpl/pio/hpl_gpio_base.h:
 
 ../hal/utils/include/utils_assert.h:
@@ -506,6 +491,22 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 ../hal/include/hal_io.h:
 
 ../hal/include/hal_sleep.h:
+
+../hal/include/hal_adc_async.h:
+
+../hal/include/hpl_adc_async.h:
+
+../hal/include/hpl_adc_sync.h:
+
+../hal/include/hpl_irq.h:
+
+../hal/utils/include/utils_ringbuffer.h:
+
+../hal/utils/include/compiler.h:
+
+../hal/utils/include/utils_assert.h:
+
+../hal/include/hpl_missing_features.h:
 
 ../hal/include/hal_ext_irq.h:
 
@@ -536,8 +537,6 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 ../hal/include/hpl_can_async.h:
 
 ../hal/utils/include/utils.h:
-
-../custom_code/low_level/User_Config.h:
 
 ../atmel_start_pins.h:
 

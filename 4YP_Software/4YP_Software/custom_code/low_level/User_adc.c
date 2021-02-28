@@ -7,8 +7,8 @@
 
 #include "User_adc.h"
 #include "driver_init.h"
-#include "User_Config.h"
 #include "hpl_dma.h"
+#include <hal_adc_async.h>
 
 #include "component/afec.h"
 
@@ -16,17 +16,14 @@
 
 
 
-//buffers for the DMA to put the output of the ADCs
-static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];
-static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
-
 //arrays for passing on the values to the control functions
-int currents[3];
-int voltage;
+int raw_currents[3];
+int raw_voltage;
 
 //curr A,B,C are 0,1,2 and voltage is 3
 static char ready_values = 0;
 #define ALL_VALUES_READY (0b1111)
+
 
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
@@ -40,12 +37,12 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 		switch((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk)){
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_A_CHANNEL):
-				currents[0] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				raw_currents[0] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<0);
 				break;
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_B_CHANNEL):
-				currents[1] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				raw_currents[1] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<1);
 				break;
 			
@@ -54,6 +51,14 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 		}
 	}
 	
+	//current conversion is done
+	//enable the next conversion if continuous mode enabled
+	if(is_dma_adc_0_continuous){
+		dma_adc_0_enable_for_one_transaction();
+	}
+	
+	
+	
 	if(ready_values == ALL_VALUES_READY){
 		//means we have collected the data from all ADCs
 		
@@ -61,8 +66,9 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 		ready_values = 0;
 		
 		//launch control loop
+		
 		printf("Data collected, launching control loop from adc 0\n");
-		printf("%i %i %i %i  \n", voltage, currents[0], currents[1], currents[2],currents[3]);
+		printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
 	}
 	
 }
@@ -77,12 +83,12 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 		switch((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk)){
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_C_CHANNEL):
-				currents[2] = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				raw_currents[2] = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<2);
 				break;
 			
 			case AFEC_LCDR_CHNB(ADC_SUPPL_VOLTAGE_CHANNEL):
-				voltage = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				raw_voltage = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<3);
 				break;
 			
@@ -91,6 +97,14 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 		}
 	}
 	
+	//current conversion is done
+	//enable the next conversion if continuous mode enabled
+	if(is_dma_adc_1_continuous){
+		dma_adc_1_enable_for_one_transaction();
+	}
+	
+	
+	
 	if(ready_values == ALL_VALUES_READY){
 		//means we have collected the data from all ADCs
 		
@@ -98,8 +112,9 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 		ready_values = 0;
 		
 		//launch control loop
+		
 		printf("Data collected, launching control loop from adc 1 \n");
-		printf("%i %i %i %i  \n", voltage, currents[0], currents[1], currents[2],currents[3]);
+		printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
 	}
 }
 
@@ -110,7 +125,7 @@ void dma_adc_init(void){
 	
 	
 	
-	//channel 0 for ADC 0
+	//DMA channel 0 for ADC 0
 	
 	//source address = AFEC 0->LCDR
 	//_dma_set_source_address(0,(void *) ((Afec *)((&ADC_0)->device.hw) + AFEC_LCDR_OFFSET));
@@ -131,7 +146,7 @@ void dma_adc_init(void){
 	
 	
 	
-	//channel 0 for ADC 0
+	//DMA channel 1 for ADC 1
 	
 	//source address = AFEC 1->LCDR
 	//_dma_set_source_address(0,(void *) ((Afec *)((&ADC_0)->device.hw) + AFEC_LCDR_OFFSET));
@@ -161,6 +176,11 @@ void dma_adc_init(void){
 	NVIC_ClearPendingIRQ(AFEC0_IRQn);
 	NVIC_DisableIRQ		(AFEC1_IRQn);
 	NVIC_ClearPendingIRQ(AFEC1_IRQn);
+	
+	
+	//DMAs are single transaction by default
+	dma_adc_0_disable_continuously();
+	dma_adc_1_disable_continuously();
 }
 
 void dma_adc_0_enable_for_one_transaction(void){
@@ -179,6 +199,22 @@ void dma_adc_1_enable_for_one_transaction(void){
 	_dma_set_data_amount			(DMA_ADC_1_CHANNEL, ADC_1_SIZE_OF_GENERATED_DATA);
 	//enable for one transaction
 	_dma_enable_transaction			(DMA_ADC_1_CHANNEL, true);
+}
+
+void dma_adc_0_enable_continuously(void){
+	is_dma_adc_0_continuous = true;
+	dma_adc_0_enable_for_one_transaction();
+}
+void dma_adc_1_enable_continuously(void){
+	is_dma_adc_1_continuous = true;
+	dma_adc_1_enable_for_one_transaction();
+}
+
+void dma_adc_0_disable_continuously(void){
+	is_dma_adc_0_continuous = false;
+}
+void dma_adc_1_disable_continuously(void){
+	is_dma_adc_1_continuous = false;
 }
 
 
@@ -225,3 +261,33 @@ void adc_disable_all(void){
 	adc_async_disable_channel(ADC_TEMP_MOTOR);
 }
 
+
+//reads data from the DMA buffers
+int adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
+	//we might need to worry about race contitions
+	//not implemented as of now
+	/*
+	CRITICAL_SECTION_ENTER()
+	
+	CRITICAL_SECTION_LEAVE()
+	*/
+	
+	if (descr == (&ADC_0)){
+		for (int i =0; i<ADC_0_NUM_ACTIVE_CHANNELS; i++){
+			if((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
+				return dma_adc_0_buff[i];
+			}
+		}
+	}
+	
+	if (descr == (&ADC_1)){
+		for (int i =0; i<ADC_1_NUM_ACTIVE_CHANNELS; i++){
+			if((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
+				return dma_adc_1_buff[i];
+			}
+		}
+	}
+	
+	
+	return 0;
+}
