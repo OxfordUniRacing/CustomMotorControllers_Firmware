@@ -17,6 +17,9 @@
 static inline void Position_General_Interrupt(void){
 	//records the delta value in systick and uses that to calculate delta t from the last position sensor interrupt
 	
+	//make other functions aware that a write operation has occured
+	has_triggered = true;
+	
 	//get systick value immediately for most accurate result
 	int current_systick = SysTick->VAL;
 	int delta = current_systick - pos_sens_last_SysTick_count;
@@ -100,12 +103,18 @@ void pos_sens_init (void){
 	//Error states
 	sector_lookup_table[0][0][0] = -1;
 	sector_lookup_table[1][1][1] = -1;
+	
+	has_triggered = false;
 }
 
 //returns time spent in previous sectors
 // which sector we are at currently (see above for position convention)
 // how much time has elapsed since we entered this sector
 void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_in_current_sector){
+	//null checking variable to see if a write has occured
+	has_triggered = false;
+	
+	
 	//get systick value immediately for most accurate result
 	int current_systick = SysTick->VAL;
 	int delta = current_systick - pos_sens_last_SysTick_count;
@@ -127,5 +136,12 @@ void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_i
 	(*current_sector) = sector_lookup_table	[gpio_get_pin_level(PIN_GPIO_POS_3)]\
 											[gpio_get_pin_level(PIN_GPIO_POS_2)]\
 											[gpio_get_pin_level(PIN_GPIO_POS_1)];
+											
+											
+	if(has_triggered){
+		// this means the value of has_triggered was modified while we were reading the data <=> retake reading
+		// since data writes are rare there is no chance of a long wait on the recursive function
+		get_Data_Pos (previous_deltas, current_sector, time_in_current_sector);
+	}
 
 }

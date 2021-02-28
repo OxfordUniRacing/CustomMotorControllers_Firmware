@@ -42,6 +42,9 @@ float pos_sens_deltas [POS_SENS_DELTAS_SIZE];
 
 int pos_sens_last_SysTick_count;
 
+//use this variable to check if values have been altered during a read operation
+bool has_triggered;
+
 
 void pos_sens_init (void);
 

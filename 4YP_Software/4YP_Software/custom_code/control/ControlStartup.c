@@ -6,6 +6,8 @@
  */ 
 
 
+#include "ControlStartup.h"
+
 #include "Encoder.h"
 #include "PositionSensors.h"
 #include "User_adc.h"
@@ -18,7 +20,7 @@ void gather_control_data(void){
 	//get torque request
 	control_torque_request = 0;
 	
-	get_Data_Pos(&control_pos_sens_deltas, &control_pos_sens_sector, &control_pos_sens_time_in_current_sector);
+	get_Data_Pos(&(control_pos_sens_deltas[0]), &control_pos_sens_sector, &control_pos_sens_time_in_current_sector);
 	
 	
 	//do last as this is the most frequently updated data

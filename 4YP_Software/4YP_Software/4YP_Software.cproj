@@ -491,6 +491,12 @@
     <Compile Include="custom_code\control\Control.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\control\ControlStartup.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\ControlStartup.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="custom_code\control\getTheta.c">
       <SubType>compile</SubType>
     </Compile>
