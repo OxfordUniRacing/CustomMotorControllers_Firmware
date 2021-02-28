@@ -27,6 +27,9 @@ static char ready_values = 0;
 
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
+	//let other functions know that a write operation has occurred
+	has_0_triggered = true;
+	
 	//just for testing
 	printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3], (int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
 	
@@ -74,6 +77,9 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 }
 
 static void dma_adc_1_callback(struct _dma_resource *resource){
+	//let other functions know that a write operation has occurred
+	has_1_triggered = true;
+	
 	//just for testing
 	printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
 	
@@ -181,6 +187,10 @@ void dma_adc_init(void){
 	//DMAs are single transaction by default
 	dma_adc_0_disable_continuously();
 	dma_adc_1_disable_continuously();
+	
+	
+	has_0_triggered = false;
+	has_1_triggered = false;
 }
 
 void dma_adc_0_enable_for_one_transaction(void){
@@ -264,18 +274,23 @@ void adc_disable_all(void){
 
 //reads data from the DMA buffers
 int adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
-	//we might need to worry about race contitions
-	//not implemented as of now
-	/*
-	CRITICAL_SECTION_ENTER()
+	//null checking variable to see if a write has occured
+	has_0_triggered = false;
+	has_0_triggered = false;
 	
-	CRITICAL_SECTION_LEAVE()
-	*/
-	
+		
 	if (descr == (&ADC_0)){
 		for (int i =0; i<ADC_0_NUM_ACTIVE_CHANNELS; i++){
 			if((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
-				return dma_adc_0_buff[i];
+				int temp = (int) dma_adc_0_buff[i];
+				
+				if(has_0_triggered){
+					//data was altered while we were reading
+					//retake data
+					return adc_read(descr, channel);
+				}
+				
+				return temp;
 			}
 		}
 	}
@@ -283,7 +298,15 @@ int adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
 	if (descr == (&ADC_1)){
 		for (int i =0; i<ADC_1_NUM_ACTIVE_CHANNELS; i++){
 			if((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
-				return dma_adc_1_buff[i];
+				int temp = (int) dma_adc_1_buff[i];
+				
+				if(has_1_triggered){
+					//data was altered while we were reading
+					//retake data
+					return adc_read(descr, channel);
+				}
+				
+				return temp;
 			}
 		}
 	}

@@ -521,12 +521,6 @@
     <Compile Include="custom_code\low_level\Encoder.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="custom_code\low_level\GetCurrent.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="custom_code\low_level\GetCurrent.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="custom_code\low_level\PositionSensors.c">
       <SubType>compile</SubType>
     </Compile>

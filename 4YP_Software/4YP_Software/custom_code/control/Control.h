@@ -20,7 +20,6 @@
 #include <atmel_start.h>
 #include "arm_math.h"
 #include "getTheta.h"
-#include "GetCurrent.h"
 #include "PID.h"
 
 // MATRIX EXAMPLE

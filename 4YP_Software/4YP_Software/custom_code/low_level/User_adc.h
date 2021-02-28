@@ -21,6 +21,9 @@ static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
 bool is_dma_adc_0_continuous;
 bool is_dma_adc_1_continuous;
 
+//use this variables to check if values have been altered during a read operation
+bool has_0_triggered;
+bool has_1_triggered;
 
 
 void dma_adc_init(void);

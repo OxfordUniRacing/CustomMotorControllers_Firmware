@@ -111,7 +111,7 @@ void pos_sens_init (void){
 // which sector we are at currently (see above for position convention)
 // how much time has elapsed since we entered this sector
 void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_in_current_sector){
-	//null checking variable to see if a write has occured
+	//null checking variable to see if a write has occurred
 	has_triggered = false;
 	
 	

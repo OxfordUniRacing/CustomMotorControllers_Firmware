@@ -16,8 +16,6 @@ custom_code\low_level\AnalogSensorConversion.c
 
 custom_code\low_level\Encoder.c
 
-custom_code\low_level\GetCurrent.c
-
 custom_code\low_level\PositionSensors.c
 
 custom_code\low_level\User_adc.c

@@ -4,7 +4,6 @@
 #include "User_Config.h"
 #include "User_pwm.h"
 #include "User_adc.h"
-#include "GetCurrent.h"
 #include "Initial_Testing.h"
 #include "Encoder.h"
 #include "PositionSensors.h"

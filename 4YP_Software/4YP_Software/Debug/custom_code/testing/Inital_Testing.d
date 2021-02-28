@@ -180,9 +180,7 @@ custom_code/testing/Inital_Testing.d custom_code/testing/Inital_Testing.o: \
  ../custom_code/low_level/User_Config.h ../driver_init.h \
  ../atmel_start_pins.h ../custom_code/low_level/User_pwm.h \
  ../custom_code/low_level/User_adc.h \
- ../custom_code/low_level/User_Config.h \
- ../custom_code/low_level/GetCurrent.h \
- ../custom_code/low_level/User_adc.h
+ ../custom_code/low_level/User_Config.h
 
 ../atmel_start.h:
 
@@ -643,7 +641,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/low_level/User_adc.h:
 
 ../custom_code/low_level/User_Config.h:
-
-../custom_code/low_level/GetCurrent.h:
-
-../custom_code/low_level/User_adc.h:
