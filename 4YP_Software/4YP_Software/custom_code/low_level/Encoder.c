@@ -98,7 +98,7 @@ static void Encoder_Z_Interrupt (void){
 	
 	
 	//if first rotation then record the offset
-	if(encoder_rotations == 0){
+	if(encoder_num_Z_interrupts == 0){
 		encoder_inital_offset = encoder_counter_no_offset;
 	}else{
 		//if not first rotation, check if the number of pulses this rotation was within margin of counting error
@@ -120,7 +120,7 @@ static void Encoder_Z_Interrupt (void){
 	
 	
 	//increment rotation counter
-	encoder_rotations ++;
+	encoder_num_Z_interrupts ++;
 }
 
 void encoder_init(void){
@@ -165,7 +165,7 @@ void encoder_enable(void){
 	timer_start(&ENCODER_A);
 	timer_start(&ENCODER_B);
 	
-	encoder_rotations = 0;
+	encoder_num_Z_interrupts = 0;
 	encoder_inital_offset = 0;
 	
 	
@@ -180,7 +180,7 @@ float encoder_get_angle(void){
 	int current_counter = encoder_counter_no_offset & (ENCODER_STEPS - 1);
 	
 	//convert to radians and scale
-	float angle = 2 * PI * ((float)(current_counter)) / ENCODER_STEPS;
+	float angle = (2 * PI * ((float)(current_counter)) / ENCODER_STEPS) + ENCODER_MOUNTING_OFFSET;
 	return angle;
 }
 
@@ -199,6 +199,7 @@ int encoder_get_counter(void){
 }
 
 int encoder_get_rotations(void){
-	return encoder_rotations;
+	//if the counter < initial offset that means we have not completed the rotation yet (Z interrupt probably triggers somewhere in the middle of the rotation)
+	return encoder_num_Z_interrupts - (encoder_get_counter < encoder_inital_offset);
 }
 

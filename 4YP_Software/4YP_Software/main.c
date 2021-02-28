@@ -6,6 +6,8 @@
 #include "User_adc.h"
 #include "GetCurrent.h"
 #include "Initial_Testing.h"
+#include "Encoder.h"
+#include "PositionSensors.h"
 
 
 //add these 3 lines before every instance of arm_math.h ;

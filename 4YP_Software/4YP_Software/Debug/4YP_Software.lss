@@ -17,23 +17,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   6 .comment      00000059  00000000  00000000  00020246  2**0
                   CONTENTS, READONLY
-  7 .debug_info   000297f1  00000000  00000000  0002029f  2**0
+  7 .debug_info   00029860  00000000  00000000  0002029f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 000052d7  00000000  00000000  00049a90  2**0
+  8 .debug_abbrev 000052d0  00000000  00000000  00049aff  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_loc    0000c521  00000000  00000000  0004ed67  2**0
+  9 .debug_loc    0000c55b  00000000  00000000  0004edcf  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_aranges 00000de0  00000000  00000000  0005b288  2**0
+ 10 .debug_aranges 00000de0  00000000  00000000  0005b32a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000c88  00000000  00000000  0005c068  2**0
+ 11 .debug_ranges 00000c88  00000000  00000000  0005c10a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  000478a5  00000000  00000000  0005ccf0  2**0
+ 12 .debug_macro  000478bb  00000000  00000000  0005cd92  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0001edd5  00000000  00000000  000a4595  2**0
+ 13 .debug_line   0001edf8  00000000  00000000  000a464d  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00158af5  00000000  00000000  000c336a  2**0
+ 14 .debug_str    00158aff  00000000  00000000  000c3445  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002fc0  00000000  00000000  0021be60  2**2
+ 15 .debug_frame  00002fc0  00000000  00000000  0021bf44  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -128,211 +128,205 @@ void atmel_start_init(void)
   4001e0:	00400e1d 	.word	0x00400e1d
   4001e4:	00402941 	.word	0x00402941
 
-004001e8 <encoder_init>:
-	
-	//increment rotation counter
-	encoder_rotations ++;
-}
-
-void encoder_init(void){
-  4001e8:	b508      	push	{r3, lr}
-	//enable external interrupt on the Z line 
-	ext_irq_register(PIO_PB13_IDX,Encoder_Z_Interrupt);
-  4001ea:	4942      	ldr	r1, [pc, #264]	; (4002f4 <encoder_init+0x10c>)
-  4001ec:	202d      	movs	r0, #45	; 0x2d
-  4001ee:	4b42      	ldr	r3, [pc, #264]	; (4002f8 <encoder_init+0x110>)
-  4001f0:	4798      	blx	r3
- */
-__STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
-{
-  if ((int32_t)(IRQn) >= 0)
-  {
-    NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4001f2:	4b42      	ldr	r3, [pc, #264]	; (4002fc <encoder_init+0x114>)
-  4001f4:	f44f 6200 	mov.w	r2, #2048	; 0x800
-  4001f8:	601a      	str	r2, [r3, #0]
- */
-__STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
-{
-  if ((int32_t)(IRQn) >= 0)
-  {
-    NVIC->IP[((uint32_t)IRQn)]                = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
-  4001fa:	2240      	movs	r2, #64	; 0x40
-  4001fc:	f883 230b 	strb.w	r2, [r3, #779]	; 0x30b
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400200:	f44f 0200 	mov.w	r2, #8388608	; 0x800000
-  400204:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  \details Acts as a special kind of Data Memory Barrier.
-           It completes when all explicit memory accesses before this instruction complete.
- */
-__STATIC_FORCEINLINE void __DSB(void)
-{
-  __ASM volatile ("dsb 0xF":::"memory");
-  400208:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  40020c:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400210:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400214:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
-  400218:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  __ASM volatile ("dsb 0xF":::"memory");
-  40021c:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400220:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400224:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400228:	f04f 7200 	mov.w	r2, #33554432	; 0x2000000
-  40022c:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  __ASM volatile ("dsb 0xF":::"memory");
-  400230:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400234:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400238:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  40023c:	f04f 6280 	mov.w	r2, #67108864	; 0x4000000
-  400240:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  __ASM volatile ("dsb 0xF":::"memory");
-  400244:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400248:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  40024c:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400250:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
-  400254:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  __ASM volatile ("dsb 0xF":::"memory");
-  400258:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  40025c:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400260:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400264:	f04f 5280 	mov.w	r2, #268435456	; 0x10000000
-  400268:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
-  __ASM volatile ("dsb 0xF":::"memory");
-  40026c:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400270:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400274:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400278:	f44f 4200 	mov.w	r2, #32768	; 0x8000
-  40027c:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  400280:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400284:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  400288:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  40028c:	f44f 3280 	mov.w	r2, #65536	; 0x10000
-  400290:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  400294:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  400298:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  40029c:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002a0:	f44f 3200 	mov.w	r2, #131072	; 0x20000
-  4002a4:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  4002a8:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  4002ac:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002b0:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002b4:	f44f 2280 	mov.w	r2, #262144	; 0x40000
-  4002b8:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  4002bc:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  4002c0:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002c4:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002c8:	f44f 2200 	mov.w	r2, #524288	; 0x80000
-  4002cc:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  4002d0:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  4002d4:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002d8:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002dc:	f44f 1280 	mov.w	r2, #1048576	; 0x100000
-  4002e0:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
-  __ASM volatile ("dsb 0xF":::"memory");
-  4002e4:	f3bf 8f4f 	dsb	sy
-  __ASM volatile ("isb 0xF":::"memory");
-  4002e8:	f3bf 8f6f 	isb	sy
-    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
-  4002ec:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
-  4002f0:	bd08      	pop	{r3, pc}
-  4002f2:	bf00      	nop
-  4002f4:	00400325 	.word	0x00400325
-  4002f8:	00401215 	.word	0x00401215
-  4002fc:	e000e100 	.word	0xe000e100
-
-00400300 <encoder_get_counter>:
+004001e8 <encoder_get_counter>:
 	return (((Tc *)hw)->TcChannel[submodule_index].TC_CV & TC_CV_CV(mask)) >> TC_CV_CV_Pos;
 }
 
 static inline hri_tc_cv_reg_t hri_tc_read_CV_CV_bf(const void *const hw, uint8_t submodule_index)
 {
 	return (((Tc *)hw)->TcChannel[submodule_index].TC_CV & TC_CV_CV_Msk) >> TC_CV_CV_Pos;
-  400300:	4a06      	ldr	r2, [pc, #24]	; (40031c <encoder_get_counter+0x1c>)
-  400302:	6913      	ldr	r3, [r2, #16]
-  400304:	6d10      	ldr	r0, [r2, #80]	; 0x50
+  4001e8:	4a06      	ldr	r2, [pc, #24]	; (400204 <encoder_get_counter+0x1c>)
+  4001ea:	6913      	ldr	r3, [r2, #16]
+  4001ec:	6d10      	ldr	r0, [r2, #80]	; 0x50
 	//if starting offset is 0 (which is the case before it was recorded) then it returns the actual counter
 	
 	
 	//get A (first line) and B (second line) counters
 	//note that rising and falling edges could be the other way round. It doesn't matter for the current implementation
 	int encoder_counter_no_offset =	  ( int) hri_tc_read_CV_CV_bf(TC0,0) + ( int) hri_tc_read_CV_CV_bf(TC0,1) \
-  400306:	4403      	add	r3, r0
-  400308:	f502 2290 	add.w	r2, r2, #294912	; 0x48000
-  40030c:	6910      	ldr	r0, [r2, #16]
+  4001ee:	4403      	add	r3, r0
+  4001f0:	f502 2290 	add.w	r2, r2, #294912	; 0x48000
+  4001f4:	6910      	ldr	r0, [r2, #16]
 									+ ( int) hri_tc_read_CV_CV_bf(TC3,0) + ( int) hri_tc_read_CV_CV_bf(TC3,1) \
-  40030e:	4403      	add	r3, r0
-  400310:	6d10      	ldr	r0, [r2, #80]	; 0x50
-  400312:	4403      	add	r3, r0
+  4001f6:	4403      	add	r3, r0
+  4001f8:	6d10      	ldr	r0, [r2, #80]	; 0x50
+  4001fa:	4403      	add	r3, r0
 									- encoder_inital_offset;														//get the number of steps normalised to the starting offset
-  400314:	4a02      	ldr	r2, [pc, #8]	; (400320 <encoder_get_counter+0x20>)
-  400316:	6810      	ldr	r0, [r2, #0]
+  4001fc:	4a02      	ldr	r2, [pc, #8]	; (400208 <encoder_get_counter+0x20>)
+  4001fe:	6810      	ldr	r0, [r2, #0]
 								
 	return encoder_counter_no_offset;
 }
-  400318:	1a18      	subs	r0, r3, r0
-  40031a:	4770      	bx	lr
-  40031c:	4000c000 	.word	0x4000c000
-  400320:	204004cc 	.word	0x204004cc
+  400200:	1a18      	subs	r0, r3, r0
+  400202:	4770      	bx	lr
+  400204:	4000c000 	.word	0x4000c000
+  400208:	204004d0 	.word	0x204004d0
 
-00400324 <Encoder_Z_Interrupt>:
+0040020c <Encoder_Z_Interrupt>:
 static void Encoder_Z_Interrupt (void){
-  400324:	b508      	push	{r3, lr}
+  40020c:	b508      	push	{r3, lr}
 	int encoder_counter_no_offset = encoder_get_counter();
-  400326:	4b05      	ldr	r3, [pc, #20]	; (40033c <Encoder_Z_Interrupt+0x18>)
-  400328:	4798      	blx	r3
-	if(encoder_rotations == 0){
-  40032a:	4b05      	ldr	r3, [pc, #20]	; (400340 <Encoder_Z_Interrupt+0x1c>)
-  40032c:	681b      	ldr	r3, [r3, #0]
-  40032e:	b90b      	cbnz	r3, 400334 <Encoder_Z_Interrupt+0x10>
+  40020e:	4b05      	ldr	r3, [pc, #20]	; (400224 <Encoder_Z_Interrupt+0x18>)
+  400210:	4798      	blx	r3
+	if(encoder_num_Z_interrupts == 0){
+  400212:	4b05      	ldr	r3, [pc, #20]	; (400228 <Encoder_Z_Interrupt+0x1c>)
+  400214:	681b      	ldr	r3, [r3, #0]
+  400216:	b90b      	cbnz	r3, 40021c <Encoder_Z_Interrupt+0x10>
 		encoder_inital_offset = encoder_counter_no_offset;
-  400330:	4a04      	ldr	r2, [pc, #16]	; (400344 <Encoder_Z_Interrupt+0x20>)
-  400332:	6010      	str	r0, [r2, #0]
-	encoder_rotations ++;
-  400334:	3301      	adds	r3, #1
-  400336:	4a02      	ldr	r2, [pc, #8]	; (400340 <Encoder_Z_Interrupt+0x1c>)
-  400338:	6013      	str	r3, [r2, #0]
-  40033a:	bd08      	pop	{r3, pc}
-  40033c:	00400301 	.word	0x00400301
-  400340:	204004d0 	.word	0x204004d0
-  400344:	204004cc 	.word	0x204004cc
+  400218:	4a04      	ldr	r2, [pc, #16]	; (40022c <Encoder_Z_Interrupt+0x20>)
+  40021a:	6010      	str	r0, [r2, #0]
+	encoder_num_Z_interrupts ++;
+  40021c:	3301      	adds	r3, #1
+  40021e:	4a02      	ldr	r2, [pc, #8]	; (400228 <Encoder_Z_Interrupt+0x1c>)
+  400220:	6013      	str	r3, [r2, #0]
+  400222:	bd08      	pop	{r3, pc}
+  400224:	004001e9 	.word	0x004001e9
+  400228:	204004cc 	.word	0x204004cc
+  40022c:	204004d0 	.word	0x204004d0
+
+00400230 <encoder_init>:
+void encoder_init(void){
+  400230:	b508      	push	{r3, lr}
+	ext_irq_register(PIO_PB13_IDX,Encoder_Z_Interrupt);
+  400232:	4942      	ldr	r1, [pc, #264]	; (40033c <encoder_init+0x10c>)
+  400234:	202d      	movs	r0, #45	; 0x2d
+  400236:	4b42      	ldr	r3, [pc, #264]	; (400340 <encoder_init+0x110>)
+  400238:	4798      	blx	r3
+ */
+__STATIC_INLINE void __NVIC_EnableIRQ(IRQn_Type IRQn)
+{
+  if ((int32_t)(IRQn) >= 0)
+  {
+    NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  40023a:	4b42      	ldr	r3, [pc, #264]	; (400344 <encoder_init+0x114>)
+  40023c:	f44f 6200 	mov.w	r2, #2048	; 0x800
+  400240:	601a      	str	r2, [r3, #0]
+ */
+__STATIC_INLINE void __NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if ((int32_t)(IRQn) >= 0)
+  {
+    NVIC->IP[((uint32_t)IRQn)]                = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
+  400242:	2240      	movs	r2, #64	; 0x40
+  400244:	f883 230b 	strb.w	r2, [r3, #779]	; 0x30b
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400248:	f44f 0200 	mov.w	r2, #8388608	; 0x800000
+  40024c:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  \details Acts as a special kind of Data Memory Barrier.
+           It completes when all explicit memory accesses before this instruction complete.
+ */
+__STATIC_FORCEINLINE void __DSB(void)
+{
+  __ASM volatile ("dsb 0xF":::"memory");
+  400250:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  400254:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400258:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  40025c:	f04f 7280 	mov.w	r2, #16777216	; 0x1000000
+  400260:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  __ASM volatile ("dsb 0xF":::"memory");
+  400264:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  400268:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  40026c:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400270:	f04f 7200 	mov.w	r2, #33554432	; 0x2000000
+  400274:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  __ASM volatile ("dsb 0xF":::"memory");
+  400278:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  40027c:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400280:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400284:	f04f 6280 	mov.w	r2, #67108864	; 0x4000000
+  400288:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  __ASM volatile ("dsb 0xF":::"memory");
+  40028c:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  400290:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400294:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400298:	f04f 6200 	mov.w	r2, #134217728	; 0x8000000
+  40029c:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  __ASM volatile ("dsb 0xF":::"memory");
+  4002a0:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  4002a4:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002a8:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002ac:	f04f 5280 	mov.w	r2, #268435456	; 0x10000000
+  4002b0:	f8c3 2080 	str.w	r2, [r3, #128]	; 0x80
+  __ASM volatile ("dsb 0xF":::"memory");
+  4002b4:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  4002b8:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002bc:	f8c3 2180 	str.w	r2, [r3, #384]	; 0x180
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002c0:	f44f 4200 	mov.w	r2, #32768	; 0x8000
+  4002c4:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  4002c8:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  4002cc:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002d0:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002d4:	f44f 3280 	mov.w	r2, #65536	; 0x10000
+  4002d8:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  4002dc:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  4002e0:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002e4:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002e8:	f44f 3200 	mov.w	r2, #131072	; 0x20000
+  4002ec:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  4002f0:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  4002f4:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002f8:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  4002fc:	f44f 2280 	mov.w	r2, #262144	; 0x40000
+  400300:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  400304:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  400308:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  40030c:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400310:	f44f 2200 	mov.w	r2, #524288	; 0x80000
+  400314:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  400318:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  40031c:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400320:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+    NVIC->ICER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400324:	f44f 1280 	mov.w	r2, #1048576	; 0x100000
+  400328:	f8c3 2084 	str.w	r2, [r3, #132]	; 0x84
+  __ASM volatile ("dsb 0xF":::"memory");
+  40032c:	f3bf 8f4f 	dsb	sy
+  __ASM volatile ("isb 0xF":::"memory");
+  400330:	f3bf 8f6f 	isb	sy
+    NVIC->ICPR[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
+  400334:	f8c3 2184 	str.w	r2, [r3, #388]	; 0x184
+  400338:	bd08      	pop	{r3, pc}
+  40033a:	bf00      	nop
+  40033c:	0040020d 	.word	0x0040020d
+  400340:	00401215 	.word	0x00401215
+  400344:	e000e100 	.word	0xe000e100
 
 00400348 <Position_1_Interrupt>:
 	
@@ -1048,7 +1042,7 @@ void adc_enable_all(void){
 
 int counter = 0;
 
-void pwm_0_callback(void){
+void pwm_0_callback(const struct pwm_descriptor *const descr){
   4007dc:	b508      	push	{r3, lr}
 	counter ++;
   4007de:	4a08      	ldr	r2, [pc, #32]	; (400800 <pwm_0_callback+0x24>)
@@ -6937,7 +6931,7 @@ int main(void)
   402840:	004001d5 	.word	0x004001d5
   402844:	00400665 	.word	0x00400665
   402848:	0040080d 	.word	0x0040080d
-  40284c:	004001e9 	.word	0x004001e9
+  40284c:	00400231 	.word	0x00400231
   402850:	0040048d 	.word	0x0040048d
   402854:	004008e1 	.word	0x004008e1
   402858:	00400789 	.word	0x00400789

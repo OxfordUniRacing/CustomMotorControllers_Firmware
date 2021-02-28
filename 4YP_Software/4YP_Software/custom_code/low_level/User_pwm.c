@@ -17,7 +17,7 @@
 
 int counter = 0;
 
-void pwm_0_callback(void){
+void pwm_0_callback(const struct pwm_descriptor *const descr){
 	counter ++;
 	if (counter > 3000){
 		counter = 0;

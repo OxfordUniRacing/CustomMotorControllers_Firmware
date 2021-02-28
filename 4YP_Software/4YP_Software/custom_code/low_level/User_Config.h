@@ -116,7 +116,10 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 //--------------------------------------------------------------ENCODER------------------------------------------------------------------------------
 
 #define ENCODER_STEPS 4096
-#define ENCODER_LAXIS_OFFSET 123
+
+//offset between the Z axis position and the axis that we are measuring from
+// offset is measured in radians
+#define ENCODER_MOUNTING_OFFSET 0.0
 
 
 //--------------------------------------------------------------DMA for ADCs------------------------------------------------------------------------------
