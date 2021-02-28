@@ -58,10 +58,10 @@ void pos_sens_init (void){
 	ext_irq_register(PIO_PA5_IDX, Position_1_Interrupt);		//POS 1
 	
 	NVIC_EnableIRQ	(PIOA_IRQn);
-	NVIC_SetPriority(PIOA_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	NVIC_SetPriority(PIOA_IRQn, IRQ_PRIORITY_POSITION_SENS);
 	
 	NVIC_EnableIRQ	(PIOD_IRQn);
-	NVIC_SetPriority(PIOD_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	NVIC_SetPriority(PIOD_IRQn, IRQ_PRIORITY_POSITION_SENS);
 
 	
 	//SysTick starting from 0

@@ -125,10 +125,10 @@ static void Encoder_Z_Interrupt (void){
 
 void encoder_init(void){
 	//enable external interrupt on the Z line 
-	ext_irq_register(PIO_PA26_IDX,Encoder_Z_Interrupt);
+	ext_irq_register(PIO_PB13_IDX,Encoder_Z_Interrupt);
 	
-	NVIC_EnableIRQ	(PIOA_IRQn);
-	NVIC_SetPriority(PIOA_IRQn, IRQ_PRIORITY_PERIPHERAL);
+	NVIC_EnableIRQ	(PIOB_IRQn);
+	NVIC_SetPriority(PIOB_IRQn, IRQ_PRIORITY_ENCODER_Z);
 	
 	//make sure interrupts from the Timer counters are disabled
 	NVIC_DisableIRQ			(TC0_IRQn);
