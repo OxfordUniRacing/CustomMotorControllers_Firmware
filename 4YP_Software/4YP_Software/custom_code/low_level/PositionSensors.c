@@ -118,8 +118,10 @@ void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_i
 	(*time_in_current_sector) = (float) delta / 300;
 	
 	
-	//return pointer to the local times array
-	previous_deltas = &(pos_sens_deltas[0]);
+	//copy data over
+	for (int i = 0 ; i < POS_SENS_DELTAS_SIZE; i++){
+		previous_deltas[i] = pos_sens_deltas[i];
+	}
 	
 	//get which sector we are in
 	(*current_sector) = sector_lookup_table	[gpio_get_pin_level(PIN_GPIO_POS_3)]\
