@@ -186,11 +186,11 @@
           <AcmeProjectActionInfo Action="File" Source="stdio_start.h" IsConfig="false" Hash="5j2k69zdoQpbzluEyr/rHQ" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.h" IsConfig="false" Hash="TNU9VszFRFbDuMJ3vToUzg" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.c" IsConfig="false" Hash="lom1/YOY9m/TDACgnyb3yA" />
-          <AcmeProjectActionInfo Action="File" Source="config/hpl_afec_config.h" IsConfig="true" Hash="Xuyaq5cY5kXigzG2Z5BoMQ" />
+          <AcmeProjectActionInfo Action="File" Source="config/hpl_afec_config.h" IsConfig="true" Hash="FHYaPfjYnKeSOCiMWPwFXg" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_mcan_config.h" IsConfig="true" Hash="UijegEpuEmUcdyj73V9VKA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pio_config.h" IsConfig="true" Hash="7mhB/75IRUnMxwcXeHmLaw" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pmc_config.h" IsConfig="true" Hash="3XKiIx+uop95HFsqB+QIEA" />
-          <AcmeProjectActionInfo Action="File" Source="config/hpl_pwm_config.h" IsConfig="true" Hash="nCws4W6AQligt5tpCle6nA" />
+          <AcmeProjectActionInfo Action="File" Source="config/hpl_pwm_config.h" IsConfig="true" Hash="YAs4qPofgwkGRSP0gLexAg" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_systick_ARMv7_config.h" IsConfig="true" Hash="t3cQayNiIVFMCFQK142dew" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_tc_config.h" IsConfig="true" Hash="t+9x1i73e1dfouiIuds/tQ" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_usart_config.h" IsConfig="true" Hash="880KOvoY08lzBDUpbWPwbQ" />

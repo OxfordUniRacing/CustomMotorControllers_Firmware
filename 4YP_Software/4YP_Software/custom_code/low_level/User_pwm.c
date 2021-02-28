@@ -15,10 +15,14 @@
 #include <hpl_pwm.h>
 #include <hpl_pwm_config.h>
 
-
+int counter = 0;
 
 void pwm_0_callback(void){
-	
+	counter ++;
+	if (counter > 3000){
+		counter = 0;
+		printf("PWM Interrupt \n");
+	}
 }
 
 
@@ -40,6 +44,12 @@ void pwm_init_user(void){
 	hri_pwm_set_DT_DTL_bf	(PWM1, PWM_PHASE_C_CHANNEL, PWM_DEADTIME);		//set low side deadtime
 	
 	
+	//set comparison value for comparison unit. This should be done by the init function, however something is not working there; comparrison value = 1
+	//comparison channel was selected to 0
+	hri_pwm_set_CMPV_reg(PWM0, PWM_COMPARISON_UNIT_CHANNEL, PWM_CMPV_CV(CONF_PWM_0_CV0) );
+	hri_pwm_set_CMPV_reg(PWM1, PWM_COMPARISON_UNIT_CHANNEL, PWM_CMPV_CV(CONF_PWM_1_CV0) );
+	
+	
 	//we want interrupt from one of the PWMs so that we can start the control loop
 	//interrupt on PWM 0, channel 0 is enabled ; on PWM 1 is disabled
 	hri_pwm_set_IMR1_CHID0_bit(PWM0);									//enable the interrupt from ADC 0, channel 0
@@ -58,6 +68,11 @@ void pwm_init_user(void){
 void pwm_enable_all(void){
 	//note it's possible to eable individual channels, but not through these functions
 	//functions from hal_pwm.h
+	
+	
+	//enable comparison unit. This triggers the event line for the ADCs
+	hri_pwm_set_CMPM_reg(PWM0, PWM_COMPARISON_UNIT_CHANNEL, PWM_CMPM_CEN_Msk);
+	hri_pwm_set_CMPM_reg(PWM1, PWM_COMPARISON_UNIT_CHANNEL, PWM_CMPM_CEN_Msk);
 	
 	
 	//enable PWM0 and PWM1

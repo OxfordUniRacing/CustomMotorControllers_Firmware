@@ -51,6 +51,10 @@ pwm_set_duty(PWM_PHASE_C, 123);
 #define PWM_PHASE_C				&PWM_1, PWM_PHASE_C_CHANNEL
 
 
+//comparison unit for triggering the ADCs
+#define PWM_COMPARISON_UNIT_CHANNEL 0
+
+
 
 
 //--------------------------------------------------------------ADC------------------------------------------------------------------------------

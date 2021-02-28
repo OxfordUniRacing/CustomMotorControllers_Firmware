@@ -31,8 +31,7 @@ static char ready_values = 0;
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
 	//just for testing
-	//printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3],\
-	//	(int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
+	printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3], (int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
 	
 	
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
@@ -70,7 +69,7 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 
 static void dma_adc_1_callback(struct _dma_resource *resource){
 	//just for testing
-	//printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
+	printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
 	
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
 	for (int i =0; i < ADC_1_NUM_ACTIVE_CHANNELS; i++){

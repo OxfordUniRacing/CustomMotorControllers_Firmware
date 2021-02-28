@@ -65,7 +65,7 @@
 // <i> Hardware triggers are disabled. Starting a conversion is only possible by software.
 // <id> afec_trigger_enable
 #ifndef CONF_AFEC_0_TRGEN
-#define CONF_AFEC_0_TRGEN 0
+#define CONF_AFEC_0_TRGEN 1
 #endif
 
 // <o> Trigger Selection
@@ -79,7 +79,7 @@
 // <i> These bits define the trigger selection.
 // <id> afec_trigger_selection
 #ifndef CONF_AFEC_0_TRGSEL
-#define CONF_AFEC_0_TRGSEL 0x0
+#define CONF_AFEC_0_TRGSEL 0x5
 #endif
 // </e>
 
@@ -1098,7 +1098,7 @@
 // <i> Hardware triggers are disabled. Starting a conversion is only possible by software.
 // <id> afec_trigger_enable
 #ifndef CONF_AFEC_1_TRGEN
-#define CONF_AFEC_1_TRGEN 0
+#define CONF_AFEC_1_TRGEN 1
 #endif
 
 // <o> Trigger Selection
@@ -1112,7 +1112,7 @@
 // <i> These bits define the trigger selection.
 // <id> afec_trigger_selection
 #ifndef CONF_AFEC_1_TRGSEL
-#define CONF_AFEC_1_TRGSEL 0x0
+#define CONF_AFEC_1_TRGSEL 0x5
 #endif
 // </e>
 

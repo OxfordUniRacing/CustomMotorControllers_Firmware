@@ -447,7 +447,7 @@
 // <i> This defines the comparison 0 is enabled and can match.
 // <id> pwm_comp_enable0
 #ifndef CONF_PWM_0_COMP_ENABLE0
-#define CONF_PWM_0_COMP_ENABLE0 0
+#define CONF_PWM_0_COMP_ENABLE0 1
 #endif
 
 // <q> Event Lines 0 Comparison 0 Enable
@@ -461,14 +461,14 @@
 // <i> A pulse is generated on the event line 1 when the comparison match.
 // <id> pwm_elmr1_csel0_enable
 #ifndef CONF_PWM_0_ELMR1_CSEL0
-#define CONF_PWM_0_ELMR1_CSEL0 0
+#define CONF_PWM_0_ELMR1_CSEL0 1
 #endif
 
 // <o> Comparison 0 Value <0-65535>
 // <i> Define the comparison 0 value to be compared with the counter of the channel 0.
 // <id> pwm_cv0
 #ifndef CONF_PWM_0_CV0
-#define CONF_PWM_0_CV0 0
+#define CONF_PWM_0_CV0 1
 #endif
 
 // <o> Comparison 0 Value Mode
@@ -2079,7 +2079,7 @@
 // <i> This defines the comparison 0 is enabled and can match.
 // <id> pwm_comp_enable0
 #ifndef CONF_PWM_1_COMP_ENABLE0
-#define CONF_PWM_1_COMP_ENABLE0 0
+#define CONF_PWM_1_COMP_ENABLE0 1
 #endif
 
 // <q> Event Lines 0 Comparison 0 Enable
@@ -2093,14 +2093,14 @@
 // <i> A pulse is generated on the event line 1 when the comparison match.
 // <id> pwm_elmr1_csel0_enable
 #ifndef CONF_PWM_1_ELMR1_CSEL0
-#define CONF_PWM_1_ELMR1_CSEL0 0
+#define CONF_PWM_1_ELMR1_CSEL0 1
 #endif
 
 // <o> Comparison 0 Value <0-65535>
 // <i> Define the comparison 0 value to be compared with the counter of the channel 0.
 // <id> pwm_cv0
 #ifndef CONF_PWM_1_CV0
-#define CONF_PWM_1_CV0 0
+#define CONF_PWM_1_CV0 1
 #endif
 
 // <o> Comparison 0 Value Mode

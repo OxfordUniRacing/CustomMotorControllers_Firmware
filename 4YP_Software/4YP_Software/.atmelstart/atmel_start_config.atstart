@@ -128,8 +128,9 @@ drivers:
       afec_tag: true
       afec_tracktim: 15
       afec_transfer: 2
-      afec_trigger_enable: false
-      afec_trigger_selection: AFE0_ADTRG for AFEC0 / AFE1_ADTRG for AFEC1
+      afec_trigger_enable: true
+      afec_trigger_selection: PWM0 event line 1 for AFEC0 / PWM1 event line 1 for
+        AFEC1
       afec_usch0: None
       afec_usch1: None
       afec_usch10: None
@@ -296,8 +297,9 @@ drivers:
       afec_tag: true
       afec_tracktim: 15
       afec_transfer: 2
-      afec_trigger_enable: false
-      afec_trigger_selection: AFE0_ADTRG for AFEC0 / AFE1_ADTRG for AFEC1
+      afec_trigger_enable: true
+      afec_trigger_selection: PWM0 event line 1 for AFEC0 / PWM1 event line 1 for
+        AFEC1
       afec_usch0: None
       afec_usch1: None
       afec_usch10: None
@@ -793,7 +795,7 @@ drivers:
       pwm_channel3_disabled_polarity_inverted: false
       pwm_channel3_fault_config: false
       pwm_channel3_output_polarity: The OCx output waveform starts at a low level
-      pwm_comp_enable0: false
+      pwm_comp_enable0: true
       pwm_comp_enable1: false
       pwm_comp_enable2: false
       pwm_comp_enable3: false
@@ -825,7 +827,7 @@ drivers:
       pwm_cupr5: 0
       pwm_cupr6: 0
       pwm_cupr7: 0
-      pwm_cv0: 0
+      pwm_cv0: 1
       pwm_cv1: 0
       pwm_cv2: 0
       pwm_cv3: 0
@@ -851,7 +853,7 @@ drivers:
       pwm_elmr0_csel5_enable: false
       pwm_elmr0_csel6_enable: false
       pwm_elmr0_csel7_enable: false
-      pwm_elmr1_csel0_enable: false
+      pwm_elmr1_csel0_enable: true
       pwm_elmr1_csel1_enable: false
       pwm_elmr1_csel2_enable: false
       pwm_elmr1_csel3_enable: false
@@ -1030,7 +1032,7 @@ drivers:
       pwm_channel3_disabled_polarity_inverted: false
       pwm_channel3_fault_config: false
       pwm_channel3_output_polarity: The OCx output waveform starts at a low level
-      pwm_comp_enable0: false
+      pwm_comp_enable0: true
       pwm_comp_enable1: false
       pwm_comp_enable2: false
       pwm_comp_enable3: false
@@ -1062,7 +1064,7 @@ drivers:
       pwm_cupr5: 0
       pwm_cupr6: 0
       pwm_cupr7: 0
-      pwm_cv0: 0
+      pwm_cv0: 1
       pwm_cv1: 0
       pwm_cv2: 0
       pwm_cv3: 0
@@ -1088,7 +1090,7 @@ drivers:
       pwm_elmr0_csel5_enable: false
       pwm_elmr0_csel6_enable: false
       pwm_elmr0_csel7_enable: false
-      pwm_elmr1_csel0_enable: false
+      pwm_elmr1_csel0_enable: true
       pwm_elmr1_csel1_enable: false
       pwm_elmr1_csel2_enable: false
       pwm_elmr1_csel3_enable: false
