@@ -52,9 +52,11 @@ int main(void)
 	
 	//test timers for encoder
 	//Timer_Counter_Initial_Test();
+	//test encoder itself
+	Encoder_Initial_Test();
 	
 	//test position sensor
-	POS_Sensor_Initial_Test();
+	//POS_Sensor_Initial_Test();
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up

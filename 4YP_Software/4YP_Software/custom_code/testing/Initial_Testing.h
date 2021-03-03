@@ -16,7 +16,7 @@ void PWM_Initial_Test (void);
 void POS_Sensor_Initial_Test (void);
 
 void Timer_Counter_Initial_Test (void);
-
+void Encoder_Initial_Test(void);
 
 
 

@@ -86,6 +86,8 @@ hri_tc_write_RC_reg(device->hw, 1, clock_cycles);	//newly added
 #include <atmel_start.h>
 #include "arm_math.h"
 
+#include "hpl_pmc.h"
+
 
 
 
@@ -124,6 +126,15 @@ static void Encoder_Z_Interrupt (void){
 }
 
 void encoder_init(void){
+	//default driver_init.c only enables the clock on channel 0
+	//make sure all clocks are enabled
+	_pmc_enable_periph_clock(ID_TC0_CHANNEL0);
+	_pmc_enable_periph_clock(ID_TC0_CHANNEL1);
+	
+	_pmc_enable_periph_clock(ID_TC3_CHANNEL0);
+	_pmc_enable_periph_clock(ID_TC3_CHANNEL1);
+	
+	
 	//enable external interrupt on the Z line 
 	ext_irq_register(PIO_PB13_IDX,Encoder_Z_Interrupt);
 	
@@ -180,8 +191,9 @@ float encoder_get_angle(void){
 	int current_counter = encoder_counter_no_offset & (ENCODER_STEPS - 1);
 	
 	//convert to radians and scale
-	float angle = (2 * PI * ((float)(current_counter)) / ENCODER_STEPS) + ENCODER_MOUNTING_OFFSET;
-	return angle;
+	float angl  = (2 * PI * (float) current_counter / ENCODER_STEPS) + ENCODER_MOUNTING_OFFSET;
+	
+	return angl;
 }
 
 int encoder_get_counter(void){
@@ -195,11 +207,12 @@ int encoder_get_counter(void){
 									+ ( int) hri_tc_read_CV_CV_bf(TC3,0) + ( int) hri_tc_read_CV_CV_bf(TC3,1) \
 									- encoder_inital_offset;														//get the number of steps normalised to the starting offset
 								
+	
 	return encoder_counter_no_offset;
 }
 
 int encoder_get_rotations(void){
 	//if the counter < initial offset that means we have not completed the rotation yet (Z interrupt probably triggers somewhere in the middle of the rotation)
-	return encoder_num_Z_interrupts - (encoder_get_counter < encoder_inital_offset);
+	return encoder_num_Z_interrupts - (encoder_get_counter () < encoder_inital_offset);
 }
 
