@@ -12,7 +12,7 @@
 #include <atmel_start.h>
 
 
-
+int cnt = 0;
 
 static inline void Position_General_Interrupt(void){
 	//records the delta value in systick and uses that to calculate delta t from the last position sensor interrupt
@@ -22,11 +22,15 @@ static inline void Position_General_Interrupt(void){
 	
 	//get systick value immediately for most accurate result
 	int current_systick = SysTick->VAL;
-	int delta = current_systick - pos_sens_last_SysTick_count;
-		
+	int delta = pos_sens_last_SysTick_count - current_systick;	//systick decrements
+	
+	
+	
+	//printf("%i \n", current_systick);
 	//if there was an overflow, account for it
 	//NB this can only handle one overflow at max <=> if systick frequency < interrupt frequency timing will be very inaccurate
-	if(delta <= 0) delta += (1<<25);	//systick is 24 bit counter
+	if(delta <= 0) delta += (1<<24);	//systick is 24 bit counter
+		
 		
 		
 		
@@ -40,6 +44,9 @@ static inline void Position_General_Interrupt(void){
 	
 	// update previous systick value
 	pos_sens_last_SysTick_count = current_systick;
+	
+	
+	
 }
 
 static void Position_1_Interrupt (void){
@@ -49,7 +56,7 @@ static void Position_1_Interrupt (void){
 
 static void Position_2_Interrupt (void){
 	Position_General_Interrupt();
-	printf("POS 2\n");
+	//printf("POS 2\n");
 }
 
 static void Position_3_Interrupt (void){
@@ -117,11 +124,11 @@ void get_Data_Pos (float * previous_deltas, int * current_sector, float * time_i
 	
 	//get systick value immediately for most accurate result
 	int current_systick = SysTick->VAL;
-	int delta = current_systick - pos_sens_last_SysTick_count;
+	int delta = pos_sens_last_SysTick_count - current_systick;	//systick decrements
 	
 	//if there was an overflow, account for it
 	//NB this can only handle one overflow at max <=> if systick frequency < interrupt frequency timing will be very inaccurate
-	if(delta <= 0) delta += (1<<25);	//systick is 24 bit counter
+	if(delta <= 0) delta += (1<<24);	//systick is 24 bit counter
 	
 	//systick clock frequency equals MCU clock at 300MHz
 	(*time_in_current_sector) = (float) delta / 300;

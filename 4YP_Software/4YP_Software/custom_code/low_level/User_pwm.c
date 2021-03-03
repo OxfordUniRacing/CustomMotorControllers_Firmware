@@ -21,7 +21,7 @@ void pwm_0_callback(const struct pwm_descriptor *const descr){
 	counter ++;
 	if (counter > 3000){
 		counter = 0;
-		printf("PWM Interrupt \n");
+		//printf("PWM Interrupt \n");
 	}
 }
 

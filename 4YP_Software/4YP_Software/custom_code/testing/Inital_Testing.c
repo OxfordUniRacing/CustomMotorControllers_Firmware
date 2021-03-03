@@ -90,7 +90,29 @@ void first_slow_spin (void){
 
 
 void PWM_Initial_Test (void);
-void POS_Sensor_Initial_Test (void);
+void POS_Sensor_Initial_Test (void){
+	
+	int control_pos_sens_sector;
+	float control_pos_sens_deltas[POS_SENS_DELTAS_SIZE];
+	float control_pos_sens_time_in_current_sector;
+	
+	
+	while(1){
+		get_Data_Pos(&(control_pos_sens_deltas[0]), &control_pos_sens_sector, &control_pos_sens_time_in_current_sector);
+		printf("Deltas = %f \t %f\n",control_pos_sens_deltas[0],control_pos_sens_deltas[1]);
+		printf("Curr time = %f\n", control_pos_sens_time_in_current_sector);
+		
+		//do an artificial delay without using the delay function as that alters the SysTick
+		int k =1;
+		for (int i = 1; i<(1<<26);i++){
+			k = k*i;
+		}
+		printf("k = %i \n",k);
+	}
+	
+	
+	
+}
 
 
 void Timer_Counter_Initial_Test (void){
