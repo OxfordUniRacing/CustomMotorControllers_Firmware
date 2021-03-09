@@ -6,6 +6,7 @@
  */ 
 
 #include "Control.h"
+#include "ControlConfig.h"
 
 void Init_Control(void){
 	arm_mat_init_f32 (&A,A_rows,A_cols,(float32_t *)A_data);    //MATRIX EXAMPLE
@@ -17,18 +18,25 @@ void Init_Control(void){
 }
 
 
-void getIqId_r(float torquerequest, float* Iq_r, float* Id_r){		//Calculates reference currents based on the torque requests 
-	//Can use MTPA equation or MPPA or whatever 
-}	
+void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float* V_dc){		//Calculates reference currents based on the torque requests 
+	
+	//float omega_base_e = V_dc*LST_SQ_OMEGA_BASE_E				//FIELD WEAKENING PART TO FINISH
+	//if(omega_e > omega_base_e ){}
+		
+	float I_m = 2*torquerequest/(3*PP*FLUX_PM);
+		if (I_m > I_MAX){I_m = I_MAX;}
+	*Id_r = C1 - sqrt(C1_SQR - 0.5*(I_m*I_m));
+	*Iq_r = sqrt(I_m*I_m - (*Id_r)*(*Id_r));
+	}	
 
 void SVPWM(float Va_aim, float Vb_aim, float* PWM){							//Space Vector Modulation Function
 	float Vc_aim;
 	Vc_aim = -Vb_aim - Va_aim;										//Calculates third voltage aim
 	
 	float Va_comp, Vb_comp, Vc_comp;
-	Va_comp = (V_DC-Va_aim)/V_DC;									//normalise 
-	Vb_comp = (V_DC-Vb_aim)/V_DC;	
-	Vc_comp = (V_DC-Vc_aim)/V_DC;
+	Va_comp = (V_dc-Va_aim)/V_dc;									//normalise 
+	Vb_comp = (V_dc-Vb_aim)/V_dc;	
+	Vc_comp = (V_dc-Vc_aim)/V_dc;
 	
 	float V_min;
 	
@@ -54,7 +62,7 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM){							//Space Vector Modulat
 void Control(float torquerequest){
 	
 	float Iq_r, Id_r;
-	getIqId_r(torquerequest, &Iq_r, &Id_r);	//Get the id and iq requested current
+	getIqId_r(torquerequest, &Iq_r, &Id_r, &V_dc);	//Get the id and iq requested current
 	
 	theta_e = getTheta();
 	float sintheta_e = sin(theta_e);

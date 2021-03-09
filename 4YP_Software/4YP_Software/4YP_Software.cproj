@@ -491,6 +491,9 @@
     <Compile Include="custom_code\control\Control.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\control\ControlConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="custom_code\control\ControlStartup.c">
       <SubType>compile</SubType>
     </Compile>

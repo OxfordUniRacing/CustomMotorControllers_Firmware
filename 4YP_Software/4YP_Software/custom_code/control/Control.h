@@ -40,9 +40,6 @@ arm_matrix_instance_f32 I;
 float theta_e;
 float omega_e;
 
-// DC Link Voltage
-float V_DC;
-
 // PWM Duty Cycle output
 #define PWM_cols 1
 #define PWM_rows 3
