@@ -98,6 +98,8 @@ static void Encoder_Z_Interrupt (void){
 	//get counter value
 	int encoder_counter_no_offset = encoder_get_counter();
 	
+	//printf("Z interrupt - %i \t; offset = %i \n", encoder_counter_no_offset, encoder_inital_offset);
+	
 	
 	//if first rotation then record the offset
 	if(encoder_num_Z_interrupts == 0){
@@ -110,12 +112,17 @@ static void Encoder_Z_Interrupt (void){
 		// and we also eliminate any problems with overflowing counters
 		unsigned int delta = encoder_counter_no_offset & (ENCODER_STEPS - 1);
 		
+		//printf("Z interrupt - delta = %i \n", delta);
+		
 		//ideally delta should be zero
 		// tolerance up to +2 (0<=delta <=2) or -2 (ENCODER_STEPS-3<=delta)
-		if( (delta <=2) || (delta >= ENCODER_STEPS-3) ){
+		if( (delta <= ENCODER_MAX_DELTA) || (delta >= ENCODER_STEPS-1 - ENCODER_MAX_DELTA) ){
 			//all is good
-		}else{
+			}else{
 			//something is wrong
+			
+			//zero out the initial offset coutner to not corrupt future data
+			encoder_inital_offset += delta;
 		}
 		
 	}
@@ -191,7 +198,7 @@ float encoder_get_angle(void){
 	int current_counter = encoder_counter_no_offset & (ENCODER_STEPS - 1);
 	
 	//convert to radians and scale
-	float angl  = (2 * PI * (float) current_counter / ENCODER_STEPS) + ENCODER_MOUNTING_OFFSET;
+	float angl  = (2 * PI * (float) current_counter / (ENCODER_STEPS)) + ENCODER_MOUNTING_OFFSET;
 	
 	return angl;
 }

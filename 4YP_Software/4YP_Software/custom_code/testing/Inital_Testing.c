@@ -150,10 +150,10 @@ void Encoder_Initial_Test(void){
 		float encangle = encoder_get_angle();
 		printf("Encoder counter = %i \t; angle = %f \n", enccntr, encangle);
 		
-		printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));
-		printf("Encoder B = \t %u ; \t %u \n\n", (unsigned int) hri_tc_read_CV_CV_bf(TC3,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC3,1));
+		//printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));
+		//printf("Encoder B = \t %u ; \t %u \n\n", (unsigned int) hri_tc_read_CV_CV_bf(TC3,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC3,1));
 		
 		
-		delay_ms(1000);
+		delay_ms(3000);
 	}
 }

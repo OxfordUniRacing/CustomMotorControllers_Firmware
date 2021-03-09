@@ -115,7 +115,11 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 
 //--------------------------------------------------------------ENCODER------------------------------------------------------------------------------
 
-#define ENCODER_STEPS 4096
+//encoder has 4 data points per pulse (2 for each edge
+#define ENCODER_STEPS 4096*4
+
+//max delta (in steps) after which we start throwing errors;  accepted error 0+-delta
+#define ENCODER_MAX_DELTA 2
 
 //offset between the Z axis position and the axis that we are measuring from
 // offset is measured in radians
