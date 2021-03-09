@@ -57,7 +57,7 @@ struct PID_instance PID_q;
 struct PID_instance PID_d;
 
 
-void Control(float torquerequest);
+void Control(float torquerequest, float V_dc);
 
 
 

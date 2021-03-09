@@ -18,18 +18,18 @@ void Init_Control(void){
 }
 
 
-void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float* V_dc){		//Calculates reference currents based on the torque requests 
+void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc){		//Calculates reference currents based on the torque requests 
 	
 	//float omega_base_e = V_dc*LST_SQ_OMEGA_BASE_E				//FIELD WEAKENING PART TO FINISH
 	//if(omega_e > omega_base_e ){}
 		
 	float I_m = 2*torquerequest/(3*PP*FLUX_PM);
-		if (I_m > I_MAX){I_m = I_MAX;}
+	if (I_m > I_MAX){I_m = I_MAX;}
 	*Id_r = C1 - sqrt(C1_SQR - 0.5*(I_m*I_m));
 	*Iq_r = sqrt(I_m*I_m - (*Id_r)*(*Id_r));
-	}	
+}	
 
-void SVPWM(float Va_aim, float Vb_aim, float* PWM){							//Space Vector Modulation Function
+void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc){							//Space Vector Modulation Function
 	float Vc_aim;
 	Vc_aim = -Vb_aim - Va_aim;										//Calculates third voltage aim
 	
@@ -42,13 +42,11 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM){							//Space Vector Modulat
 	
 	if((Va_comp<Vb_comp)&&(Va_comp<Vc_comp)) {					//Finds minimum 
 		V_min = Va_comp;
-		}
-	else{
+	}else{
 		if(Vb_comp<Vc_comp){
-		V_min = Vb_comp;
-		}
-		else{
-		V_min = Vc_comp;
+			V_min = Vb_comp;
+		}else{
+			V_min = Vc_comp;
 		}
 	}
 	
@@ -59,10 +57,10 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM){							//Space Vector Modulat
 	
 }
 
-void Control(float torquerequest){
+void Control(float torquerequest, float V_dc){
 	
 	float Iq_r, Id_r;
-	getIqId_r(torquerequest, &Iq_r, &Id_r, &V_dc);	//Get the id and iq requested current
+	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
 	
 	theta_e = getTheta();
 	float sintheta_e = sin(theta_e);
@@ -83,7 +81,7 @@ void Control(float torquerequest){
 	float Va_aim, Vb_aim;
 	arm_inv_clarke_f32(Valpha_aim,Vbeta_aim,&Va_aim,&Vb_aim);		//Inverse clarke transform
 	
-	SVPWM(Va_aim, Vb_aim, (float32_t *)PWM_data);										//Updates PWM values using space vector PWM
+	SVPWM(Va_aim, Vb_aim, (float32_t *)PWM_data, V_dc);										//Updates PWM values using space vector PWM
 	
 }
 

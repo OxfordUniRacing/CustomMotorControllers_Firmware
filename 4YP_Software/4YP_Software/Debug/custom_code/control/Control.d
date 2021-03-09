@@ -178,7 +178,8 @@ custom_code/control/Control.d custom_code/control/Control.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../custom_code/control/getTheta.h ../custom_code/control/PID.h
+ ../custom_code/control/getTheta.h ../custom_code/control/PID.h \
+ ../custom_code/control/ControlConfig.h
 
 ../custom_code/control/Control.h:
 
@@ -633,3 +634,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/control/getTheta.h:
 
 ../custom_code/control/PID.h:
+
+../custom_code/control/ControlConfig.h:
