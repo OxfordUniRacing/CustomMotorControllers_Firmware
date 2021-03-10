@@ -433,6 +433,87 @@ drivers:
     variant: null
     clocks:
       domain_group: null
+  EXTERNAL_IRQ_B:
+    user_label: EXTERNAL_IRQ_B
+    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::PIOB::driver_config_definition::External.IRQ::HAL:Driver:Ext.IRQ
+    functionality: External_IRQ
+    api: HAL:Driver:Ext_IRQ
+    configuration:
+      gpio_ext_irq_sense0: Any change detection
+      gpio_ext_irq_sense1: Any change detection
+      gpio_ext_irq_sense10: Any change detection
+      gpio_ext_irq_sense11: Any change detection
+      gpio_ext_irq_sense12: Any change detection
+      gpio_ext_irq_sense13: Rising-edge detection
+      gpio_ext_irq_sense14: Any change detection
+      gpio_ext_irq_sense15: Any change detection
+      gpio_ext_irq_sense16: Any change detection
+      gpio_ext_irq_sense17: Any change detection
+      gpio_ext_irq_sense18: Any change detection
+      gpio_ext_irq_sense19: Any change detection
+      gpio_ext_irq_sense2: Any change detection
+      gpio_ext_irq_sense20: Any change detection
+      gpio_ext_irq_sense21: Any change detection
+      gpio_ext_irq_sense22: Any change detection
+      gpio_ext_irq_sense23: Any change detection
+      gpio_ext_irq_sense24: Any change detection
+      gpio_ext_irq_sense25: Any change detection
+      gpio_ext_irq_sense26: Any change detection
+      gpio_ext_irq_sense27: Any change detection
+      gpio_ext_irq_sense28: Any change detection
+      gpio_ext_irq_sense29: Any change detection
+      gpio_ext_irq_sense3: Any change detection
+      gpio_ext_irq_sense30: Any change detection
+      gpio_ext_irq_sense31: Any change detection
+      gpio_ext_irq_sense4: Any change detection
+      gpio_ext_irq_sense5: Any change detection
+      gpio_ext_irq_sense6: Any change detection
+      gpio_ext_irq_sense7: Any change detection
+      gpio_ext_irq_sense8: Any change detection
+      gpio_ext_irq_sense9: Any change detection
+      pio_ext_irq_enable_setting0: false
+      pio_ext_irq_enable_setting1: false
+      pio_ext_irq_enable_setting10: false
+      pio_ext_irq_enable_setting11: false
+      pio_ext_irq_enable_setting12: false
+      pio_ext_irq_enable_setting13: true
+      pio_ext_irq_enable_setting14: false
+      pio_ext_irq_enable_setting15: false
+      pio_ext_irq_enable_setting16: false
+      pio_ext_irq_enable_setting17: false
+      pio_ext_irq_enable_setting18: false
+      pio_ext_irq_enable_setting19: false
+      pio_ext_irq_enable_setting2: false
+      pio_ext_irq_enable_setting20: false
+      pio_ext_irq_enable_setting21: false
+      pio_ext_irq_enable_setting22: false
+      pio_ext_irq_enable_setting23: false
+      pio_ext_irq_enable_setting24: false
+      pio_ext_irq_enable_setting25: false
+      pio_ext_irq_enable_setting26: false
+      pio_ext_irq_enable_setting27: false
+      pio_ext_irq_enable_setting28: false
+      pio_ext_irq_enable_setting29: false
+      pio_ext_irq_enable_setting3: false
+      pio_ext_irq_enable_setting30: false
+      pio_ext_irq_enable_setting31: false
+      pio_ext_irq_enable_setting4: false
+      pio_ext_irq_enable_setting5: false
+      pio_ext_irq_enable_setting6: false
+      pio_ext_irq_enable_setting7: false
+      pio_ext_irq_enable_setting8: false
+      pio_ext_irq_enable_setting9: false
+    optional_signals:
+    - identifier: EXTERNAL_IRQ_B:P/45
+      pad: PB13
+      mode: Ext IRQ Enabled
+      configuration: null
+      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::PIOB.P.45
+      name: PIOB/P/45
+      label: P/45
+    variant: null
+    clocks:
+      domain_group: null
   EXTERNAL_IRQ_A:
     user_label: EXTERNAL_IRQ_A
     definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::PIOA::driver_config_definition::External.IRQ::HAL:Driver:Ext.IRQ
@@ -518,87 +599,6 @@ drivers:
       definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::PIOA.P.5
       name: PIOA/P/5
       label: P/5
-    variant: null
-    clocks:
-      domain_group: null
-  EXTERNAL_IRQ_B:
-    user_label: EXTERNAL_IRQ_B
-    definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::PIOB::driver_config_definition::External.IRQ::HAL:Driver:Ext.IRQ
-    functionality: External_IRQ
-    api: HAL:Driver:Ext_IRQ
-    configuration:
-      gpio_ext_irq_sense0: Any change detection
-      gpio_ext_irq_sense1: Any change detection
-      gpio_ext_irq_sense10: Any change detection
-      gpio_ext_irq_sense11: Any change detection
-      gpio_ext_irq_sense12: Any change detection
-      gpio_ext_irq_sense13: Rising-edge detection
-      gpio_ext_irq_sense14: Any change detection
-      gpio_ext_irq_sense15: Any change detection
-      gpio_ext_irq_sense16: Any change detection
-      gpio_ext_irq_sense17: Any change detection
-      gpio_ext_irq_sense18: Any change detection
-      gpio_ext_irq_sense19: Any change detection
-      gpio_ext_irq_sense2: Any change detection
-      gpio_ext_irq_sense20: Any change detection
-      gpio_ext_irq_sense21: Any change detection
-      gpio_ext_irq_sense22: Any change detection
-      gpio_ext_irq_sense23: Any change detection
-      gpio_ext_irq_sense24: Any change detection
-      gpio_ext_irq_sense25: Any change detection
-      gpio_ext_irq_sense26: Any change detection
-      gpio_ext_irq_sense27: Any change detection
-      gpio_ext_irq_sense28: Any change detection
-      gpio_ext_irq_sense29: Any change detection
-      gpio_ext_irq_sense3: Any change detection
-      gpio_ext_irq_sense30: Any change detection
-      gpio_ext_irq_sense31: Any change detection
-      gpio_ext_irq_sense4: Any change detection
-      gpio_ext_irq_sense5: Any change detection
-      gpio_ext_irq_sense6: Any change detection
-      gpio_ext_irq_sense7: Any change detection
-      gpio_ext_irq_sense8: Any change detection
-      gpio_ext_irq_sense9: Any change detection
-      pio_ext_irq_enable_setting0: false
-      pio_ext_irq_enable_setting1: false
-      pio_ext_irq_enable_setting10: false
-      pio_ext_irq_enable_setting11: false
-      pio_ext_irq_enable_setting12: false
-      pio_ext_irq_enable_setting13: true
-      pio_ext_irq_enable_setting14: false
-      pio_ext_irq_enable_setting15: false
-      pio_ext_irq_enable_setting16: false
-      pio_ext_irq_enable_setting17: false
-      pio_ext_irq_enable_setting18: false
-      pio_ext_irq_enable_setting19: false
-      pio_ext_irq_enable_setting2: false
-      pio_ext_irq_enable_setting20: false
-      pio_ext_irq_enable_setting21: false
-      pio_ext_irq_enable_setting22: false
-      pio_ext_irq_enable_setting23: false
-      pio_ext_irq_enable_setting24: false
-      pio_ext_irq_enable_setting25: false
-      pio_ext_irq_enable_setting26: false
-      pio_ext_irq_enable_setting27: false
-      pio_ext_irq_enable_setting28: false
-      pio_ext_irq_enable_setting29: false
-      pio_ext_irq_enable_setting3: false
-      pio_ext_irq_enable_setting30: false
-      pio_ext_irq_enable_setting31: false
-      pio_ext_irq_enable_setting4: false
-      pio_ext_irq_enable_setting5: false
-      pio_ext_irq_enable_setting6: false
-      pio_ext_irq_enable_setting7: false
-      pio_ext_irq_enable_setting8: false
-      pio_ext_irq_enable_setting9: false
-    optional_signals:
-    - identifier: EXTERNAL_IRQ_B:P/45
-      pad: PB13
-      mode: Ext IRQ Enabled
-      configuration: null
-      definition: Atmel:SAME70B_Drivers:0.0.1::ATSAME70Q21B-AN::optional_signal_definition::PIOB.P.45
-      name: PIOB/P/45
-      label: P/45
     variant: null
     clocks:
       domain_group: null
@@ -843,7 +843,7 @@ drivers:
       pwm_cvm5: The comparison value is performed when this counter is incrementing.
       pwm_cvm6: The comparison value is performed when this counter is incrementing.
       pwm_cvm7: The comparison value is performed when this counter is incrementing.
-      pwm_diva: 25
+      pwm_diva: 5
       pwm_divb: 1
       pwm_elmr0_csel0_enable: false
       pwm_elmr0_csel1_enable: false
@@ -1080,7 +1080,7 @@ drivers:
       pwm_cvm5: The comparison value is performed when this counter is incrementing.
       pwm_cvm6: The comparison value is performed when this counter is incrementing.
       pwm_cvm7: The comparison value is performed when this counter is incrementing.
-      pwm_diva: 25
+      pwm_diva: 5
       pwm_divb: 1
       pwm_elmr0_csel0_enable: false
       pwm_elmr0_csel1_enable: false

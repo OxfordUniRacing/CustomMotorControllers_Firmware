@@ -98,6 +98,18 @@ void EXTERNAL_IRQ_D_example(void)
 	ext_irq_register(PIO_PD19_IDX, button_on_PD19_pressed);
 }
 
+static void button_on_PB13_pressed(void)
+{
+}
+
+/**
+ * Example of using EXTERNAL_IRQ_B
+ */
+void EXTERNAL_IRQ_B_example(void)
+{
+	ext_irq_register(PIO_PB13_IDX, button_on_PB13_pressed);
+}
+
 static void button_on_PA2_pressed(void)
 {
 }
@@ -112,18 +124,6 @@ void EXTERNAL_IRQ_A_example(void)
 {
 	ext_irq_register(PIO_PA2_IDX, button_on_PA2_pressed);
 	ext_irq_register(PIO_PA5_IDX, button_on_PA5_pressed);
-}
-
-static void button_on_PB13_pressed(void)
-{
-}
-
-/**
- * Example of using EXTERNAL_IRQ_B
- */
-void EXTERNAL_IRQ_B_example(void)
-{
-	ext_irq_register(PIO_PB13_IDX, button_on_PB13_pressed);
 }
 
 static void period_cb_PWM_0(const struct pwm_descriptor *const descr)

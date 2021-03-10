@@ -53,7 +53,7 @@
 #define CONF_EXTIRQ_4_ENABLE 0
 #endif
 
-#define EXT_IRQ_AMOUNT (0 + 1 + 2 + 1)
+#define EXT_IRQ_AMOUNT (0 + 1 + 1 + 2)
 
 struct ext_irq_configuration {
 	uint8_t  number;
@@ -324,12 +324,12 @@ void PIOD_Handler(void)
 	_ext_irq_handler();
 }
 
-void PIOA_Handler(void)
+void PIOB_Handler(void)
 {
 	_ext_irq_handler();
 }
 
-void PIOB_Handler(void)
+void PIOA_Handler(void)
 {
 	_ext_irq_handler();
 }

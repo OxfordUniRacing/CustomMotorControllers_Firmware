@@ -53,10 +53,15 @@ int main(void)
 	//test timers for encoder
 	//Timer_Counter_Initial_Test();
 	//test encoder itself
-	Encoder_Initial_Test();
+	//Encoder_Initial_Test();
 	
 	//test position sensor
 	//POS_Sensor_Initial_Test();
+	
+	
+	pwm_set_duty(PWM_PHASE_B, 500);
+	pwm_disable(&PWM_1);
+	while(1){}
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up

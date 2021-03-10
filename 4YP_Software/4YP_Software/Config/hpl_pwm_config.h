@@ -34,7 +34,7 @@
 // <i> Defines the clka divided by DIVA factor
 // <id> pwm_diva
 #ifndef CONF_PWM_0_DIVA
-#define CONF_PWM_0_DIVA 25
+#define CONF_PWM_0_DIVA 5
 #endif
 
 // <o> CLKB Source Clock Selection
@@ -1666,7 +1666,7 @@
 // <i> Defines the clka divided by DIVA factor
 // <id> pwm_diva
 #ifndef CONF_PWM_1_DIVA
-#define CONF_PWM_1_DIVA 25
+#define CONF_PWM_1_DIVA 5
 #endif
 
 // <o> CLKB Source Clock Selection

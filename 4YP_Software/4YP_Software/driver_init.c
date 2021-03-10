@@ -174,6 +174,23 @@ void EXTERNAL_IRQ_D_init(void)
 	gpio_set_pin_function(PIN_GPIO_POS_3, GPIO_PIN_FUNCTION_OFF);
 }
 
+void EXTERNAL_IRQ_B_init(void)
+{
+
+	// Set pin direction to input
+	gpio_set_pin_direction(PIN_ENCODER_Z, GPIO_DIRECTION_IN);
+
+	gpio_set_pin_pull_mode(PIN_ENCODER_Z,
+	                       // <y> Pull configuration
+	                       // <id> pad_pull_config
+	                       // <GPIO_PULL_OFF"> Off
+	                       // <GPIO_PULL_UP"> Pull-up
+	                       // <GPIO_PULL_DOWN"> Pull-down
+	                       GPIO_PULL_OFF);
+
+	gpio_set_pin_function(PIN_ENCODER_Z, GPIO_PIN_FUNCTION_OFF);
+}
+
 void EXTERNAL_IRQ_A_init(void)
 {
 
@@ -202,23 +219,6 @@ void EXTERNAL_IRQ_A_init(void)
 	                       GPIO_PULL_OFF);
 
 	gpio_set_pin_function(PIN_GPIO_POS_1, GPIO_PIN_FUNCTION_OFF);
-}
-
-void EXTERNAL_IRQ_B_init(void)
-{
-
-	// Set pin direction to input
-	gpio_set_pin_direction(PIN_ENCODER_Z, GPIO_DIRECTION_IN);
-
-	gpio_set_pin_pull_mode(PIN_ENCODER_Z,
-	                       // <y> Pull configuration
-	                       // <id> pad_pull_config
-	                       // <GPIO_PULL_OFF"> Off
-	                       // <GPIO_PULL_UP"> Pull-up
-	                       // <GPIO_PULL_DOWN"> Pull-down
-	                       GPIO_PULL_OFF);
-
-	gpio_set_pin_function(PIN_ENCODER_Z, GPIO_PIN_FUNCTION_OFF);
 }
 
 void PWM_0_PORT_init(void)
@@ -489,8 +489,8 @@ void system_init(void)
 	ADC_0_init();
 	ADC_1_init();
 	EXTERNAL_IRQ_D_init();
-	EXTERNAL_IRQ_A_init();
 	EXTERNAL_IRQ_B_init();
+	EXTERNAL_IRQ_A_init();
 
 	PWM_0_init();
 
