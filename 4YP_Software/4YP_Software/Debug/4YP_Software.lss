@@ -7,11 +7,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .relocate     00000218  20400000  004063c8  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000520  20400218  004065e0  00020218  2**2
+  2 .bss          000004f0  20400218  004065e0  00020218  2**2
                   ALLOC
-  3 .heap         00000200  20400738  00406b00  00020218  2**0
+  3 .heap         00000200  20400708  00406ad0  00020218  2**0
                   ALLOC
-  4 .stack        00000400  20400938  00406d00  00020218  2**0
+  4 .stack        00000400  20400908  00406cd0  00020218  2**0
                   ALLOC
   5 .ARM.attributes 0000002e  00000000  00000000  00020218  2**0
                   CONTENTS, READONLY
@@ -27,19 +27,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_ranges 00000cb0  00000000  00000000  0005c566  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_macro  00047c1a  00000000  00000000  0005d216  2**0
+ 12 .debug_macro  00047a49  00000000  00000000  0005d216  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_line   0001efea  00000000  00000000  000a4e30  2**0
+ 13 .debug_line   0001efea  00000000  00000000  000a4c5f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    00158b8d  00000000  00000000  000c3e1a  2**0
+ 14 .debug_str    00158b9d  00000000  00000000  000c3c49  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_frame  00002fb0  00000000  00000000  0021c9a8  2**2
+ 15 .debug_frame  00002fb0  00000000  00000000  0021c7e8  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
 
 00400000 <exception_table>:
-  400000:	38 0d 40 20 31 0a 40 00 2d 0a 40 00 2d 0a 40 00     8.@ 1.@.-.@.-.@.
+  400000:	08 0d 40 20 31 0a 40 00 2d 0a 40 00 2d 0a 40 00     ..@ 1.@.-.@.-.@.
   400010:	2d 0a 40 00 2d 0a 40 00 2d 0a 40 00 00 00 00 00     -.@.-.@.-.@.....
 	...
   40002c:	2d 0a 40 00 2d 0a 40 00 00 00 00 00 2d 0a 40 00     -.@.-.@.....-.@.
@@ -373,7 +373,7 @@ static inline hri_tc_cv_reg_t hri_tc_read_CV_CV_bf(const void *const hw, uint8_t
   40036c:	1a18      	subs	r0, r3, r0
   40036e:	4770      	bx	lr
   400370:	4000c000 	.word	0x4000c000
-  400374:	20400500 	.word	0x20400500
+  400374:	204004f4 	.word	0x204004f4
 
 00400378 <Encoder_Z_Interrupt>:
 static void Encoder_Z_Interrupt (void){
@@ -407,8 +407,8 @@ static void Encoder_Z_Interrupt (void){
   4003a4:	6013      	str	r3, [r2, #0]
   4003a6:	bd08      	pop	{r3, pc}
   4003a8:	00400355 	.word	0x00400355
-  4003ac:	204004fc 	.word	0x204004fc
-  4003b0:	20400500 	.word	0x20400500
+  4003ac:	204004f0 	.word	0x204004f0
+  4003b0:	204004f4 	.word	0x204004f4
 
 004003b4 <Position_1_Interrupt>:
 	
@@ -465,11 +465,11 @@ static void Position_1_Interrupt (void){
 	for (int i = POS_SENS_DELTAS_SIZE-1 ; i > 0; i--){
   400408:	4622      	mov	r2, r4
   40040a:	e7df      	b.n	4003cc <Position_1_Interrupt+0x18>
-  40040c:	204004f5 	.word	0x204004f5
+  40040c:	204004ed 	.word	0x204004ed
   400410:	e000e010 	.word	0xe000e010
-  400414:	20400510 	.word	0x20400510
+  400414:	20400500 	.word	0x20400500
   400418:	43960000 	.word	0x43960000
-  40041c:	20400508 	.word	0x20400508
+  40041c:	204004f8 	.word	0x204004f8
   400420:	00405c4c 	.word	0x00405c4c
   400424:	00403c85 	.word	0x00403c85
 
@@ -524,11 +524,11 @@ static void Position_2_Interrupt (void){
 	for (int i = POS_SENS_DELTAS_SIZE-1 ; i > 0; i--){
   400478:	4622      	mov	r2, r4
   40047a:	e7e1      	b.n	400440 <Position_2_Interrupt+0x18>
-  40047c:	204004f5 	.word	0x204004f5
+  40047c:	204004ed 	.word	0x204004ed
   400480:	e000e010 	.word	0xe000e010
-  400484:	20400510 	.word	0x20400510
+  400484:	20400500 	.word	0x20400500
   400488:	43960000 	.word	0x43960000
-  40048c:	20400508 	.word	0x20400508
+  40048c:	204004f8 	.word	0x204004f8
 
 00400490 <Position_3_Interrupt>:
 
@@ -581,11 +581,11 @@ static void Position_3_Interrupt (void){
 	for (int i = POS_SENS_DELTAS_SIZE-1 ; i > 0; i--){
   4004e4:	4622      	mov	r2, r4
   4004e6:	e7df      	b.n	4004a8 <Position_3_Interrupt+0x18>
-  4004e8:	204004f5 	.word	0x204004f5
+  4004e8:	204004ed 	.word	0x204004ed
   4004ec:	e000e010 	.word	0xe000e010
-  4004f0:	20400510 	.word	0x20400510
+  4004f0:	20400500 	.word	0x20400500
   4004f4:	43960000 	.word	0x43960000
-  4004f8:	20400508 	.word	0x20400508
+  4004f8:	204004f8 	.word	0x204004f8
   4004fc:	00405c54 	.word	0x00405c54
   400500:	00403c85 	.word	0x00403c85
 
@@ -677,10 +677,10 @@ void pos_sens_init (void){
   400574:	00400429 	.word	0x00400429
   400578:	004003b5 	.word	0x004003b5
   40057c:	e000e100 	.word	0xe000e100
-  400580:	20400510 	.word	0x20400510
+  400580:	20400500 	.word	0x20400500
   400584:	e000e010 	.word	0xe000e010
   400588:	204004cc 	.word	0x204004cc
-  40058c:	204004f5 	.word	0x204004f5
+  40058c:	204004ed 	.word	0x204004ed
 
 00400590 <dma_adc_0_enable_for_one_transaction>:
 	
@@ -810,15 +810,15 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 }
   40065c:	e7e8      	b.n	400630 <dma_adc_0_callback+0x74>
   40065e:	bf00      	nop
-  400660:	20400514 	.word	0x20400514
+  400660:	20400504 	.word	0x20400504
   400664:	20400234 	.word	0x20400234
   400668:	00405c5c 	.word	0x00405c5c
   40066c:	00403c85 	.word	0x00403c85
-  400670:	20400538 	.word	0x20400538
-  400674:	20400534 	.word	0x20400534
+  400670:	20400508 	.word	0x20400508
+  400674:	20400506 	.word	0x20400506
   400678:	00400591 	.word	0x00400591
   40067c:	00405c88 	.word	0x00405c88
-  400680:	20400544 	.word	0x20400544
+  400680:	20400514 	.word	0x20400514
   400684:	00405cd0 	.word	0x00405cd0
 
 00400688 <dma_adc_1_enable_for_one_transaction>:
@@ -942,13 +942,13 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
   40074c:	47a0      	blx	r4
 }
   40074e:	e7e8      	b.n	400722 <dma_adc_1_callback+0x6e>
-  400750:	204004f4 	.word	0x204004f4
+  400750:	204004ec 	.word	0x204004ec
   400754:	20400234 	.word	0x20400234
   400758:	00405cbc 	.word	0x00405cbc
   40075c:	00403c85 	.word	0x00403c85
-  400760:	20400538 	.word	0x20400538
-  400764:	20400544 	.word	0x20400544
-  400768:	20400520 	.word	0x20400520
+  400760:	20400508 	.word	0x20400508
+  400764:	20400514 	.word	0x20400514
+  400768:	20400505 	.word	0x20400505
   40076c:	00400689 	.word	0x00400689
   400770:	00405ce0 	.word	0x00405ce0
   400774:	00405cd0 	.word	0x00405cd0
@@ -964,7 +964,7 @@ void dma_adc_0_disable_continuously(void){
   40077a:	4b01      	ldr	r3, [pc, #4]	; (400780 <dma_adc_0_disable_continuously+0x8>)
   40077c:	701a      	strb	r2, [r3, #0]
   40077e:	4770      	bx	lr
-  400780:	20400534 	.word	0x20400534
+  400780:	20400506 	.word	0x20400506
 
 00400784 <dma_adc_1_disable_continuously>:
 }
@@ -974,7 +974,7 @@ void dma_adc_1_disable_continuously(void){
   400786:	4b01      	ldr	r3, [pc, #4]	; (40078c <dma_adc_1_disable_continuously+0x8>)
   400788:	701a      	strb	r2, [r3, #0]
   40078a:	4770      	bx	lr
-  40078c:	20400520 	.word	0x20400520
+  40078c:	20400505 	.word	0x20400505
 
 00400790 <dma_adc_init>:
 void dma_adc_init(void){
@@ -1086,8 +1086,8 @@ void dma_adc_init(void){
   400860:	e000e100 	.word	0xe000e100
   400864:	00400779 	.word	0x00400779
   400868:	00400785 	.word	0x00400785
-  40086c:	20400514 	.word	0x20400514
-  400870:	204004f4 	.word	0x204004f4
+  40086c:	20400504 	.word	0x20400504
+  400870:	204004ec 	.word	0x204004ec
   400874:	004027c1 	.word	0x004027c1
   400878:	20400234 	.word	0x20400234
 
@@ -1149,9 +1149,9 @@ void adc_enable_all(void){
   4008be:	47a0      	blx	r4
   4008c0:	bd70      	pop	{r4, r5, r6, pc}
   4008c2:	bf00      	nop
-  4008c4:	20400630 	.word	0x20400630
+  4008c4:	20400600 	.word	0x20400600
   4008c8:	004011f9 	.word	0x004011f9
-  4008cc:	20400708 	.word	0x20400708
+  4008cc:	204006d8 	.word	0x204006d8
 
 004008d0 <pwm_0_callback>:
 #include <hpl_pwm_config.h>
@@ -1287,7 +1287,7 @@ static inline void hri_pwm_set_IMR1_CHID0_bit(const void *const hw)
   4009a8:	40020000 	.word	0x40020000
   4009ac:	4005c000 	.word	0x4005c000
   4009b0:	004008d1 	.word	0x004008d1
-  4009b4:	20400548 	.word	0x20400548
+  4009b4:	20400518 	.word	0x20400518
   4009b8:	004014e1 	.word	0x004014e1
   4009bc:	e000e100 	.word	0xe000e100
 
@@ -1339,9 +1339,9 @@ void pwm_enable_all(void){
   400a08:	bd70      	pop	{r4, r5, r6, pc}
   400a0a:	bf00      	nop
   400a0c:	40020000 	.word	0x40020000
-  400a10:	20400548 	.word	0x20400548
+  400a10:	20400518 	.word	0x20400518
   400a14:	00401469 	.word	0x00401469
-  400a18:	204006ec 	.word	0x204006ec
+  400a18:	204006bc 	.word	0x204006bc
   400a1c:	00401529 	.word	0x00401529
 
 00400a20 <pwm_set_duty>:
@@ -1415,7 +1415,7 @@ void Dummy_Handler(void)
   400a78:	004063c8 	.word	0x004063c8
   400a7c:	20400218 	.word	0x20400218
   400a80:	20400218 	.word	0x20400218
-  400a84:	20400738 	.word	0x20400738
+  400a84:	20400708 	.word	0x20400708
   400a88:	e000ed00 	.word	0xe000ed00
   400a8c:	00400000 	.word	0x00400000
   400a90:	00403359 	.word	0x00403359
@@ -1511,8 +1511,8 @@ static inline void hri_pio_set_PSR_reg(const void *const hw, hri_pio_psr_reg_t m
   400b1e:	bdf0      	pop	{r4, r5, r6, r7, pc}
   400b20:	400e0600 	.word	0x400e0600
   400b24:	20400264 	.word	0x20400264
-  400b28:	20400708 	.word	0x20400708
-  400b2c:	204005a8 	.word	0x204005a8
+  400b28:	204006d8 	.word	0x204006d8
+  400b2c:	20400578 	.word	0x20400578
   400b30:	40064000 	.word	0x40064000
   400b34:	00401099 	.word	0x00401099
   400b38:	00401141 	.word	0x00401141
@@ -1605,8 +1605,8 @@ static inline void hri_pio_set_PSR_reg(const void *const hw, hri_pio_psr_reg_t m
   400bee:	bf00      	nop
   400bf0:	400e0600 	.word	0x400e0600
   400bf4:	20400264 	.word	0x20400264
-  400bf8:	20400630 	.word	0x20400630
-  400bfc:	2040065c 	.word	0x2040065c
+  400bf8:	20400600 	.word	0x20400600
+  400bfc:	2040062c 	.word	0x2040062c
   400c00:	4003c000 	.word	0x4003c000
   400c04:	00401141 	.word	0x00401141
   400c08:	400e1400 	.word	0x400e1400
@@ -1781,7 +1781,7 @@ void PWM_0_init(void)
   400cfc:	00400c65 	.word	0x00400c65
   400d00:	00402361 	.word	0x00402361
   400d04:	40020000 	.word	0x40020000
-  400d08:	20400548 	.word	0x20400548
+  400d08:	20400518 	.word	0x20400518
   400d0c:	00401425 	.word	0x00401425
 
 00400d10 <PWM_1_PORT_init>:
@@ -1855,7 +1855,7 @@ void PWM_1_init(void)
   400d84:	00400d11 	.word	0x00400d11
   400d88:	00402361 	.word	0x00402361
   400d8c:	4005c000 	.word	0x4005c000
-  400d90:	204006ec 	.word	0x204006ec
+  400d90:	204006bc 	.word	0x204006bc
   400d94:	00401425 	.word	0x00401425
 
 00400d98 <ENCODER_A_PORT_init>:
@@ -1910,7 +1910,7 @@ static void ENCODER_A_init(void)
   400de4:	00400d99 	.word	0x00400d99
   400de8:	004024f7 	.word	0x004024f7
   400dec:	4000c000 	.word	0x4000c000
-  400df0:	20400614 	.word	0x20400614
+  400df0:	204005e4 	.word	0x204005e4
   400df4:	00401611 	.word	0x00401611
 
 00400df8 <ENCODER_B_PORT_init>:
@@ -1965,7 +1965,7 @@ static void ENCODER_B_init(void)
   400e48:	00400df9 	.word	0x00400df9
   400e4c:	004024f7 	.word	0x004024f7
   400e50:	40054000 	.word	0x40054000
-  400e54:	20400564 	.word	0x20400564
+  400e54:	20400534 	.word	0x20400534
   400e58:	00401611 	.word	0x00401611
 
 00400e5c <delay_driver_init>:
@@ -2064,7 +2064,7 @@ void EDBG_COM_init(void)
   400ef4:	00400e71 	.word	0x00400e71
   400ef8:	00402739 	.word	0x00402739
   400efc:	40028000 	.word	0x40028000
-  400f00:	20400608 	.word	0x20400608
+  400f00:	204005d8 	.word	0x204005d8
   400f04:	00401759 	.word	0x00401759
 
 00400f08 <system_init>:
@@ -3760,7 +3760,7 @@ extern caddr_t _sbrk(int incr)
   4018c8:	e7f6      	b.n	4018b8 <_sbrk+0x8>
   4018ca:	bf00      	nop
   4018cc:	2040033c 	.word	0x2040033c
-  4018d0:	20400d38 	.word	0x20400d38
+  4018d0:	20400d08 	.word	0x20400d08
 
 004018d4 <_close>:
  */
@@ -7018,12 +7018,12 @@ int main(void)
   402930:	004009c1 	.word	0x004009c1
   402934:	0040087d 	.word	0x0040087d
   402938:	400e0e00 	.word	0x400e0e00
-  40293c:	20400614 	.word	0x20400614
+  40293c:	204005e4 	.word	0x204005e4
   402940:	0040164d 	.word	0x0040164d
-  402944:	20400564 	.word	0x20400564
-  402948:	20400548 	.word	0x20400548
+  402944:	20400534 	.word	0x20400534
+  402948:	20400518 	.word	0x20400518
   40294c:	00400a21 	.word	0x00400a21
-  402950:	204006ec 	.word	0x204006ec
+  402950:	204006bc 	.word	0x204006bc
   402954:	004014a5 	.word	0x004014a5
 
 00402958 <_read>:
@@ -7214,7 +7214,7 @@ void stdio_redirect_init(void)
   402a26:	4798      	blx	r3
   402a28:	bd10      	pop	{r4, pc}
   402a2a:	bf00      	nop
-  402a2c:	20400608 	.word	0x20400608
+  402a2c:	204005d8 	.word	0x204005d8
   402a30:	004017a1 	.word	0x004017a1
   402a34:	004029a5 	.word	0x004029a5
 
@@ -11951,7 +11951,7 @@ void stdio_redirect_init(void)
   405926:	b103      	cbz	r3, 40592a <_sbrk_r+0x1a>
   405928:	602b      	str	r3, [r5, #0]
   40592a:	bd38      	pop	{r3, r4, r5, pc}
-  40592c:	20400734 	.word	0x20400734
+  40592c:	20400704 	.word	0x20400704
 
 00405930 <__sread>:
   405930:	b510      	push	{r4, lr}
@@ -12105,7 +12105,7 @@ void stdio_redirect_init(void)
   405a76:	b103      	cbz	r3, 405a7a <_write_r+0x1e>
   405a78:	602b      	str	r3, [r5, #0]
   405a7a:	bd38      	pop	{r3, r4, r5, pc}
-  405a7c:	20400734 	.word	0x20400734
+  405a7c:	20400704 	.word	0x20400704
 
 00405a80 <__swsetup_r>:
   405a80:	4b32      	ldr	r3, [pc, #200]	; (405b4c <__swsetup_r+0xcc>)
@@ -12215,7 +12215,7 @@ void stdio_redirect_init(void)
   405b72:	b103      	cbz	r3, 405b76 <_close_r+0x1a>
   405b74:	602b      	str	r3, [r5, #0]
   405b76:	bd38      	pop	{r3, r4, r5, pc}
-  405b78:	20400734 	.word	0x20400734
+  405b78:	20400704 	.word	0x20400704
 
 00405b7c <_fstat_r>:
   405b7c:	b538      	push	{r3, r4, r5, lr}
@@ -12233,7 +12233,7 @@ void stdio_redirect_init(void)
   405b96:	602b      	str	r3, [r5, #0]
   405b98:	bd38      	pop	{r3, r4, r5, pc}
   405b9a:	bf00      	nop
-  405b9c:	20400734 	.word	0x20400734
+  405b9c:	20400704 	.word	0x20400704
 
 00405ba0 <_isatty_r>:
   405ba0:	b538      	push	{r3, r4, r5, lr}
@@ -12249,7 +12249,7 @@ void stdio_redirect_init(void)
   405bb6:	b103      	cbz	r3, 405bba <_isatty_r+0x1a>
   405bb8:	602b      	str	r3, [r5, #0]
   405bba:	bd38      	pop	{r3, r4, r5, pc}
-  405bbc:	20400734 	.word	0x20400734
+  405bbc:	20400704 	.word	0x20400704
 
 00405bc0 <_lseek_r>:
   405bc0:	b538      	push	{r3, r4, r5, lr}
@@ -12267,7 +12267,7 @@ void stdio_redirect_init(void)
   405bda:	b103      	cbz	r3, 405bde <_lseek_r+0x1e>
   405bdc:	602b      	str	r3, [r5, #0]
   405bde:	bd38      	pop	{r3, r4, r5, pc}
-  405be0:	20400734 	.word	0x20400734
+  405be0:	20400704 	.word	0x20400704
 
 00405be4 <__ascii_mbtowc>:
   405be4:	b082      	sub	sp, #8
@@ -12310,7 +12310,7 @@ void stdio_redirect_init(void)
   405c26:	b103      	cbz	r3, 405c2a <_read_r+0x1e>
   405c28:	602b      	str	r3, [r5, #0]
   405c2a:	bd38      	pop	{r3, r4, r5, pc}
-  405c2c:	20400734 	.word	0x20400734
+  405c2c:	20400704 	.word	0x20400704
 
 00405c30 <__ascii_wctomb>:
   405c30:	b149      	cbz	r1, 405c46 <__ascii_wctomb+0x16>

@@ -500,10 +500,10 @@
     <Compile Include="custom_code\control\ControlStartup.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="custom_code\control\getTheta.c">
+    <Compile Include="custom_code\control\EstimateTheta.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="custom_code\control\getTheta.h">
+    <Compile Include="custom_code\control\EstimateTheta.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="custom_code\control\PID.c">

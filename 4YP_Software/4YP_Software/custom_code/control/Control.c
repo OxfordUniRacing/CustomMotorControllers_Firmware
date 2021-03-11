@@ -64,12 +64,12 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	float Iq_r, Id_r;
 	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
 	
-	theta_e = EstimateTheta(int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
+	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
 	float sintheta_e = sin(theta_e);
 	float costheta_e = cos(theta_e);	//(Currently uses fast sin and cosine)
 	
 	float I_alpha, I_beta;
-	arm_clarke_f32(I_data[0],I_data[1],&I_alpha,&I_beta); //Does clarke transform
+	arm_clarke_f32(control_currents[0],control_currents[1],&I_alpha,&I_beta); //Does clarke transform
 	float I_d, I_q; 
 	arm_park_f32(I_alpha,I_beta, &I_d, &I_q, sintheta_e, costheta_e);	//Does Park transform 
 	

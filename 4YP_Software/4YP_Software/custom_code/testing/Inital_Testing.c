@@ -22,9 +22,15 @@
 #include "User_adc.h"
 #include "PositionSensors.h"
 #include "Encoder.h"
+#include "Control.h"
 
 
-
+void Control_Function_Test(void){
+	while (1)
+	{
+		
+	}	
+}
 
 void Temp_Initial_Test (void){
 	//get ADC Temp reading and display values

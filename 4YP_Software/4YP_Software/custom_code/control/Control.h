@@ -19,7 +19,7 @@
 //always have atmel_start.h before arm_math.h -> seems to be fixing some issiues
 #include <atmel_start.h>
 #include "arm_math.h"
-#include "getTheta.h"
+#include "EstimateTheta.h"
 #include "PID.h"
 
 // MATRIX EXAMPLE
@@ -34,7 +34,7 @@ arm_matrix_instance_f32 A;
 #define I_cols 1
 #define I_rows 3
 //float I_data [I_cols*I_rows];			//Using external data from control startup
-//arm_matrix_instance_f32 I;
+arm_matrix_instance_f32 I;
 
 // Electric Theta
 float theta_e;
@@ -57,7 +57,8 @@ struct PID_instance PID_q;
 struct PID_instance PID_d;
 
 
-void Control(float torquerequest, float V_dc);
+void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
+
 
 
 

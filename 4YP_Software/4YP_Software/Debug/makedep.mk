@@ -8,7 +8,7 @@ custom_code\control\Control.c
 
 custom_code\control\ControlStartup.c
 
-custom_code\control\getTheta.c
+custom_code\control\EstimateTheta.c
 
 custom_code\control\PID.c
 

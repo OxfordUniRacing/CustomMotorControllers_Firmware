@@ -142,10 +142,10 @@ sector_lookup_table
                     0x20              custom_code/control/ControlStartup.o
 omega_e             0x4               custom_code/control/Control.o
 control_encoder_angle
-                    0x4               custom_code/control/ControlStartup.o
+                    0x4               custom_code/control/Control.o
 PWM_0               0x1c              driver_init.o
 control_pos_sens_time_in_current_sector
-                    0x4               custom_code/control/ControlStartup.o
+                    0x4               custom_code/control/Control.o
 A_data              0x18              custom_code/control/Control.o
 has_1_triggered     0x1               custom_code/control/ControlStartup.o
 errno               0x4               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m\libc_nano.a(lib_a-reent.o)
@@ -153,7 +153,7 @@ can1_tx_fifo        0x60              hpl/mcan/hpl_mcan.o
 has_triggered       0x1               custom_code/control/ControlStartup.o
 A                   0x8               custom_code/control/Control.o
 control_supply_voltage
-                    0x4               custom_code/control/ControlStartup.o
+                    0x4               custom_code/control/Control.o
 encoder_num_Z_interrupts
                     0x4               custom_code/control/ControlStartup.o
 ENCODER_B           0x1c              driver_init.o
@@ -163,12 +163,12 @@ ADC_1_ch            0x60              driver_init.o
 theta_e             0x4               custom_code/control/Control.o
 encoder_inital_offset
                     0x4               custom_code/control/ControlStartup.o
-I_data              0xc               custom_code/control/Control.o
 EDBG_COM            0xc               driver_init.o
 ENCODER_A           0x1c              driver_init.o
 ADC_0               0x2c              driver_init.o
+theta_e_ENC         0x4               custom_code/control/Control.o
 control_pos_sens_sector
-                    0x4               custom_code/control/ControlStartup.o
+                    0x4               custom_code/control/Control.o
 pos_sens_deltas     0x8               custom_code/control/ControlStartup.o
 can1_rx_fifo        0x60              hpl/mcan/hpl_mcan.o
 pos_sens_last_SysTick_count
@@ -180,17 +180,18 @@ raw_currents        0xc               custom_code/low_level/User_adc.o
 has_0_triggered     0x1               custom_code/control/ControlStartup.o
 PWM                 0x8               custom_code/control/Control.o
 control_pos_sens_deltas
-                    0x8               custom_code/control/ControlStartup.o
+                    0x8               custom_code/control/Control.o
 I                   0x8               custom_code/control/Control.o
 PWM_1               0x1c              driver_init.o
 PWM_data            0xc               custom_code/control/Control.o
+theta_e_HS          0x4               custom_code/control/Control.o
 ADC_1               0x2c              driver_init.o
 raw_voltage         0x4               custom_code/low_level/User_adc.o
 is_dma_adc_1_continuous
                     0x1               custom_code/control/ControlStartup.o
 control_torque_request
-                    0x4               custom_code/control/ControlStartup.o
-control_currents    0xc               custom_code/control/ControlStartup.o
+                    0x4               custom_code/control/Control.o
+control_currents    0xc               custom_code/control/Control.o
 is_dma_adc_0_continuous
                     0x1               custom_code/control/ControlStartup.o
 
@@ -574,6 +575,7 @@ Discarded input sections
  .group         0x00000000        0x8 custom_code/control/Control.o
  .group         0x00000000        0x8 custom_code/control/Control.o
  .group         0x00000000        0x8 custom_code/control/Control.o
+ .group         0x00000000        0x8 custom_code/control/Control.o
  .text          0x00000000        0x0 custom_code/control/Control.o
  .data          0x00000000        0x0 custom_code/control/Control.o
  .bss           0x00000000        0x0 custom_code/control/Control.o
@@ -583,13 +585,13 @@ Discarded input sections
                 0x00000000       0xd8 custom_code/control/Control.o
  .text.SVPWM    0x00000000       0x74 custom_code/control/Control.o
  .text.Control  0x00000000      0x124 custom_code/control/Control.o
- .debug_info    0x00000000     0x19a1 custom_code/control/Control.o
- .debug_abbrev  0x00000000      0x35d custom_code/control/Control.o
- .debug_loc     0x00000000      0x5f8 custom_code/control/Control.o
+ .debug_info    0x00000000     0x1a8c custom_code/control/Control.o
+ .debug_abbrev  0x00000000      0x345 custom_code/control/Control.o
+ .debug_loc     0x00000000      0x6a9 custom_code/control/Control.o
  .debug_aranges
                 0x00000000       0x38 custom_code/control/Control.o
  .debug_ranges  0x00000000       0x28 custom_code/control/Control.o
- .debug_macro   0x00000000      0x9d6 custom_code/control/Control.o
+ .debug_macro   0x00000000      0x9f9 custom_code/control/Control.o
  .debug_macro   0x00000000      0x8bc custom_code/control/Control.o
  .debug_macro   0x00000000       0x10 custom_code/control/Control.o
  .debug_macro   0x00000000      0x16d custom_code/control/Control.o
@@ -776,13 +778,14 @@ Discarded input sections
  .debug_macro   0x00000000       0xd6 custom_code/control/Control.o
  .debug_macro   0x00000000       0x4c custom_code/control/Control.o
  .debug_macro   0x00000000       0x34 custom_code/control/Control.o
- .debug_line    0x00000000     0x1092 custom_code/control/Control.o
- .debug_str     0x00000000   0x1372b6 custom_code/control/Control.o
+ .debug_macro   0x00000000      0x1d1 custom_code/control/Control.o
+ .debug_line    0x00000000     0x10d5 custom_code/control/Control.o
+ .debug_str     0x00000000   0x137f89 custom_code/control/Control.o
  .comment       0x00000000       0x5a custom_code/control/Control.o
  .debug_frame   0x00000000       0xac custom_code/control/Control.o
  .ARM.attributes
                 0x00000000       0x37 custom_code/control/Control.o
- COMMON         0x00000000       0x88 custom_code/control/Control.o
+ COMMON         0x00000000       0xac custom_code/control/Control.o
  .group         0x00000000        0x8 custom_code/control/ControlStartup.o
  .group         0x00000000        0x8 custom_code/control/ControlStartup.o
  .group         0x00000000        0x8 custom_code/control/ControlStartup.o
@@ -1105,25 +1108,31 @@ Discarded input sections
  .debug_macro   0x00000000       0xe8 custom_code/control/ControlStartup.o
  .debug_macro   0x00000000       0xc9 custom_code/control/ControlStartup.o
  .debug_macro   0x00000000       0x40 custom_code/control/ControlStartup.o
- .group         0x00000000        0x8 custom_code/control/getTheta.o
- .text          0x00000000        0x0 custom_code/control/getTheta.o
- .data          0x00000000        0x0 custom_code/control/getTheta.o
- .bss           0x00000000        0x0 custom_code/control/getTheta.o
- .text.getThetaHS
-                0x00000000        0x2 custom_code/control/getTheta.o
- .debug_info    0x00000000       0x4e custom_code/control/getTheta.o
- .debug_abbrev  0x00000000       0x3e custom_code/control/getTheta.o
+ .debug_macro   0x00000000      0x1d1 custom_code/control/ControlStartup.o
+ .group         0x00000000        0x8 custom_code/control/EstimateTheta.o
+ .group         0x00000000        0x8 custom_code/control/EstimateTheta.o
+ .text          0x00000000        0x0 custom_code/control/EstimateTheta.o
+ .data          0x00000000        0x0 custom_code/control/EstimateTheta.o
+ .bss           0x00000000        0x0 custom_code/control/EstimateTheta.o
+ .text.EstimateThetaHS
+                0x00000000        0x4 custom_code/control/EstimateTheta.o
+ .text.EstimateTheta
+                0x00000000       0x3c custom_code/control/EstimateTheta.o
+ .debug_info    0x00000000      0x124 custom_code/control/EstimateTheta.o
+ .debug_abbrev  0x00000000       0xb4 custom_code/control/EstimateTheta.o
+ .debug_loc     0x00000000      0x105 custom_code/control/EstimateTheta.o
  .debug_aranges
-                0x00000000       0x20 custom_code/control/getTheta.o
- .debug_ranges  0x00000000       0x10 custom_code/control/getTheta.o
- .debug_macro   0x00000000       0x1b custom_code/control/getTheta.o
- .debug_macro   0x00000000      0x8bc custom_code/control/getTheta.o
- .debug_line    0x00000000       0x60 custom_code/control/getTheta.o
- .debug_str     0x00000000     0x25d5 custom_code/control/getTheta.o
- .comment       0x00000000       0x5a custom_code/control/getTheta.o
- .debug_frame   0x00000000       0x20 custom_code/control/getTheta.o
+                0x00000000       0x28 custom_code/control/EstimateTheta.o
+ .debug_ranges  0x00000000       0x18 custom_code/control/EstimateTheta.o
+ .debug_macro   0x00000000       0x24 custom_code/control/EstimateTheta.o
+ .debug_macro   0x00000000      0x8bc custom_code/control/EstimateTheta.o
+ .debug_macro   0x00000000       0x34 custom_code/control/EstimateTheta.o
+ .debug_line    0x00000000       0x8f custom_code/control/EstimateTheta.o
+ .debug_str     0x00000000     0x26bc custom_code/control/EstimateTheta.o
+ .comment       0x00000000       0x5a custom_code/control/EstimateTheta.o
+ .debug_frame   0x00000000       0x4c custom_code/control/EstimateTheta.o
  .ARM.attributes
-                0x00000000       0x37 custom_code/control/getTheta.o
+                0x00000000       0x37 custom_code/control/EstimateTheta.o
  .group         0x00000000        0x8 custom_code/control/PID.o
  .group         0x00000000        0x8 custom_code/control/PID.o
  .group         0x00000000        0x8 custom_code/control/PID.o
@@ -1496,7 +1505,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 custom_code/control/PID.o
  .debug_macro   0x00000000      0x18b custom_code/control/PID.o
  .debug_line    0x00000000      0xfd3 custom_code/control/PID.o
- .debug_str     0x00000000   0x13611b custom_code/control/PID.o
+ .debug_str     0x00000000   0x13612b custom_code/control/PID.o
  .comment       0x00000000       0x5a custom_code/control/PID.o
  .debug_frame   0x00000000       0x40 custom_code/control/PID.o
  .ARM.attributes
@@ -1538,7 +1547,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x6a custom_code/low_level/AnalogSensorConversion.o
  .debug_macro   0x00000000      0x1df custom_code/low_level/AnalogSensorConversion.o
  .debug_line    0x00000000      0x2cc custom_code/low_level/AnalogSensorConversion.o
- .debug_str     0x00000000     0x3590 custom_code/low_level/AnalogSensorConversion.o
+ .debug_str     0x00000000     0x35a0 custom_code/low_level/AnalogSensorConversion.o
  .comment       0x00000000       0x5a custom_code/low_level/AnalogSensorConversion.o
  .debug_frame   0x00000000       0x88 custom_code/low_level/AnalogSensorConversion.o
  .ARM.attributes
@@ -3115,9 +3124,12 @@ Discarded input sections
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
+ .group         0x00000000        0x8 custom_code/testing/Inital_Testing.o
  .text          0x00000000        0x0 custom_code/testing/Inital_Testing.o
  .data          0x00000000        0x0 custom_code/testing/Inital_Testing.o
  .bss           0x00000000        0x0 custom_code/testing/Inital_Testing.o
+ .text.Control_Function_Test
+                0x00000000        0x2 custom_code/testing/Inital_Testing.o
  .text.Temp_Initial_Test
                 0x00000000       0x8c custom_code/testing/Inital_Testing.o
  .text.Current_Voltage_Inital_Test
@@ -3132,13 +3144,13 @@ Discarded input sections
                 0x00000000       0x40 custom_code/testing/Inital_Testing.o
  .rodata.str1.4
                 0x00000000      0x1c5 custom_code/testing/Inital_Testing.o
- .debug_info    0x00000000     0x24a4 custom_code/testing/Inital_Testing.o
- .debug_abbrev  0x00000000      0x39e custom_code/testing/Inital_Testing.o
+ .debug_info    0x00000000     0x265c custom_code/testing/Inital_Testing.o
+ .debug_abbrev  0x00000000      0x3c7 custom_code/testing/Inital_Testing.o
  .debug_loc     0x00000000      0x4c1 custom_code/testing/Inital_Testing.o
  .debug_aranges
-                0x00000000       0x48 custom_code/testing/Inital_Testing.o
- .debug_ranges  0x00000000       0x58 custom_code/testing/Inital_Testing.o
- .debug_macro   0x00000000      0x9f5 custom_code/testing/Inital_Testing.o
+                0x00000000       0x50 custom_code/testing/Inital_Testing.o
+ .debug_ranges  0x00000000       0x60 custom_code/testing/Inital_Testing.o
+ .debug_macro   0x00000000      0xa1b custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000      0x8bc custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000      0x16d custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000       0x22 custom_code/testing/Inital_Testing.o
@@ -3323,10 +3335,11 @@ Discarded input sections
  .debug_macro   0x00000000      0x1e1 custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000       0xd6 custom_code/testing/Inital_Testing.o
  .debug_macro   0x00000000      0x1d1 custom_code/testing/Inital_Testing.o
- .debug_line    0x00000000     0x118c custom_code/testing/Inital_Testing.o
- .debug_str     0x00000000   0x13821f custom_code/testing/Inital_Testing.o
+ .debug_macro   0x00000000       0x4c custom_code/testing/Inital_Testing.o
+ .debug_line    0x00000000     0x11dc custom_code/testing/Inital_Testing.o
+ .debug_str     0x00000000   0x1383b9 custom_code/testing/Inital_Testing.o
  .comment       0x00000000       0x5a custom_code/testing/Inital_Testing.o
- .debug_frame   0x00000000       0xe8 custom_code/testing/Inital_Testing.o
+ .debug_frame   0x00000000       0xf8 custom_code/testing/Inital_Testing.o
  .ARM.attributes
                 0x00000000       0x37 custom_code/testing/Inital_Testing.o
  .group         0x00000000        0x8 Device_Startup/startup_same70q21b.o
@@ -3793,7 +3806,7 @@ Discarded input sections
  .debug_macro   0x00000000     0x283a Device_Startup/system_same70q21b.o
  .debug_macro   0x00000000      0x169 Device_Startup/system_same70q21b.o
  .debug_line    0x00000000      0x8d7 Device_Startup/system_same70q21b.o
- .debug_str     0x00000000   0x12b528 Device_Startup/system_same70q21b.o
+ .debug_str     0x00000000   0x12b538 Device_Startup/system_same70q21b.o
  .comment       0x00000000       0x5a Device_Startup/system_same70q21b.o
  .debug_frame   0x00000000       0x30 Device_Startup/system_same70q21b.o
  .ARM.attributes
@@ -4561,7 +4574,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 examples/driver_examples.o
  .debug_macro   0x00000000      0x18b examples/driver_examples.o
  .debug_line    0x00000000     0x1201 examples/driver_examples.o
- .debug_str     0x00000000   0x1366ca examples/driver_examples.o
+ .debug_str     0x00000000   0x1366da examples/driver_examples.o
  .comment       0x00000000       0x5a examples/driver_examples.o
  .debug_frame   0x00000000      0x2c4 examples/driver_examples.o
  .ARM.attributes
@@ -5571,7 +5584,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 hal/src/hal_can_async.o
  .debug_macro   0x00000000       0xc9 hal/src/hal_can_async.o
  .debug_line    0x00000000      0xd84 hal/src/hal_can_async.o
- .debug_str     0x00000000   0x13192d hal/src/hal_can_async.o
+ .debug_str     0x00000000   0x13193d hal/src/hal_can_async.o
  .comment       0x00000000       0x5a hal/src/hal_can_async.o
  .debug_frame   0x00000000      0x18c hal/src/hal_can_async.o
  .ARM.attributes
@@ -6522,7 +6535,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x1c hal/src/hal_gpio.o
  .debug_macro   0x00000000       0x16 hal/src/hal_gpio.o
  .debug_line    0x00000000      0xc53 hal/src/hal_gpio.o
- .debug_str     0x00000000   0x13110d hal/src/hal_gpio.o
+ .debug_str     0x00000000   0x13111d hal/src/hal_gpio.o
  .comment       0x00000000       0x5a hal/src/hal_gpio.o
  .debug_frame   0x00000000       0x20 hal/src/hal_gpio.o
  .ARM.attributes
@@ -6843,7 +6856,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 hal/src/hal_init.o
  .debug_macro   0x00000000       0xca hal/src/hal_init.o
  .debug_line    0x00000000      0xc23 hal/src/hal_init.o
- .debug_str     0x00000000   0x130fee hal/src/hal_init.o
+ .debug_str     0x00000000   0x130ffe hal/src/hal_init.o
  .comment       0x00000000       0x5a hal/src/hal_init.o
  .debug_frame   0x00000000       0x20 hal/src/hal_init.o
  .ARM.attributes
@@ -7792,7 +7805,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 hal/src/hal_sleep.o
  .debug_macro   0x00000000       0xca hal/src/hal_sleep.o
  .debug_line    0x00000000      0xc3b hal/src/hal_sleep.o
- .debug_str     0x00000000   0x13102a hal/src/hal_sleep.o
+ .debug_str     0x00000000   0x13103a hal/src/hal_sleep.o
  .comment       0x00000000       0x5a hal/src/hal_sleep.o
  .debug_frame   0x00000000       0x38 hal/src/hal_sleep.o
  .ARM.attributes
@@ -9123,7 +9136,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 hal/utils/src/utils_event.o
  .debug_macro   0x00000000       0x35 hal/utils/src/utils_event.o
  .debug_line    0x00000000      0xd7a hal/utils/src/utils_event.o
- .debug_str     0x00000000   0x1343ba hal/utils/src/utils_event.o
+ .debug_str     0x00000000   0x1343ca hal/utils/src/utils_event.o
  .comment       0x00000000       0x5a hal/utils/src/utils_event.o
  .debug_frame   0x00000000       0x70 hal/utils/src/utils_event.o
  .ARM.attributes
@@ -10542,7 +10555,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xc9 hpl/core/hpl_core_m7_base.o
  .debug_macro   0x00000000       0x16 hpl/core/hpl_core_m7_base.o
  .debug_line    0x00000000      0xdab hpl/core/hpl_core_m7_base.o
- .debug_str     0x00000000   0x131fc7 hpl/core/hpl_core_m7_base.o
+ .debug_str     0x00000000   0x131fd7 hpl/core/hpl_core_m7_base.o
  .comment       0x00000000       0x5a hpl/core/hpl_core_m7_base.o
  .debug_frame   0x00000000       0xcc hpl/core/hpl_core_m7_base.o
  .ARM.attributes
@@ -12168,7 +12181,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x16 hpl/pmc/hpl_sleep.o
  .debug_macro   0x00000000       0xca hpl/pmc/hpl_sleep.o
  .debug_line    0x00000000      0xe6a hpl/pmc/hpl_sleep.o
- .debug_str     0x00000000   0x131625 hpl/pmc/hpl_sleep.o
+ .debug_str     0x00000000   0x131635 hpl/pmc/hpl_sleep.o
  .comment       0x00000000       0x5a hpl/pmc/hpl_sleep.o
  .debug_frame   0x00000000       0x44 hpl/pmc/hpl_sleep.o
  .ARM.attributes
@@ -16040,7 +16053,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
 LOAD atmel_start.o
 LOAD custom_code/control/Control.o
 LOAD custom_code/control/ControlStartup.o
-LOAD custom_code/control/getTheta.o
+LOAD custom_code/control/EstimateTheta.o
 LOAD custom_code/control/PID.o
 LOAD custom_code/low_level/AnalogSensorConversion.o
 LOAD custom_code/low_level/Encoder.o
@@ -16985,7 +16998,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x20400218                . = ALIGN (0x4)
                 0x20400218                _erelocate = .
 
-.bss            0x20400218      0x520 load address 0x004065e0
+.bss            0x20400218      0x4f0 load address 0x004065e0
                 0x20400218                . = ALIGN (0x4)
                 0x20400218                _sbss = .
                 0x20400218                _szero = .
@@ -17012,62 +17025,55 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x204004c8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m\libc_nano.a(lib_a-nano-mallocr.o)
                 0x204004c8                __malloc_sbrk_start
  *(COMMON)
- COMMON         0x204004cc       0x69 custom_code/control/ControlStartup.o
+ COMMON         0x204004cc       0x3b custom_code/control/ControlStartup.o
                 0x204004cc                sector_lookup_table
-                0x204004ec                control_encoder_angle
-                0x204004f0                control_pos_sens_time_in_current_sector
-                0x204004f4                has_1_triggered
-                0x204004f5                has_triggered
-                0x204004f8                control_supply_voltage
-                0x204004fc                encoder_num_Z_interrupts
-                0x20400500                encoder_inital_offset
-                0x20400504                control_pos_sens_sector
-                0x20400508                pos_sens_deltas
-                0x20400510                pos_sens_last_SysTick_count
-                0x20400514                has_0_triggered
-                0x20400518                control_pos_sens_deltas
-                0x20400520                is_dma_adc_1_continuous
-                0x20400524                control_torque_request
-                0x20400528                control_currents
-                0x20400534                is_dma_adc_0_continuous
- *fill*         0x20400535        0x3 
- COMMON         0x20400538       0x10 custom_code/low_level/User_adc.o
-                0x20400538                raw_currents
-                0x20400544                raw_voltage
- COMMON         0x20400548      0x1ec driver_init.o
-                0x20400548                PWM_0
-                0x20400564                ENCODER_B
-                0x20400580                CAN_1
-                0x204005a8                ADC_1_ch
-                0x20400608                EDBG_COM
-                0x20400614                ENCODER_A
-                0x20400630                ADC_0
-                0x2040065c                ADC_0_ch
-                0x204006ec                PWM_1
-                0x20400708                ADC_1
- COMMON         0x20400734        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m\libc_nano.a(lib_a-reent.o)
-                0x20400734                errno
-                0x20400738                . = ALIGN (0x4)
-                0x20400738                _ebss = .
-                0x20400738                _ezero = .
+                0x204004ec                has_1_triggered
+                0x204004ed                has_triggered
+                0x204004f0                encoder_num_Z_interrupts
+                0x204004f4                encoder_inital_offset
+                0x204004f8                pos_sens_deltas
+                0x20400500                pos_sens_last_SysTick_count
+                0x20400504                has_0_triggered
+                0x20400505                is_dma_adc_1_continuous
+                0x20400506                is_dma_adc_0_continuous
+ *fill*         0x20400507        0x1 
+ COMMON         0x20400508       0x10 custom_code/low_level/User_adc.o
+                0x20400508                raw_currents
+                0x20400514                raw_voltage
+ COMMON         0x20400518      0x1ec driver_init.o
+                0x20400518                PWM_0
+                0x20400534                ENCODER_B
+                0x20400550                CAN_1
+                0x20400578                ADC_1_ch
+                0x204005d8                EDBG_COM
+                0x204005e4                ENCODER_A
+                0x20400600                ADC_0
+                0x2040062c                ADC_0_ch
+                0x204006bc                PWM_1
+                0x204006d8                ADC_1
+ COMMON         0x20400704        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m\libc_nano.a(lib_a-reent.o)
+                0x20400704                errno
+                0x20400708                . = ALIGN (0x4)
+                0x20400708                _ebss = .
+                0x20400708                _ezero = .
 
-.heap           0x20400738      0x200 load address 0x00406b00
-                0x20400738                . = ALIGN (0x8)
-                0x20400738                _sheap = .
-                0x20400938                . = (. + HEAP_SIZE)
- *fill*         0x20400738      0x200 
-                0x20400938                . = ALIGN (0x8)
-                0x20400938                _eheap = .
+.heap           0x20400708      0x200 load address 0x00406ad0
+                0x20400708                . = ALIGN (0x8)
+                0x20400708                _sheap = .
+                0x20400908                . = (. + HEAP_SIZE)
+ *fill*         0x20400708      0x200 
+                0x20400908                . = ALIGN (0x8)
+                0x20400908                _eheap = .
 
-.stack          0x20400938      0x400 load address 0x00406d00
-                0x20400938                . = ALIGN (0x8)
-                0x20400938                _sstack = .
-                0x20400d38                . = (. + STACK_SIZE)
- *fill*         0x20400938      0x400 
-                0x20400d38                . = ALIGN (0x8)
-                0x20400d38                _estack = .
-                0x20400d38                . = ALIGN (0x4)
-                0x20400d38                _end = .
+.stack          0x20400908      0x400 load address 0x00406cd0
+                0x20400908                . = ALIGN (0x8)
+                0x20400908                _sstack = .
+                0x20400d08                . = (. + STACK_SIZE)
+ *fill*         0x20400908      0x400 
+                0x20400d08                . = ALIGN (0x8)
+                0x20400d08                _estack = .
+                0x20400d08                . = ALIGN (0x4)
+                0x20400d08                _end = .
                 0x2045ffff                _ram_end_ = ((ORIGIN (ram) + LENGTH (ram)) - 0x1)
 OUTPUT(4YP_Software.elf elf32-littlearm)
 
@@ -17495,7 +17501,7 @@ OUTPUT(4YP_Software.elf elf32-littlearm)
  .debug_ranges  0x00000c70       0x28 stdio_redirect/stdio_io.o
  .debug_ranges  0x00000c98       0x18 stdio_start.o
 
-.debug_macro    0x00000000    0x47c1a
+.debug_macro    0x00000000    0x47a49
  .debug_macro   0x00000000      0x952 atmel_start.o
  .debug_macro   0x00000952      0x8bc atmel_start.o
  .debug_macro   0x0000120e      0x16d atmel_start.o
@@ -17676,70 +17682,69 @@ OUTPUT(4YP_Software.elf elf32-littlearm)
  .debug_macro   0x00034ac8       0x16 atmel_start.o
  .debug_macro   0x00034ade      0x18b atmel_start.o
  .debug_macro   0x00034c69      0x815 custom_code/control/ControlStartup.o
- .debug_macro   0x0003547e      0x1d1 custom_code/control/ControlStartup.o
- .debug_macro   0x0003564f      0x9dd custom_code/low_level/Encoder.o
- .debug_macro   0x0003602c       0x10 custom_code/low_level/Encoder.o
- .debug_macro   0x0003603c      0x975 custom_code/low_level/PositionSensors.o
- .debug_macro   0x000369b1      0x805 custom_code/low_level/User_adc.o
- .debug_macro   0x000371b6      0x811 custom_code/low_level/User_pwm.o
- .debug_macro   0x000379c7       0x22 custom_code/low_level/User_pwm.o
- .debug_macro   0x000379e9       0x9c custom_code/low_level/User_pwm.o
- .debug_macro   0x00037a85      0xab1 custom_code/low_level/User_pwm.o
- .debug_macro   0x00038536      0x488 Device_Startup/startup_same70q21b.o
- .debug_macro   0x000389be       0xd1 Device_Startup/startup_same70q21b.o
- .debug_macro   0x00038a8f      0x873 driver_init.o
- .debug_macro   0x00039302      0x6ae hal/src/hal_adc_async.o
- .debug_macro   0x000399b0      0x649 hal/src/hal_atomic.o
- .debug_macro   0x00039ff9      0x680 hal/src/hal_delay.o
- .debug_macro   0x0003a679      0x665 hal/src/hal_ext_irq.o
- .debug_macro   0x0003acde      0x65e hal/src/hal_io.o
- .debug_macro   0x0003b33c      0x67e hal/src/hal_pwm.o
- .debug_macro   0x0003b9ba      0x695 hal/src/hal_timer.o
- .debug_macro   0x0003c04f      0x689 hal/src/hal_usart_sync.o
- .debug_macro   0x0003c6d8      0x653 hal/utils/src/utils_assert.o
- .debug_macro   0x0003cd2b      0x658 hal/utils/src/utils_list.o
- .debug_macro   0x0003d383      0x658 hal/utils/src/utils_ringbuffer.o
- .debug_macro   0x0003d9db      0x1d6 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003dbb1       0x52 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003dc03       0x8d hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003dc90       0x57 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003dce7       0x97 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003dd7e      0x353 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e0d1       0xf6 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e1c7       0x4c hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e213       0x16 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e229       0x10 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e239       0x10 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e249       0x35 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e27e      0x122 hal/utils/src/utils_syscalls.o
- .debug_macro   0x0003e3a0      0x6ae hpl/afec/hpl_afec.o
- .debug_macro   0x0003ea4e      0x6cc hpl/afec/hpl_afec.o
- .debug_macro   0x0003f11a      0x6ba hpl/afec/hpl_afec.o
- .debug_macro   0x0003f7d4      0x603 hpl/afec/hpl_afec.o
- .debug_macro   0x0003fdd7      0x6c1 hpl/core/hpl_init.o
- .debug_macro   0x00040498      0x324 hpl/core/hpl_init.o
- .debug_macro   0x000407bc      0x9df hpl/core/hpl_init.o
- .debug_macro   0x0004119b      0x758 hpl/mcan/hpl_mcan.o
- .debug_macro   0x000418f3      0x160 hpl/mcan/hpl_mcan.o
- .debug_macro   0x00041a53       0x9e hpl/mcan/hpl_mcan.o
- .debug_macro   0x00041af1      0x69d hpl/pio/hpl_pio_ext.o
- .debug_macro   0x0004218e      0x5d0 hpl/pio/hpl_pio_ext.o
- .debug_macro   0x0004275e      0x672 hpl/pmc/hpl_pmc.o
- .debug_macro   0x00042dd0      0x6b1 hpl/pwm/hpl_pwm.o
- .debug_macro   0x00043481      0x658 hpl/systick/hpl_systick_ARMv7_base.o
- .debug_macro   0x00043ad9       0x10 hpl/systick/hpl_systick_ARMv7_base.o
- .debug_macro   0x00043ae9      0x6c4 hpl/tc/hpl_tc.o
- .debug_macro   0x000441ad       0x10 hpl/tc/hpl_tc.o
- .debug_macro   0x000441bd      0x114 hpl/tc/hpl_tc.o
- .debug_macro   0x000442d1      0x6b9 hpl/usart/hpl_usart.o
- .debug_macro   0x0004498a       0x9f hpl/usart/hpl_usart.o
- .debug_macro   0x00044a29      0x6a2 hpl/xdmac/hpl_xdmac.o
- .debug_macro   0x000450cb      0xa00 main.o
- .debug_macro   0x00045acb      0x7b9 stdio_redirect/gcc/read.o
- .debug_macro   0x00046284      0x7b9 stdio_redirect/gcc/write.o
- .debug_macro   0x00046a3d      0x7b2 stdio_redirect/stdio_io.o
- .debug_macro   0x000471ef       0xd9 stdio_redirect/stdio_io.o
- .debug_macro   0x000472c8      0x952 stdio_start.o
+ .debug_macro   0x0003547e      0x9dd custom_code/low_level/Encoder.o
+ .debug_macro   0x00035e5b       0x10 custom_code/low_level/Encoder.o
+ .debug_macro   0x00035e6b      0x975 custom_code/low_level/PositionSensors.o
+ .debug_macro   0x000367e0      0x805 custom_code/low_level/User_adc.o
+ .debug_macro   0x00036fe5      0x811 custom_code/low_level/User_pwm.o
+ .debug_macro   0x000377f6       0x22 custom_code/low_level/User_pwm.o
+ .debug_macro   0x00037818       0x9c custom_code/low_level/User_pwm.o
+ .debug_macro   0x000378b4      0xab1 custom_code/low_level/User_pwm.o
+ .debug_macro   0x00038365      0x488 Device_Startup/startup_same70q21b.o
+ .debug_macro   0x000387ed       0xd1 Device_Startup/startup_same70q21b.o
+ .debug_macro   0x000388be      0x873 driver_init.o
+ .debug_macro   0x00039131      0x6ae hal/src/hal_adc_async.o
+ .debug_macro   0x000397df      0x649 hal/src/hal_atomic.o
+ .debug_macro   0x00039e28      0x680 hal/src/hal_delay.o
+ .debug_macro   0x0003a4a8      0x665 hal/src/hal_ext_irq.o
+ .debug_macro   0x0003ab0d      0x65e hal/src/hal_io.o
+ .debug_macro   0x0003b16b      0x67e hal/src/hal_pwm.o
+ .debug_macro   0x0003b7e9      0x695 hal/src/hal_timer.o
+ .debug_macro   0x0003be7e      0x689 hal/src/hal_usart_sync.o
+ .debug_macro   0x0003c507      0x653 hal/utils/src/utils_assert.o
+ .debug_macro   0x0003cb5a      0x658 hal/utils/src/utils_list.o
+ .debug_macro   0x0003d1b2      0x658 hal/utils/src/utils_ringbuffer.o
+ .debug_macro   0x0003d80a      0x1d6 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003d9e0       0x52 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003da32       0x8d hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003dabf       0x57 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003db16       0x97 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003dbad      0x353 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003df00       0xf6 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003dff6       0x4c hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e042       0x16 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e058       0x10 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e068       0x10 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e078       0x35 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e0ad      0x122 hal/utils/src/utils_syscalls.o
+ .debug_macro   0x0003e1cf      0x6ae hpl/afec/hpl_afec.o
+ .debug_macro   0x0003e87d      0x6cc hpl/afec/hpl_afec.o
+ .debug_macro   0x0003ef49      0x6ba hpl/afec/hpl_afec.o
+ .debug_macro   0x0003f603      0x603 hpl/afec/hpl_afec.o
+ .debug_macro   0x0003fc06      0x6c1 hpl/core/hpl_init.o
+ .debug_macro   0x000402c7      0x324 hpl/core/hpl_init.o
+ .debug_macro   0x000405eb      0x9df hpl/core/hpl_init.o
+ .debug_macro   0x00040fca      0x758 hpl/mcan/hpl_mcan.o
+ .debug_macro   0x00041722      0x160 hpl/mcan/hpl_mcan.o
+ .debug_macro   0x00041882       0x9e hpl/mcan/hpl_mcan.o
+ .debug_macro   0x00041920      0x69d hpl/pio/hpl_pio_ext.o
+ .debug_macro   0x00041fbd      0x5d0 hpl/pio/hpl_pio_ext.o
+ .debug_macro   0x0004258d      0x672 hpl/pmc/hpl_pmc.o
+ .debug_macro   0x00042bff      0x6b1 hpl/pwm/hpl_pwm.o
+ .debug_macro   0x000432b0      0x658 hpl/systick/hpl_systick_ARMv7_base.o
+ .debug_macro   0x00043908       0x10 hpl/systick/hpl_systick_ARMv7_base.o
+ .debug_macro   0x00043918      0x6c4 hpl/tc/hpl_tc.o
+ .debug_macro   0x00043fdc       0x10 hpl/tc/hpl_tc.o
+ .debug_macro   0x00043fec      0x114 hpl/tc/hpl_tc.o
+ .debug_macro   0x00044100      0x6b9 hpl/usart/hpl_usart.o
+ .debug_macro   0x000447b9       0x9f hpl/usart/hpl_usart.o
+ .debug_macro   0x00044858      0x6a2 hpl/xdmac/hpl_xdmac.o
+ .debug_macro   0x00044efa      0xa00 main.o
+ .debug_macro   0x000458fa      0x7b9 stdio_redirect/gcc/read.o
+ .debug_macro   0x000460b3      0x7b9 stdio_redirect/gcc/write.o
+ .debug_macro   0x0004686c      0x7b2 stdio_redirect/stdio_io.o
+ .debug_macro   0x0004701e       0xd9 stdio_redirect/stdio_io.o
+ .debug_macro   0x000470f7      0x952 stdio_start.o
 
 .debug_line     0x00000000    0x1efea
  .debug_line    0x00000000      0xf8b atmel_start.o
@@ -17778,77 +17783,77 @@ OUTPUT(4YP_Software.elf elf32-littlearm)
  .debug_line    0x0001d2e9      0xd70 stdio_redirect/stdio_io.o
  .debug_line    0x0001e059      0xf91 stdio_start.o
 
-.debug_str      0x00000000   0x158b8d
- .debug_str     0x00000000   0x135603 atmel_start.o
-                             0x1360bd (size before relaxing)
- .debug_str     0x00135603      0xe6a custom_code/control/ControlStartup.o
-                             0x13309f (size before relaxing)
- .debug_str     0x0013646d     0x17b4 custom_code/low_level/Encoder.o
-                             0x13852c (size before relaxing)
- .debug_str     0x00137c21      0x3a4 custom_code/low_level/PositionSensors.o
-                             0x13763c (size before relaxing)
- .debug_str     0x00137fc5      0x291 custom_code/low_level/User_adc.o
-                             0x1336e6 (size before relaxing)
- .debug_str     0x00138256     0x5f05 custom_code/low_level/User_pwm.o
-                             0x13934e (size before relaxing)
- .debug_str     0x0013e15b      0x63c Device_Startup/startup_same70q21b.o
-                             0x12bce0 (size before relaxing)
- .debug_str     0x0013e797      0xb9c driver_init.o
-                             0x133978 (size before relaxing)
- .debug_str     0x0013f333      0x60b hal/src/hal_adc_async.o
-                             0x131ed8 (size before relaxing)
- .debug_str     0x0013f93e       0x63 hal/src/hal_atomic.o
-                             0x131043 (size before relaxing)
- .debug_str     0x0013f9a1       0x9b hal/src/hal_delay.o
-                             0x1310ad (size before relaxing)
- .debug_str     0x0013fa3c       0xc9 hal/src/hal_ext_irq.o
-                             0x131104 (size before relaxing)
- .debug_str     0x0013fb05       0x2c hal/src/hal_io.o
-                             0x1310de (size before relaxing)
- .debug_str     0x0013fb31      0x129 hal/src/hal_pwm.o
-                             0x1317ce (size before relaxing)
- .debug_str     0x0013fc5a      0x2c3 hal/src/hal_timer.o
-                             0x131970 (size before relaxing)
- .debug_str     0x0013ff1d      0x49e hal/src/hal_usart_sync.o
-                             0x131b7e (size before relaxing)
- .debug_str     0x001403bb       0x2a hal/utils/src/utils_assert.o
+.debug_str      0x00000000   0x158b9d
+ .debug_str     0x00000000   0x135613 atmel_start.o
+                             0x1360cd (size before relaxing)
+ .debug_str     0x00135613      0xe6a custom_code/control/ControlStartup.o
+                             0x1330af (size before relaxing)
+ .debug_str     0x0013647d     0x17b4 custom_code/low_level/Encoder.o
+                             0x13853c (size before relaxing)
+ .debug_str     0x00137c31      0x3a4 custom_code/low_level/PositionSensors.o
+                             0x13764c (size before relaxing)
+ .debug_str     0x00137fd5      0x291 custom_code/low_level/User_adc.o
+                             0x1336f6 (size before relaxing)
+ .debug_str     0x00138266     0x5f05 custom_code/low_level/User_pwm.o
+                             0x13935e (size before relaxing)
+ .debug_str     0x0013e16b      0x63c Device_Startup/startup_same70q21b.o
+                             0x12bcf0 (size before relaxing)
+ .debug_str     0x0013e7a7      0xb9c driver_init.o
+                             0x133988 (size before relaxing)
+ .debug_str     0x0013f343      0x60b hal/src/hal_adc_async.o
+                             0x131ee8 (size before relaxing)
+ .debug_str     0x0013f94e       0x63 hal/src/hal_atomic.o
                              0x131053 (size before relaxing)
- .debug_str     0x001403e5       0x31 hal/utils/src/utils_list.o
-                             0x1310fd (size before relaxing)
- .debug_str     0x00140416       0x24 hal/utils/src/utils_ringbuffer.o
-                             0x1310e7 (size before relaxing)
- .debug_str     0x0014043a      0x756 hal/utils/src/utils_syscalls.o
-                               0x73e4 (size before relaxing)
- .debug_str     0x00140b90     0x826f hpl/afec/hpl_afec.o
-                             0x13a1f1 (size before relaxing)
- .debug_str     0x00148dff     0x307a hpl/core/hpl_init.o
-                             0x1348ab (size before relaxing)
- .debug_str     0x0014be79     0x148b hpl/mcan/hpl_mcan.o
-                             0x135dd2 (size before relaxing)
- .debug_str     0x0014d304     0x85be hpl/pio/hpl_pio_ext.o
-                             0x13a24d (size before relaxing)
- .debug_str     0x001558c2      0x1d6 hpl/pmc/hpl_pmc.o
-                             0x132232 (size before relaxing)
- .debug_str     0x00155a98      0x8f7 hpl/pwm/hpl_pwm.o
-                             0x138261 (size before relaxing)
- .debug_str     0x0015638f       0xde hpl/systick/hpl_systick_ARMv7_base.o
-                             0x1310ac (size before relaxing)
- .debug_str     0x0015646d      0xb64 hpl/tc/hpl_tc.o
-                             0x132ab9 (size before relaxing)
- .debug_str     0x00156fd1     0x1291 hpl/usart/hpl_usart.o
-                             0x13344c (size before relaxing)
- .debug_str     0x00158262      0x83c hpl/xdmac/hpl_xdmac.o
-                             0x139fff (size before relaxing)
- .debug_str     0x00158a9e       0x20 main.o
-                             0x137ffd (size before relaxing)
- .debug_str     0x00158abe       0x2b stdio_redirect/gcc/read.o
-                             0x134e00 (size before relaxing)
- .debug_str     0x00158ae9       0x2d stdio_redirect/gcc/write.o
-                             0x134e02 (size before relaxing)
- .debug_str     0x00158b16       0x4b stdio_redirect/stdio_io.o
-                             0x134e89 (size before relaxing)
- .debug_str     0x00158b61       0x2c stdio_start.o
-                             0x1360e1 (size before relaxing)
+ .debug_str     0x0013f9b1       0x9b hal/src/hal_delay.o
+                             0x1310bd (size before relaxing)
+ .debug_str     0x0013fa4c       0xc9 hal/src/hal_ext_irq.o
+                             0x131114 (size before relaxing)
+ .debug_str     0x0013fb15       0x2c hal/src/hal_io.o
+                             0x1310ee (size before relaxing)
+ .debug_str     0x0013fb41      0x129 hal/src/hal_pwm.o
+                             0x1317de (size before relaxing)
+ .debug_str     0x0013fc6a      0x2c3 hal/src/hal_timer.o
+                             0x131980 (size before relaxing)
+ .debug_str     0x0013ff2d      0x49e hal/src/hal_usart_sync.o
+                             0x131b8e (size before relaxing)
+ .debug_str     0x001403cb       0x2a hal/utils/src/utils_assert.o
+                             0x131063 (size before relaxing)
+ .debug_str     0x001403f5       0x31 hal/utils/src/utils_list.o
+                             0x13110d (size before relaxing)
+ .debug_str     0x00140426       0x24 hal/utils/src/utils_ringbuffer.o
+                             0x1310f7 (size before relaxing)
+ .debug_str     0x0014044a      0x756 hal/utils/src/utils_syscalls.o
+                               0x73f4 (size before relaxing)
+ .debug_str     0x00140ba0     0x826f hpl/afec/hpl_afec.o
+                             0x13a201 (size before relaxing)
+ .debug_str     0x00148e0f     0x307a hpl/core/hpl_init.o
+                             0x1348bb (size before relaxing)
+ .debug_str     0x0014be89     0x148b hpl/mcan/hpl_mcan.o
+                             0x135de2 (size before relaxing)
+ .debug_str     0x0014d314     0x85be hpl/pio/hpl_pio_ext.o
+                             0x13a25d (size before relaxing)
+ .debug_str     0x001558d2      0x1d6 hpl/pmc/hpl_pmc.o
+                             0x132242 (size before relaxing)
+ .debug_str     0x00155aa8      0x8f7 hpl/pwm/hpl_pwm.o
+                             0x138271 (size before relaxing)
+ .debug_str     0x0015639f       0xde hpl/systick/hpl_systick_ARMv7_base.o
+                             0x1310bc (size before relaxing)
+ .debug_str     0x0015647d      0xb64 hpl/tc/hpl_tc.o
+                             0x132ac9 (size before relaxing)
+ .debug_str     0x00156fe1     0x1291 hpl/usart/hpl_usart.o
+                             0x13345c (size before relaxing)
+ .debug_str     0x00158272      0x83c hpl/xdmac/hpl_xdmac.o
+                             0x13a00f (size before relaxing)
+ .debug_str     0x00158aae       0x20 main.o
+                             0x13800d (size before relaxing)
+ .debug_str     0x00158ace       0x2b stdio_redirect/gcc/read.o
+                             0x134e10 (size before relaxing)
+ .debug_str     0x00158af9       0x2d stdio_redirect/gcc/write.o
+                             0x134e12 (size before relaxing)
+ .debug_str     0x00158b26       0x4b stdio_redirect/stdio_io.o
+                             0x134e99 (size before relaxing)
+ .debug_str     0x00158b71       0x2c stdio_start.o
+                             0x1360f1 (size before relaxing)
 
 .debug_frame    0x00000000     0x2fb0
  .debug_frame   0x00000000       0x28 atmel_start.o
