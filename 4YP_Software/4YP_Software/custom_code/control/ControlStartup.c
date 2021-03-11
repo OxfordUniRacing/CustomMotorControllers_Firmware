@@ -40,5 +40,5 @@ void start_control_loop_dummy(int * raw_currents, int raw_voltage){
 	
 	
 	//start control loop below
-	
+Control(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, &control_pos_sens_deltas, control_encoder_angle)
 }

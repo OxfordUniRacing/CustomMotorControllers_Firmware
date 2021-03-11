@@ -33,8 +33,8 @@ arm_matrix_instance_f32 A;
 // Current Vector
 #define I_cols 1
 #define I_rows 3
-float I_data [I_cols*I_rows];
-arm_matrix_instance_f32 I;
+//float I_data [I_cols*I_rows];			//Using external data from control startup
+//arm_matrix_instance_f32 I;
 
 // Electric Theta
 float theta_e;

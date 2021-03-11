@@ -7,10 +7,12 @@
 
 #include "Control.h"
 #include "ControlConfig.h"
+#include "ControlStartup.h"
+#include "EstimateTheta.h"
 
 void Init_Control(void){
 	arm_mat_init_f32 (&A,A_rows,A_cols,(float32_t *)A_data);    //MATRIX EXAMPLE
-	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)I_data);    //create current vector
+	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)control_currents);    //create current vector
 	arm_mat_init_f32 (&PWM,PWM_rows,PWM_cols,(float32_t *)PWM_data);    //create pwm vector
 	
 	PID_init_ncts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd);		//initialise the PID controller for d and q values
@@ -57,12 +59,12 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc){							//Space Ve
 	
 }
 
-void Control(float torquerequest, float V_dc){
+void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle){
 	
 	float Iq_r, Id_r;
 	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
 	
-	theta_e = getTheta();
+	theta_e = EstimateTheta(int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
 	float sintheta_e = sin(theta_e);
 	float costheta_e = cos(theta_e);	//(Currently uses fast sin and cosine)
 	
