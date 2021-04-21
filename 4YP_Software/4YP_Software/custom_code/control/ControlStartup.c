@@ -24,7 +24,7 @@ void gather_control_data(void){
 	
 	
 	//do last as this is the most frequently updated data
-	control_encoder_angle = encoder_get_angle();
+	encoder_get_angle(& control_encoder_angle);
 }
 
 

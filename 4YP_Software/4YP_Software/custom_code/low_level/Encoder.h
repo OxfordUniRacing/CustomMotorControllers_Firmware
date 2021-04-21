@@ -29,7 +29,7 @@ void encoder_init(void);
 void encoder_enable(void);
 
 //returns angle in radians
-float encoder_get_angle(void);
+void encoder_get_angle(float * angl);
 int encoder_get_counter(void);
 int encoder_get_rotations(void);
 

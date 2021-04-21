@@ -153,7 +153,8 @@ void Timer_Counter_Initial_Test (void){
 void Encoder_Initial_Test(void){
 	while(1){
 		int enccntr = encoder_get_counter();
-		float encangle = encoder_get_angle();
+		float encangle =0;
+		encoder_get_angle(&encangle);
 		printf("Encoder counter = %i \t; angle = %f \n", enccntr, encangle);
 		
 		//printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));

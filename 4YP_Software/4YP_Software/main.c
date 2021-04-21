@@ -61,6 +61,7 @@ int main(void)
 	
 	pwm_set_duty(PWM_PHASE_B, 500);
 	pwm_disable(&PWM_1);
+	pwm_disable(&PWM_0);
 	while(1){}
 	
 	

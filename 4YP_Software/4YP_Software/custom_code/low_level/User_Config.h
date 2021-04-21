@@ -119,11 +119,12 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define ENCODER_STEPS 4096*4
 
 //max delta (in steps) after which we start throwing errors;  accepted error 0+-delta
-#define ENCODER_MAX_DELTA 2
+#define ENCODER_MAX_DELTA 5
 
 //offset between the Z axis position and the axis that we are measuring from
 // offset is measured in radians
-#define ENCODER_MOUNTING_OFFSET 0.0
+#define ENCODER_MOUNTING_OFFSET 2.405611464
+
 
 
 //--------------------------------------------------------------DMA for ADCs------------------------------------------------------------------------------

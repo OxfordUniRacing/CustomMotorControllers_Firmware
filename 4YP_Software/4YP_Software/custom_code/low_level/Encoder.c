@@ -120,7 +120,7 @@ static void Encoder_Z_Interrupt (void){
 			//all is good
 			}else{
 			//something is wrong
-			
+			//printf("error = %i\n",(int) delta);
 			//zero out the initial offset coutner to not corrupt future data
 			encoder_inital_offset += delta;
 		}
@@ -189,7 +189,7 @@ void encoder_enable(void){
 	
 }
 
-float encoder_get_angle(void){
+void encoder_get_angle(float * angl){
 	int encoder_counter_no_offset = encoder_get_counter();
 	
 	//we know that encoder steps is 2^x
@@ -197,10 +197,12 @@ float encoder_get_angle(void){
 	// and we also eliminate any problems with overflowing counters
 	int current_counter = encoder_counter_no_offset & (ENCODER_STEPS - 1);
 	
-	//convert to radians and scale
-	float angl  = (2 * PI * (float) current_counter / (ENCODER_STEPS)) + ENCODER_MOUNTING_OFFSET;
+	float current_counter_float = (float) current_counter;
 	
-	return angl;
+	//convert to radians and scale
+	*angl  = (2 * PI * current_counter_float / (ENCODER_STEPS)) - ENCODER_MOUNTING_OFFSET;
+	
+
 }
 
 int encoder_get_counter(void){

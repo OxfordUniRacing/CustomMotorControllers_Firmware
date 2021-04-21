@@ -51,17 +51,32 @@ static inline void Position_General_Interrupt(void){
 
 static void Position_1_Interrupt (void){
 	Position_General_Interrupt();
-	printf("POS 1\n");
+	//printf("POS 1\n");
 }
 
 static void Position_2_Interrupt (void){
 	Position_General_Interrupt();
 	//printf("POS 2\n");
 }
-
+int cntr = 0;
 static void Position_3_Interrupt (void){
 	Position_General_Interrupt();
-	printf("POS 3\n");
+	//printf("POS 3\n");
+	
+	
+	// For calibrating the encoder offset
+	/*
+	if(gpio_get_pin_level(PIN_GPIO_POS_3) == 0){	//0 degrees state is at 1,0,0 ; with pos sens 3 transitioning from 1 to 0
+		cntr ++;
+		if(cntr ==15){
+			cntr=0;
+		float angleee = 0;
+		encoder_get_angle(&angleee);
+		
+		printf("%f\n",angleee);
+		}
+	}
+	*/
 }
 
 void pos_sens_init (void){
