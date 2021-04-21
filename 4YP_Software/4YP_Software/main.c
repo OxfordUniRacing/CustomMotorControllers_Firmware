@@ -58,6 +58,8 @@ int main(void)
 	//test position sensor
 	//POS_Sensor_Initial_Test();
 	
+	Control_Function_Test();
+	
 	
 	pwm_set_duty(PWM_PHASE_B, 500);
 	pwm_disable(&PWM_1);

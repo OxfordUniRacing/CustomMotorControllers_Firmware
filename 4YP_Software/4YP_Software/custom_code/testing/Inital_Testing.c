@@ -28,6 +28,14 @@
 void Control_Function_Test(void){
 	while (1)
 	{
+		Init_Control();
+		float a = 0;
+		while (1)
+		{
+			Control(1, 100, 0, 0, 0, a);
+			a = a+0.01;
+			delay_us(1);
+		}
 		
 	}	
 }

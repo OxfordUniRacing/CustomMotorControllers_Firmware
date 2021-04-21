@@ -10,17 +10,19 @@
 #include "ControlStartup.h"
 #include "EstimateTheta.h"
 
-void Init_Control(void){
+void Init_Control(void) {
 	arm_mat_init_f32 (&A,A_rows,A_cols,(float32_t *)A_data);    //MATRIX EXAMPLE
 	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)control_currents);    //create current vector
 	arm_mat_init_f32 (&PWM,PWM_rows,PWM_cols,(float32_t *)PWM_data);    //create pwm vector
 	
 	PID_init_ncts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd);		//initialise the PID controller for d and q values
 	PID_init_ncts(&PID_q, PID_q_Kp, PID_q_Ki, PID_q_Kd);
+	
+	oldtorquerequest = 0;
 }
 
 
-void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc){		//Calculates reference currents based on the torque requests 
+void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc) {		//Calculates reference currents based on the torque requests 
 	
 	//float omega_base_e = V_dc*LST_SQ_OMEGA_BASE_E				//FIELD WEAKENING PART TO FINISH
 	//if(omega_e > omega_base_e ){}
@@ -31,7 +33,7 @@ void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc){		//Ca
 	*Iq_r = sqrt(I_m*I_m - (*Id_r)*(*Id_r));
 }	
 
-void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc){							//Space Vector Modulation Function
+void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space Vector Modulation Function
 	float Vc_aim;
 	Vc_aim = -Vb_aim - Va_aim;										//Calculates third voltage aim
 	
@@ -59,10 +61,19 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc){							//Space Ve
 	
 }
 
-void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle){
+void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
+	
+	
+	//Limit torque request rate
+	if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
+	if (torquerequest + T_RATE_DOWN < oldtorquerequest){torquerequest = oldtorquerequest - T_RATE_DOWN;} //Limit Decrease Rate
+	oldtorquerequest = torquerequest;	//Update the new old value
+	
 	
 	float Iq_r, Id_r;
 	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
+	
+
 	
 	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
 	float sintheta_e = sin(theta_e);
