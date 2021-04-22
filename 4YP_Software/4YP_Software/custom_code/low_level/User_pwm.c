@@ -83,8 +83,8 @@ void pwm_enable_all(void){
 		
 	//set period and initial duty cycle
 	//initial duty cycle = 0.5 * period <=> no current output for an H-bridge type driver
-	pwm_set_parameters(&PWM_0, PWM_PERIOD, PWM_PERIOD>>1);
-	pwm_set_parameters(&PWM_1, PWM_PERIOD, PWM_PERIOD>>1);
+	pwm_set_parameters(&PWM_0, PWM_PERIOD, PWM_PERIOD);
+	pwm_set_parameters(&PWM_1, PWM_PERIOD, PWM_PERIOD);
 	
 	
 	
