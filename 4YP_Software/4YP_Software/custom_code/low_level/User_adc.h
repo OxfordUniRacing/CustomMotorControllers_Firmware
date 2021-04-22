@@ -25,6 +25,10 @@ bool is_dma_adc_1_continuous;
 bool has_0_triggered;
 bool has_1_triggered;
 
+bool is_control_enabled;
+void enable_control(void);
+void disable_control(void);
+
 
 void dma_adc_init(void);
 

@@ -7,6 +7,7 @@
 #include "Initial_Testing.h"
 #include "Encoder.h"
 #include "PositionSensors.h"
+#include "AnalogSensorConversion.h"
 
 
 //add these 3 lines before every instance of arm_math.h ;
@@ -40,12 +41,15 @@ int main(void)
 	/* Enable all devices */
 	pwm_enable_all();
 	adc_enable_all();
+	calibrate_curr_sensors();	//both PWM and ADC need to be enabled to calibrate the current sensors
 	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);		//enables the DC-DC converter for the HV side
 	
 	timer_start(&ENCODER_A);
 	timer_start(&ENCODER_B);
 	
-	
+	//dma_adc_0_enable_continuously();
+	//dma_adc_1_enable_continuously();
+	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
 	
@@ -59,10 +63,8 @@ int main(void)
 	//POS_Sensor_Initial_Test();
 	
 	
-	pwm_set_duty(PWM_PHASE_B, 500);
-	pwm_disable(&PWM_1);
-	pwm_disable(&PWM_0);
-	while(1){}
+	
+	Current_Offset_Test();
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up

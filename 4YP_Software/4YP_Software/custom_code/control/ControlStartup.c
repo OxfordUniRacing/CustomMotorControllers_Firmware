@@ -11,6 +11,7 @@
 #include "Encoder.h"
 #include "PositionSensors.h"
 #include "User_adc.h"
+#include "AnalogSensorConversion.h"
 
 
 

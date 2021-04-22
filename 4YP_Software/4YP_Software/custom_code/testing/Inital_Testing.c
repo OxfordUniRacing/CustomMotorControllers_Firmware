@@ -22,7 +22,7 @@
 #include "User_adc.h"
 #include "PositionSensors.h"
 #include "Encoder.h"
-#include "Control.h"
+#include "AnalogSensorConversion.h"
 
 
 void Control_Function_Test(void){
@@ -73,6 +73,16 @@ void Current_Voltage_Inital_Test (void){
 	printf("Raw Data \n");
 	printf("CurrA = %i \t\t CurrB = %i \t\t CurrC = %i \n",current_test_data[0], current_test_data[1], current_test_data[2]);
 	printf("Supply Voltage = %i  \n",voltage_test_data);
+}
+void Current_Offset_Test(void){
+	while(1){
+		dma_adc_0_enable_for_one_transaction();
+		dma_adc_1_enable_for_one_transaction();
+		delay_ms(2);
+		//printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
+		printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
+		delay_ms(1000);
+	}
 }
 
 void first_slow_spin (void){

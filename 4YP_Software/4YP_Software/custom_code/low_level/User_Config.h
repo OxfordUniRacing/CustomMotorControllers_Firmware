@@ -112,6 +112,12 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define ADC_TEMP_MOTOR			&ADC_0, ADC_TEMP_MOTOR_CHANNEL
 
 
+// how many V/A is the sensor output. This can be tweaked for individual sensors
+#define CURR_A_SLOPE 0.005
+#define CURR_B_SLOPE 0.005
+#define CURR_C_SLOPE 0.005
+
+
 
 //--------------------------------------------------------------ENCODER------------------------------------------------------------------------------
 

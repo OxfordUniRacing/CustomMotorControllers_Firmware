@@ -16,6 +16,17 @@
 
 
 
+
+//enables calling the control loop from the DMA
+void enable_control(void){
+	is_control_enabled = true;
+}
+void disable_control(void){
+	is_control_enabled = false;
+}
+
+
+
 //arrays for passing on the values to the control functions
 int raw_currents[3];
 int raw_voltage;
@@ -31,7 +42,7 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	has_0_triggered = true;
 	
 	//just for testing
-	printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3], (int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
+	//printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3], (int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
 	
 	
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
@@ -62,7 +73,7 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	
 	
 	
-	if(ready_values == ALL_VALUES_READY){
+	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
 		
 		//we would need new values for next loop
@@ -81,7 +92,7 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 	has_1_triggered = true;
 	
 	//just for testing
-	printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
+	//printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
 	
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
 	for (int i =0; i < ADC_1_NUM_ACTIVE_CHANNELS; i++){
@@ -111,7 +122,7 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 	
 	
 	
-	if(ready_values == ALL_VALUES_READY){
+	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
 		
 		//we would need new values for next loop
@@ -276,13 +287,14 @@ void adc_disable_all(void){
 int adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
 	//null checking variable to see if a write has occured
 	has_0_triggered = false;
-	has_0_triggered = false;
+	has_1_triggered = false;
 	
 		
 	if (descr == (&ADC_0)){
 		for (int i =0; i<ADC_0_NUM_ACTIVE_CHANNELS; i++){
 			if((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
-				int temp = (int) dma_adc_0_buff[i];
+				int temp = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				
 				
 				if(has_0_triggered){
 					//data was altered while we were reading
@@ -298,7 +310,7 @@ int adc_read(struct adc_async_descriptor *const descr, const uint8_t channel){
 	if (descr == (&ADC_1)){
 		for (int i =0; i<ADC_1_NUM_ACTIVE_CHANNELS; i++){
 			if((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk) == AFEC_LCDR_CHNB(channel)){
-				int temp = (int) dma_adc_1_buff[i];
+				int temp = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
 				
 				if(has_1_triggered){
 					//data was altered while we were reading
