@@ -62,9 +62,13 @@ int main(void)
 	//test position sensor
 	//POS_Sensor_Initial_Test();
 	
+	//for seeing the suqre waves on just one channel
+	//pwm_disable(&PWM_0);
+	//pwm_set_duty(PWM_PHASE_C, 950);
+	//while(1){}
 	
-	
-	Current_Offset_Test();
+	//test automatic current sensor offset voltage
+	//Current_Offset_Test();
 	
 	
 	//Runs first slow spin test of motor slowly increasing the angle so the rotor can catch up

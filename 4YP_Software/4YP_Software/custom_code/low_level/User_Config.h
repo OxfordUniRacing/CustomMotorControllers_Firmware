@@ -26,7 +26,7 @@
 
 #define PWM_PERIOD 1000
 
-#define PWM_DEADTIME 34
+#define PWM_DEADTIME 10
 
 /*
 PWM functions look like this:
