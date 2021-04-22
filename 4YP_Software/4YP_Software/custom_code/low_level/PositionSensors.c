@@ -8,6 +8,7 @@
 
 #include "PositionSensors.h"
 #include "User_Config.h"
+#include "Encoder.h"
 //atmel start gives access to the SysTick
 #include <atmel_start.h>
 
@@ -68,12 +69,12 @@ static void Position_3_Interrupt (void){
 	/*
 	if(gpio_get_pin_level(PIN_GPIO_POS_3) == 0){	//0 degrees state is at 1,0,0 ; with pos sens 3 transitioning from 1 to 0
 		cntr ++;
-		if(cntr ==15){
+		if(cntr ==15*5){
 			cntr=0;
-		float angleee = 0;
-		encoder_get_angle(&angleee);
+			float angleee = 0;
+			encoder_get_angle(&angleee);
 		
-		printf("%f\n",angleee);
+			printf("%f\n",angleee);
 		}
 	}
 	*/
