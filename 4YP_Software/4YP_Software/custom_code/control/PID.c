@@ -28,20 +28,20 @@ void PID_init_cts(struct PID_instance* PID,float Kp,float Ki,float Kd, float tim
 }
 
 float runPID(struct PID_instance* PID, float ref, float feedback){
-	if(!PID->is_using_constant_timestep){
+	//if(!PID->is_using_constant_timestep){
 		//PID->time_step = getTimeStep();
-	}
+	//}
 	
 	float Ap, Ad, Ai;
 	float error = ref - feedback;
 	
 	Ap = error*PID->Kp;
-	Ad = PID->Kd*(error - PID->previous_error)/PID->time_step;
+	//Ad = PID->Kd*(error - PID->previous_error)/PID->time_step;
 	Ai = PID->Ki*(error*PID->time_step) + PID->integral_v;
 	
-	if( ((Ai>=Ap) & (Ap>=0)) | ((Ai<=Ap) & (Ap<=0)) )   Ai = Ap;		//set anti-windup for integral action
+	//if( ((Ai>=Ap) & (Ap>=0)) | ((Ai<=Ap) & (Ap<=0)) )   Ai = Ap;		//set anti-windup for integral action
 	
 	PID->previous_error = error;
-	return (Ap + Ai + Ad);
+	return (Ap + Ai);		//+optional Ad
 
 }

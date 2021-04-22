@@ -62,10 +62,15 @@ int main(void)
 	//test position sensor
 	//POS_Sensor_Initial_Test();
 	
+<<<<<<< HEAD
 	//for seeing the suqre waves on just one channel
 	//pwm_disable(&PWM_0);
 	//pwm_set_duty(PWM_PHASE_C, 950);
 	//while(1){}
+=======
+	Control_Function_Test();
+	
+>>>>>>> 05b86dd598d0efc1542e56853c722b8ed786b007
 	
 	//test automatic current sensor offset voltage
 	//Current_Offset_Test();
