@@ -127,11 +127,8 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 //max delta (in steps) after which we start throwing errors;  accepted error 0+-delta
 #define ENCODER_MAX_DELTA 5
 
-//offset between the Z axis position and the axis that we are measuring from
-// offset is measured in radians
-//obsolete we are recording the offset 
-#define ENCODER_MOUNTING_OFFSET 0
-
+//min counter change for a z pulse
+#define ENCODER_MIN_Z_DELTA ((ENCODER_STEPS)>>2)
 
 
 

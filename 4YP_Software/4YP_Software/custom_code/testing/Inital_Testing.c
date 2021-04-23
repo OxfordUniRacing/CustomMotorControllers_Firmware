@@ -87,7 +87,7 @@ void Current_Offset_Test(void){
 		dma_adc_0_enable_for_one_transaction();
 		dma_adc_1_enable_for_one_transaction();
 		delay_ms(2);
-		//printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
+		printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
 		printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
 		delay_ms(1000);
 	}

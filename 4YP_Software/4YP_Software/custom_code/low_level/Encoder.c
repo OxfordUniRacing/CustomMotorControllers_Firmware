@@ -98,40 +98,44 @@ static void Encoder_Z_Interrupt (void){
 	//get counter value
 	int encoder_counter_no_offset = encoder_get_counter();
 	
-	//printf("Z interrupt - %i \t; offset = %i \n", encoder_counter_no_offset, encoder_inital_offset);
+	if(encoder_counter_no_offset - encoder_last_count > ENCODER_MIN_Z_DELTA || encoder_counter_no_offset - encoder_last_count < -ENCODER_MIN_Z_DELTA){
+	
+		//printf("Z interrupt - %i , number of Zs - %i\n", encoder_counter_no_offset,encoder_num_Z_interrupts);
 	
 	
-	//if first rotation then record the offset
-	if(encoder_num_Z_interrupts == 0){
-		encoder_Z_offset = encoder_counter_no_offset;
-	}else{
-		//if not first rotation, check if the number of pulses this rotation was within margin of counting error
+		//if first rotation then record the offset
+		if(encoder_num_Z_interrupts == 0){
+			encoder_Z_offset = encoder_counter_no_offset;
+		}else{
+			//if not first rotation, check if the number of pulses this rotation was within margin of counting error
 		
-		//we know that encoder steps is 2^x
-		// by doing the bitwise operation we effectively subtract the number of rotations* encoder steps
-		// and we also eliminate any problems with overflowing counters
-		unsigned int delta = (encoder_counter_no_offset - encoder_Z_offset) & (ENCODER_STEPS - 1);
+			//we know that encoder steps is 2^x
+			// by doing the bitwise operation we effectively subtract the number of rotations* encoder steps
+			// and we also eliminate any problems with overflowing counters
+			unsigned int delta = (encoder_counter_no_offset - encoder_Z_offset) & (ENCODER_STEPS - 1);
 		
-		printf("Z interrupt - delta = %i \n", delta);
+			//printf("Z interrupt - delta = %i \n", delta);
 		
-		//ideally delta should be zero
-		// tolerance up to +2 (0<=delta <=2) or -2 (ENCODER_STEPS-3<=delta)
-		if( (delta <= ENCODER_MAX_DELTA) || (delta >= ENCODER_STEPS-1 - ENCODER_MAX_DELTA) ){
-			//all is good
-			}else{
-			//something is wrong
-			//printf("error = %i\n",(int) delta);
-			//zero out the initial offset coutner to not corrupt future data
-			//do this to both Z offset and D axis offset
-			encoder_Z_offset += delta;
-			encoder_Daxis_offset += delta;
+			//ideally delta should be zero
+			// tolerance up to +2 (0<=delta <=2) or -2 (ENCODER_STEPS-3<=delta)
+			if( (delta <= ENCODER_MAX_DELTA) || (delta >= ENCODER_STEPS-1 - ENCODER_MAX_DELTA) ){
+				//all is good
+				}else{
+				//something is wrong
+				//printf("error = %i\n",(int) delta);
+				//zero out the initial offset coutner to not corrupt future data
+				//do this to both Z offset and D axis offset
+				encoder_Z_offset += delta;
+				encoder_Daxis_offset += delta;
+			}
+		
 		}
-		
+	
+	
+		//increment rotation counter
+		encoder_num_Z_interrupts ++;
 	}
-	
-	
-	//increment rotation counter
-	encoder_num_Z_interrupts ++;
+	encoder_last_count = encoder_counter_no_offset;
 }
 
 void encoder_init(void){

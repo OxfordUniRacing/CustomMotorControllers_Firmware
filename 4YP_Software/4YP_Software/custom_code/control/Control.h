@@ -63,6 +63,7 @@ void Init_Control(void);
 void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
 
 void update_PWM(float* PWM);
+float Vd_aim, Vq_aim;
 
 
 #endif /* CONTROL_H_ */

@@ -64,7 +64,7 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space V
 	if(cntrrar == 15000){
 		cntrrar = 0;
 		
-		printf("\n PWM A = %f \t PWM B = %f \t PWM C - %f ", PWM[0], PWM[1], PWM[2]);
+		//printf("\n PWM A = %f \t PWM B = %f \t PWM C - %f ", PWM[0], PWM[1], PWM[2]);
 	}
 
 }
@@ -108,9 +108,11 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 
 int cntrrr = 0;
 
+
+
 void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
 	
-	V_dc = 5;
+	V_dc = 7;
 	//Limit torque request rate
 	//if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
 	//if (torquerequest + T_RATE_DOWN < oldtorquerequest){torquerequest = oldtorquerequest - T_RATE_DOWN;} //Limit Decrease Rate
@@ -131,9 +133,8 @@ void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1
 	//float I_d, I_q;
 	//arm_park_f32(I_alpha,I_beta, &I_d, &I_q, sintheta_e, costheta_e);	//Does Park transform
 	
-	float Vd_aim, Vq_aim;
-	Vd_aim = 0;
-	Vq_aim = 2.5;
+	
+	
 	
 	float Valpha_aim, Vbeta_aim;
 	arm_inv_park_f32(Vd_aim,Vq_aim,&Valpha_aim,&Vbeta_aim,sintheta_e,costheta_e);	//Inverse Park transform
@@ -150,15 +151,15 @@ void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1
 	if(cntrrr == 15000){
 		cntrrr = 0;
 		
-		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+		//printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
 	}
 }
 
 
 
 void update_PWM(float* PWM){
-	pwm_set_duty(PWM_PHASE_A, (int) ((PWM_PERIOD-1) * PWM[0]));
+	pwm_set_duty(PWM_PHASE_A, (int) ((PWM_PERIOD-1) * PWM[2]));
 	pwm_set_duty(PWM_PHASE_B, (int) ((PWM_PERIOD-1) * PWM[1]));
-	pwm_set_duty(PWM_PHASE_B, (int) ((PWM_PERIOD-1) * PWM[2]));
+	pwm_set_duty(PWM_PHASE_C, (int) ((PWM_PERIOD-1) * PWM[0]));
 	
 }

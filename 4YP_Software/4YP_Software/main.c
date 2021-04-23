@@ -8,6 +8,7 @@
 #include "Encoder.h"
 #include "PositionSensors.h"
 #include "AnalogSensorConversion.h"
+#include "Control.h"
 
 
 //add these 3 lines before every instance of arm_math.h ;
@@ -51,22 +52,36 @@ int main(void)
 	dma_adc_1_enable_continuously();
 	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
-	/*
+	
+	Current_Offset_Test();
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();
 	
-	printf("30 seconds \n");
-	delay_ms(10000);
-	printf("20 seconds \n");
-	delay_ms(10000);
-	printf("10 seconds \n");
-	delay_ms(10000);
-	printf("Let Go \n");
-	delay_ms(1000);
+	printf("Starting D axis alignment \n");
+	pwm_set_duty(PWM_PHASE_A, 0);
+	pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));
+	pwm_set_duty(PWM_PHASE_C, (PWM_PERIOD-1));
 	
+	
+
+	delay_ms(5000);
+	encoder_record_Daxis_offset();
+	printf("Finished D axis alignment \n");
+
+	Vd_aim = 0;
+	Vq_aim = 1;
 	enable_control();
-	*/
+	
+	
+	delay_ms(3000);
+	printf("Increasing PWM \n");
+	for(int i =0;i< 10;i++){
+		Vq_aim +=0.1;
+		delay_us(100);
+	}
+	printf("Vq aim - %f \n",Vq_aim);
+	
 	while(1){}
 	
 	//test timers for encoder

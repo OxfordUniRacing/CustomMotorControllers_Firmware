@@ -27,6 +27,7 @@ int encoder_inital_offset;	//to store the offet between the last reset point (st
 int encoder_Z_offset;
 int encoder_Daxis_offset;
 int encoder_error_offset;
+int encoder_last_count;
 
 void encoder_init(void);
 void encoder_enable(void);
