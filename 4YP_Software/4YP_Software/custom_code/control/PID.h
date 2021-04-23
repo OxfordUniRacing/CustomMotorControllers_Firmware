@@ -17,9 +17,8 @@ struct PID_instance{
 	float integral_v;
 	float time_step;
 	bool is_using_constant_timestep;
-	};
+};
 	
-void PID_init_ncts(struct PID_instance* PID,float Kp,float Ki,float Kd);
 void PID_init_cts(struct PID_instance* PID,float Kp,float Ki,float Kd, float time_step);
 float runPID(struct PID_instance* PID, float ref, float feedback);
 

@@ -17,8 +17,8 @@ void Init_Control(void) {
 	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)control_currents);    //create current vector
 	arm_mat_init_f32 (&PWM,PWM_rows,PWM_cols,(float32_t *)PWM_data);    //create pwm vector
 	
-	PID_init_ncts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd);		//initialise the PID controller for d and q values
-	PID_init_ncts(&PID_q, PID_q_Kp, PID_q_Ki, PID_q_Kd);
+	PID_init_cts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd,(float)1/15000);		//initialise the PID controller for d and q values
+	PID_init_cts(&PID_q, PID_q_Kp, PID_q_Ki, PID_q_Kd,(float)1/15000);
 	
 	oldtorquerequest = 0;
 }
@@ -68,9 +68,9 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space V
 	}
 
 }
-
+int cntrrr = 0;
 void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
-	
+	V_dc = 8;
 	
 	//Limit torque request rate
 	if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
@@ -92,7 +92,7 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	float I_d, I_q; 
 	arm_park_f32(I_alpha,I_beta, &I_d, &I_q, sintheta_e, costheta_e);	//Does Park transform 
 	
-	float Vd_aim, Vq_aim;
+	//float Vd_aim, Vq_aim;		//defined somewhre else
 	Vd_aim = runPID(&PID_d, Id_r, I_d);								//PID 
 	Vq_aim = runPID(&PID_q, Iq_r, I_q);
 	
@@ -104,9 +104,24 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	
 	SVPWM(Va_aim, Vb_aim, (float32_t *)PWM_data, V_dc);										//Updates PWM values using space vector PWM
 	
+	update_PWM((float32_t *)PWM_data);
+	
+	cntrrr++;
+	if(cntrrr == 15000){
+		cntrrr = 0;
+		
+// 		printf("\n");
+// 		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+// 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
+// 		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
+// 		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
+// 		printf("\n Id_r = %f \t Iq_r = %f", Id_r, Iq_r);
+// 		
+		//printf("\n Ia = %f \t Ib = %f", I_alpha, I_beta);
+	}
 }
 
-int cntrrr = 0;
+
 
 
 

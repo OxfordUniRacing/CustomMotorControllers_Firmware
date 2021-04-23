@@ -20,10 +20,20 @@ void calibrate_curr_sensors(void){
 	delay_ms(1);
 	
 	
+	curr_A_offset = 0;
+	curr_B_offset = 0;
+	curr_C_offset = 0;
+	
 	//record the offsets; data being grabbed from the DMA buffer
-	curr_A_offset = raw_data_to_voltage(adc_read(ADC_CURRENT_A));
-	curr_B_offset = raw_data_to_voltage(adc_read(ADC_CURRENT_A));
-	curr_C_offset = raw_data_to_voltage(adc_read(ADC_CURRENT_A));
+	for(int i =0; i<10; i++){
+		curr_A_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_A));
+		curr_B_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_B));
+		curr_C_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_C));
+		delay_ms(1);
+	}
+	curr_A_offset /= 10;
+	curr_B_offset /= 10;
+	curr_C_offset /= 10;
 }
 
 //allow seperate current conversion functions so we can calibrate the sensors

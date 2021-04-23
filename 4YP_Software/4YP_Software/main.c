@@ -50,10 +50,12 @@ int main(void)
 	
 	dma_adc_0_enable_continuously();
 	dma_adc_1_enable_continuously();
+	
+	Init_Control();
 	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
-	Current_Offset_Test();
+	
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();
@@ -65,10 +67,10 @@ int main(void)
 	
 	
 
-	delay_ms(5000);
+	delay_ms(2000);
 	encoder_record_Daxis_offset();
 	printf("Finished D axis alignment \n");
-
+	/*
 	Vd_aim = 0;
 	Vq_aim = 1;
 	enable_control();
@@ -81,7 +83,8 @@ int main(void)
 		delay_us(100);
 	}
 	printf("Vq aim - %f \n",Vq_aim);
-	
+	*/
+	enable_control();
 	while(1){}
 	
 	//test timers for encoder
