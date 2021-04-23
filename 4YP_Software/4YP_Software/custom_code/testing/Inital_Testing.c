@@ -94,11 +94,11 @@ void Current_Offset_Test(void){
 }
 
 void first_slow_spin (void){
-	float omega = 94.25;    //Gives electrical frequency of 15Hz (one spin of the rotor every second)
+	float omega = 105;    //Gives electrical frequency of 15Hz (one spin of the rotor every second)
 	float T = 0;
-	float V_supply = 20;
-	float V_pp_test = 5;
-	while (1)
+	float V_supply = 5;
+	float V_pp_test = 2;
+	for(int i = 0; i<30000;i++)
 	{
 		float pwm_testing_a, pwm_testing_b, pwm_testing_c;
 		pwm_testing_a = 1000 - (sin(omega*T)+1)*500*V_pp_test/V_supply;

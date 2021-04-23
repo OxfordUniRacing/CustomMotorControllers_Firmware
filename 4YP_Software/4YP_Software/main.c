@@ -47,12 +47,26 @@ int main(void)
 	timer_start(&ENCODER_A);
 	timer_start(&ENCODER_B);
 	
-	//dma_adc_0_enable_continuously();
-	//dma_adc_1_enable_continuously();
+	dma_adc_0_enable_continuously();
+	dma_adc_1_enable_continuously();
 	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
+	delay_ms(500);
+	printf("Initiated \n");
+	//first_slow_spin();
 	
+	printf("30 seconds \n");
+	delay_ms(10000);
+	printf("20 seconds \n");
+	delay_ms(10000);
+	printf("10 seconds \n");
+	delay_ms(10000);
+	printf("Let Go \n");
+	delay_ms(1000);
+	
+	enable_control();
+	while(1){}
 	
 	//test timers for encoder
 	//Timer_Counter_Initial_Test();
@@ -62,15 +76,15 @@ int main(void)
 	//test position sensor
 	//POS_Sensor_Initial_Test();
 	
-<<<<<<< HEAD
+
 	//for seeing the suqre waves on just one channel
 	//pwm_disable(&PWM_0);
 	//pwm_set_duty(PWM_PHASE_C, 950);
 	//while(1){}
-=======
-	Control_Function_Test();
+
+	//Control_Function_Test();
 	
->>>>>>> 05b86dd598d0efc1542e56853c722b8ed786b007
+
 	
 	//test automatic current sensor offset voltage
 	//Current_Offset_Test();
@@ -81,33 +95,5 @@ int main(void)
 
 	/* Replace with your application code */
 	while (1) {
-		
-		gpio_set_pin_level(PIN_GPIO_6,true);
-		gpio_set_pin_level(PIN_USER_LED,true);
-		delay_ms(500);
-		
-		dma_adc_0_enable_for_one_transaction();
-		dma_adc_1_enable_for_one_transaction();
-		//adc_async_start_conversion(&ADC_0);
-		//adc_async_start_conversion(&ADC_1);
-		//printf("main - %i %i %i %i %i %i %i %i %i %i %i %i  \n", (int)afec_buf[0],(int)afec_buf[1],(int)afec_buf[2],(int)afec_buf[3],(int)afec_buf[4],(int)afec_buf[5],(int)afec_buf[6],(int)afec_buf[7],(int)afec_buf[8],(int)afec_buf[9],(int)afec_buf[10],(int)afec_buf[11]);
-		//AFEC0_Handler
-		
-		gpio_set_pin_level(PIN_GPIO_6,false);
-		gpio_set_pin_level(PIN_USER_LED,false);
-		delay_ms(500);
-		
-		
-		//Current_Voltage_Inital_Test();
-		//delay_ms(500);
-		/*
-		gpio_set_pin_level(PIN_USER_LED, false);
-		pwm_set_duty(PWM_PHASE_A, 800);
-		delay_ms(2000);
-		printf("this is \tworking\n");
-		
-		gpio_set_pin_level(PIN_USER_LED, true);
-		pwm_set_duty(PWM_PHASE_A, 300);
-		delay_ms(2000);*/
 	}
 }

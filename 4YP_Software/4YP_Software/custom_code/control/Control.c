@@ -10,6 +10,8 @@
 #include "ControlStartup.h"
 #include "EstimateTheta.h"
 
+#include <atmel_start.h>
+
 void Init_Control(void) {
 	arm_mat_init_f32 (&A,A_rows,A_cols,(float32_t *)A_data);    //MATRIX EXAMPLE
 	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)control_currents);    //create current vector
@@ -32,7 +34,7 @@ void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc) {		//C
 	*Id_r = C1 - sqrt(C1_SQR - 0.5*(I_m*I_m));
 	*Iq_r = sqrt(I_m*I_m - (*Id_r)*(*Id_r));
 }	
-
+int cntrrar;
 void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space Vector Modulation Function
 	float Vc_aim;
 	Vc_aim = -Vb_aim - Va_aim;										//Calculates third voltage aim
@@ -55,10 +57,16 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space V
 	}
 	
 	float Va_dc, Vb_dc, Vc_dc;					//does down clamping and sets minimum to zero, subtracting minimum from all three
-	PWM[0] = Va_comp - V_min;
-	PWM[1] = Vb_comp - V_min;
-	PWM[2] = Vc_comp - V_min;
-	
+	PWM[0] = 1 - (Va_comp - V_min);
+	PWM[1] = 1 - (Vb_comp - V_min);
+	PWM[2] = 1 - (Vc_comp - V_min);
+	cntrrar++;
+	if(cntrrar == 15000){
+		cntrrar = 0;
+		
+		printf("\n PWM A = %f \t PWM B = %f \t PWM C - %f ", PWM[0], PWM[1], PWM[2]);
+	}
+
 }
 
 void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
@@ -98,3 +106,59 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	
 }
 
+int cntrrr = 0;
+
+void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
+	
+	V_dc = 5;
+	//Limit torque request rate
+	//if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
+	//if (torquerequest + T_RATE_DOWN < oldtorquerequest){torquerequest = oldtorquerequest - T_RATE_DOWN;} //Limit Decrease Rate
+	//oldtorquerequest = torquerequest;	//Update the new old value
+	
+	
+	//float Iq_r, Id_r;
+	//getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
+	
+
+	
+	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
+	float sintheta_e = sin(theta_e);
+	float costheta_e = cos(theta_e);	//(Currently uses fast sin and cosine)
+	
+	//float I_alpha, I_beta;
+	//arm_clarke_f32(control_currents[0],control_currents[1],&I_alpha,&I_beta); //Does clarke transform
+	//float I_d, I_q;
+	//arm_park_f32(I_alpha,I_beta, &I_d, &I_q, sintheta_e, costheta_e);	//Does Park transform
+	
+	float Vd_aim, Vq_aim;
+	Vd_aim = 0;
+	Vq_aim = 2.5;
+	
+	float Valpha_aim, Vbeta_aim;
+	arm_inv_park_f32(Vd_aim,Vq_aim,&Valpha_aim,&Vbeta_aim,sintheta_e,costheta_e);	//Inverse Park transform
+	
+	float Va_aim, Vb_aim;
+	arm_inv_clarke_f32(Valpha_aim,Vbeta_aim,&Va_aim,&Vb_aim);		//Inverse clarke transform
+	
+	SVPWM(Va_aim, Vb_aim, (float32_t *)PWM_data, V_dc);										//Updates PWM values using space vector PWM
+	
+	update_PWM((float32_t *)PWM_data);
+	
+	
+	cntrrr++;
+	if(cntrrr == 15000){
+		cntrrr = 0;
+		
+		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+	}
+}
+
+
+
+void update_PWM(float* PWM){
+	pwm_set_duty(PWM_PHASE_A, (int) ((PWM_PERIOD-1) * PWM[0]));
+	pwm_set_duty(PWM_PHASE_B, (int) ((PWM_PERIOD-1) * PWM[1]));
+	pwm_set_duty(PWM_PHASE_B, (int) ((PWM_PERIOD-1) * PWM[2]));
+	
+}

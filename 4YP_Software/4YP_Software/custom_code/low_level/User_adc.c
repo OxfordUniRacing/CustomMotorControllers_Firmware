@@ -80,9 +80,10 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 		ready_values = 0;
 		
 		//launch control loop
+		start_control_loop_dummy((int *) &raw_currents, raw_voltage);
 		
-		printf("Data collected, launching control loop from adc 0\n");
-		printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
+		//printf("Data collected, launching control loop from adc 0\n");
+		//printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
 	}
 	
 }
@@ -129,9 +130,10 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 		ready_values = 0;
 		
 		//launch control loop
+		start_control_loop_dummy((int *) &raw_currents, raw_voltage);
 		
-		printf("Data collected, launching control loop from adc 1 \n");
-		printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
+		//printf("Data collected, launching control loop from adc 1 \n");
+		//printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
 	}
 }
 
