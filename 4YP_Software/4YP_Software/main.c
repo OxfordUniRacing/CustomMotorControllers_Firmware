@@ -51,7 +51,7 @@ int main(void)
 	dma_adc_1_enable_continuously();
 	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
-	
+	/*
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();
@@ -66,6 +66,7 @@ int main(void)
 	delay_ms(1000);
 	
 	enable_control();
+	*/
 	while(1){}
 	
 	//test timers for encoder
