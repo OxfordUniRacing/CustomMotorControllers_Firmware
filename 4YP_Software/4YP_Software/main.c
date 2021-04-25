@@ -52,10 +52,10 @@ int main(void)
 	dma_adc_1_enable_continuously();
 	
 	Init_Control();
-	//enable_control();
+	enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
-	
+	Current_Offset_And_Timing_Test();
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();

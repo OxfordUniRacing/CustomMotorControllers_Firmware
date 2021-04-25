@@ -11,7 +11,9 @@
 
 #include "User_Config.h"
 
-
+//for time diagram testing
+float time_delta_adc_0, time_delta_adc_1;
+int time_print_counter;
 
 //buffers for the DMA to put the output of the ADCs
 static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];

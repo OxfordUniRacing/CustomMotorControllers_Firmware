@@ -186,7 +186,7 @@
           <AcmeProjectActionInfo Action="File" Source="stdio_start.h" IsConfig="false" Hash="5j2k69zdoQpbzluEyr/rHQ" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.h" IsConfig="false" Hash="TNU9VszFRFbDuMJ3vToUzg" />
           <AcmeProjectActionInfo Action="File" Source="atmel_start.c" IsConfig="false" Hash="lom1/YOY9m/TDACgnyb3yA" />
-          <AcmeProjectActionInfo Action="File" Source="config/hpl_afec_config.h" IsConfig="true" Hash="FHYaPfjYnKeSOCiMWPwFXg" />
+          <AcmeProjectActionInfo Action="File" Source="config/hpl_afec_config.h" IsConfig="true" Hash="NFtq7jO/KZQt76VAAP7bxA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_mcan_config.h" IsConfig="true" Hash="UijegEpuEmUcdyj73V9VKA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pio_config.h" IsConfig="true" Hash="4VyzngfXJERRwe7rf0hvtA" />
           <AcmeProjectActionInfo Action="File" Source="config/hpl_pmc_config.h" IsConfig="true" Hash="3XKiIx+uop95HFsqB+QIEA" />
@@ -549,6 +549,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="custom_code\testing\Initial_Testing.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\testing\Time_Tester.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\testing\Time_Tester.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Device_Startup\startup_same70q21b.c">

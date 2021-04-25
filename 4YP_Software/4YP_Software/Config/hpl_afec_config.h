@@ -26,7 +26,7 @@
 // <i> PRESCAL = fperipheral clock/ fAFE_clock - 1
 // <id> afec_prescaler
 #ifndef CONF_AFEC_0_PRESCAL
-#define CONF_AFEC_0_PRESCAL 0x31
+#define CONF_AFEC_0_PRESCAL 0x8
 #endif
 
 // <q> Free Running Mode
@@ -881,7 +881,7 @@
 // <e> Advanced Configuration
 // <id> afec_advanced_settings
 #ifndef CONF_AFEC_0_ADVANCED
-#define CONF_AFEC_0_ADVANCED 0
+#define CONF_AFEC_0_ADVANCED 1
 #endif
 
 // <q> Sleep Mode
@@ -940,7 +940,7 @@
 // <i> Adapts performance versus power consumption.
 // <id> afec_ibctl
 #ifndef CONF_AFEC_0_IBCTL
-#define CONF_AFEC_0_IBCTL 0x1
+#define CONF_AFEC_0_IBCTL 0x3
 #endif
 
 // <e> Sample & Hold unit Correction Enable
@@ -1059,7 +1059,7 @@
 // <i> PRESCAL = fperipheral clock/ fAFE_clock - 1
 // <id> afec_prescaler
 #ifndef CONF_AFEC_1_PRESCAL
-#define CONF_AFEC_1_PRESCAL 0x31
+#define CONF_AFEC_1_PRESCAL 0x8
 #endif
 
 // <q> Free Running Mode
@@ -1914,7 +1914,7 @@
 // <e> Advanced Configuration
 // <id> afec_advanced_settings
 #ifndef CONF_AFEC_1_ADVANCED
-#define CONF_AFEC_1_ADVANCED 0
+#define CONF_AFEC_1_ADVANCED 1
 #endif
 
 // <q> Sleep Mode
@@ -1973,7 +1973,7 @@
 // <i> Adapts performance versus power consumption.
 // <id> afec_ibctl
 #ifndef CONF_AFEC_1_IBCTL
-#define CONF_AFEC_1_IBCTL 0x1
+#define CONF_AFEC_1_IBCTL 0x3
 #endif
 
 // <e> Sample & Hold unit Correction Enable

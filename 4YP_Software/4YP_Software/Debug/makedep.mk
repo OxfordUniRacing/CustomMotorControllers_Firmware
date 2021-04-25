@@ -24,6 +24,8 @@ custom_code\low_level\User_pwm.c
 
 custom_code\testing\Inital_Testing.c
 
+custom_code\testing\Time_Tester.c
+
 Device_Startup\startup_same70q21b.c
 
 Device_Startup\system_same70q21b.c

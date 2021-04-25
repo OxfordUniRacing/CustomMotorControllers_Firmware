@@ -14,6 +14,7 @@
 #include <hpl_pwm_base.h>
 #include <hpl_pwm.h>
 #include <hpl_pwm_config.h>
+#include "Time_Tester.h"
 
 int counter = 0;
 
@@ -28,6 +29,9 @@ void pwm_0_callback(const struct pwm_descriptor *const descr){
 		printf("PWM Interrupt \n");
 	}
 	*/
+	
+	//for timing diagram
+	time_record_timestamp();
 }
 
 

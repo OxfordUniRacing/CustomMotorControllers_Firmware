@@ -23,6 +23,8 @@
 #include "PositionSensors.h"
 #include "Encoder.h"
 #include "AnalogSensorConversion.h"
+#include "ControlStartup.h"
+
 
 
 void Control_Function_Test(void){
@@ -82,14 +84,39 @@ void Current_Voltage_Inital_Test (void){
 	printf("CurrA = %i \t\t CurrB = %i \t\t CurrC = %i \n",current_test_data[0], current_test_data[1], current_test_data[2]);
 	printf("Supply Voltage = %i  \n",voltage_test_data);
 }
-void Current_Offset_Test(void){
+
+
+float y_z0, y_z1, x_z0, x_z1;
+
+	
+void Current_Offset_And_Timing_Test(void){
 	while(1){
 		dma_adc_0_enable_for_one_transaction();
 		dma_adc_1_enable_for_one_transaction();
 		delay_ms(2);
-		printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
-		printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
-		delay_ms(1000);
+		printf("\n");
+		//printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
+		//printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
+		//printf("%f %f %f \n",reconstruct_curr_A(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));
+		
+		x_z0 = reconstruct_curr_A(adc_read(ADC_CURRENT_A));
+		y_z0 = 0.023 * y_z1 + 0.511 * x_z0 + 0.511 * x_z1;
+		
+		x_z1 = x_z0;
+		y_z1 = y_z0;
+
+		
+		//printf("Curr A = %f \t Curr A = %f \t Curr A = %f \n", x_z0, reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));
+		//printf("LPF Curr A = %f\n",y_z0);
+		
+		//for time diagram testing 
+		//artificial delay to allow for the timings to be collected withouth the delay functions causing any problems with the systick
+		int k = 0;
+		for(int i=0; i<100000;i++){
+			k +=i;
+		}
+		printf("Time ADC_0 = %f us \t Time ADC_1 = %f us \n",time_delta_adc_0,time_delta_adc_1);
+		delay_ms(2000);
 	}
 }
 

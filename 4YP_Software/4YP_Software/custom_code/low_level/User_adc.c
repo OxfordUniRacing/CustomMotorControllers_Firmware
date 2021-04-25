@@ -11,6 +11,7 @@
 #include <hal_adc_async.h>
 
 #include "component/afec.h"
+#include "Time_Tester.h"
 
 
 
@@ -34,6 +35,7 @@ int raw_voltage;
 //curr A,B,C are 0,1,2 and voltage is 3
 static char ready_values = 0;
 #define ALL_VALUES_READY (0b1111)
+
 
 
 //callback functions for when transactions are complete
@@ -70,6 +72,11 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	if(is_dma_adc_0_continuous){
 		dma_adc_0_enable_for_one_transaction();
 	}
+	
+	
+	//for time diagram testing
+	time_delta_adc_0 = time_get_delta_us();
+
 	
 	
 	
@@ -121,7 +128,8 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 		dma_adc_1_enable_for_one_transaction();
 	}
 	
-	
+	//for time diagram testing
+	time_delta_adc_1 = time_get_delta_us();
 	
 	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
