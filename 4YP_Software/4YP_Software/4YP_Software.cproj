@@ -500,6 +500,12 @@
     <Compile Include="custom_code\control\ControlStartup.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="custom_code\control\Digital_Low_Pass_Filter.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="custom_code\control\Digital_Low_Pass_Filter.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="custom_code\control\EstimateTheta.c">
       <SubType>compile</SubType>
     </Compile>

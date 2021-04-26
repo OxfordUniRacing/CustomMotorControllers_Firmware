@@ -8,6 +8,8 @@ custom_code\control\Control.c
 
 custom_code\control\ControlStartup.c
 
+custom_code\control\Digital_Low_Pass_Filter.c
+
 custom_code\control\EstimateTheta.c
 
 custom_code\control\PID.c

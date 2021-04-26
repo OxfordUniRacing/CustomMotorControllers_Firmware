@@ -15,6 +15,9 @@
 
 
 
+#include <atmel_start.h>
+
+
 
 
 
@@ -29,36 +32,52 @@ void disable_control(void){
 
 
 //arrays for passing on the values to the control functions
-int raw_currents[3];
-int raw_voltage;
+float currents[3];
+float voltage;
+int currents_int[3];
+int voltage_int;
 
 //curr A,B,C are 0,1,2 and voltage is 3
 static char ready_values = 0;
 #define ALL_VALUES_READY (0b1111)
 
-
+int adc_cntr;
 
 //callback functions for when transactions are complete
 static void dma_adc_0_callback(struct _dma_resource *resource){
+	// the DMA writes to system memory. The data has probably been cached which would cause
+	// the processor to grab it from the cache and thus not have up to date information
+	// This command tells it to not trust this cache and instead fetch from system memory
+	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_0_buff, 32);	
+	
+	
 	//let other functions know that a write operation has occurred
 	has_0_triggered = true;
 	
 	//just for testing
 	//printf("interrupt - ADC 0 - %i %i %i %i %i %i  \n", (int)dma_adc_0_buff[0],(int)dma_adc_0_buff[1],(int)dma_adc_0_buff[2],(int)dma_adc_0_buff[3], (int)dma_adc_0_buff[4],(int)dma_adc_0_buff[5]);
 	
-	
+	int raw_data;	//temporary variable
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
 	for (int i =0; i<ADC_0_NUM_ACTIVE_CHANNELS; i++){
 		
 		switch((dma_adc_0_buff[i] & AFEC_LCDR_CHNB_Msk)){
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_A_CHANNEL):
-				raw_currents[0] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//raw_data = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//apply low pass filter
+				//currents[0] = DLPF_Filter(&DLPF_Curr_A,reconstruct_curr_A(raw_data));
+				//currents[0] = reconstruct_curr_A(raw_data);
+				currents_int[0]= (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<0);
 				break;
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_B_CHANNEL):
-				raw_currents[1] = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				raw_data = (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//apply low pass filter
+				//currents[1] = DLPF_Filter(&DLPF_Curr_B,reconstruct_curr_B(raw_data));
+				//currents[1] = reconstruct_curr_B(raw_data);
+				currents_int[1]= (int) (dma_adc_0_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<1);
 				break;
 			
@@ -66,7 +85,6 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 				;
 		}
 	}
-	
 	//current conversion is done
 	//enable the next conversion if continuous mode enabled
 	if(is_dma_adc_0_continuous){
@@ -74,46 +92,68 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	}
 	
 	
+	
 	//for time diagram testing
 	time_delta_adc_0 = time_get_delta_us();
-
 	
 	
 	
 	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
 		
+		adc_cntr++;
+		if(adc_cntr == 12000){
+			adc_cntr=0;
+			// !!!!! DO NOT PRINT LPF STUFF FROM HERE, causes the program to crash for some reason. Do it from control startup
+			//DLPF_Print_Coeff(&DLPF_Curr_A);
+			//printf("Data collected, launching control loop from adc 0\n");
+			//printf("%f %f %f %f  \n", voltage, currents[0], currents[1], currents[2]);
+		}
+		
 		//we would need new values for next loop
 		ready_values = 0;
 		
 		//launch control loop
-		start_control_loop_dummy((int *) &raw_currents, raw_voltage);
+		start_control_loop_dummy((int *) &currents_int, voltage_int);
 		
-		//printf("Data collected, launching control loop from adc 0\n");
-		//printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
+
 	}
 	
 }
 
 static void dma_adc_1_callback(struct _dma_resource *resource){
+	// the DMA writes to system memory. The data has probably been cached which would cause
+	// the processor to grab it from the cache and thus not have up to date information
+	// This command tells it to not trust this cache and instead fetch from system memory
+	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_1_buff, 32);
+	
+	
 	//let other functions know that a write operation has occurred
 	has_1_triggered = true;
 	
 	//just for testing
 	//printf("interrupt - ADC 1 - %i %i %i %i  \n", (int)dma_adc_1_buff[0],(int)dma_adc_1_buff[1],(int)dma_adc_1_buff[2],(int)dma_adc_1_buff[3]);
 	
+	int raw_data;	//temporary variable
 	//go through the values that the DMA got and get the ones that we need (currents and bus voltage)
 	for (int i =0; i < ADC_1_NUM_ACTIVE_CHANNELS; i++){
 		
 		switch((dma_adc_1_buff[i] & AFEC_LCDR_CHNB_Msk)){
 			
 			case AFEC_LCDR_CHNB(ADC_CURRENT_C_CHANNEL):
-				raw_currents[2] = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//raw_data = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//apply low pass filter
+				//currents[2] = DLPF_Filter(&DLPF_Curr_C,reconstruct_curr_C(raw_data));
+				//currents[2] = reconstruct_curr_C(raw_data);
+				currents_int[2]= (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<2);
 				break;
 			
 			case AFEC_LCDR_CHNB(ADC_SUPPL_VOLTAGE_CHANNEL):
-				raw_voltage = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//raw_data = (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
+				//might need low pass filerting in future 
+				//voltage = reconstruct_bus_voltage(raw_data);
+				//voltage_int= (int) (dma_adc_1_buff[i] & AFEC_LCDR_LDATA_Msk);
 				ready_values |= (1<<3);
 				break;
 			
@@ -134,14 +174,23 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
 		
+		adc_cntr++;
+		if(adc_cntr == 12000){
+			adc_cntr=0;
+			// !!!!! DO NOT PRINT LPF STUFF FROM HERE, causes the program to crash for some reason. Do it from control startup
+			//DLPF_Print_Coeff(&DLPF_Curr_A);
+			//printf("Data collected, launching control loop from adc 1 \n");
+			//printf("%f %f %f %f  \n", voltage, currents[0], currents[1], currents[2]);
+		}
+		
 		//we would need new values for next loop
 		ready_values = 0;
 		
 		//launch control loop
-		start_control_loop_dummy((int *) &raw_currents, raw_voltage);
+		//start_control_loop_dummy((float *) &currents, voltage);
+		start_control_loop_dummy((int *) &currents_int, voltage_int);
 		
-		//printf("Data collected, launching control loop from adc 1 \n");
-		//printf("%i %i %i %i  \n", raw_voltage, raw_currents[0], raw_currents[1], raw_currents[2], raw_currents[3]);
+		
 	}
 }
 

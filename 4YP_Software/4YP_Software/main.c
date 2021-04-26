@@ -22,7 +22,65 @@
 
 
 
+//for enabling the FPU
+/** Address for ARM CPACR */
+#define ADDR_CPACR 0xE000ED88
+/** CPACR Register */
+#define REG_CPACR (*((volatile uint32_t *)ADDR_CPACR))
+/**
+* \brief Enable FPU
+*/
+__always_inline static void fpu_enable(void)
+{
+	//the commented out sections were causing errors. Hope that this doesnt cause the program to explode
+	//irqflags_t flags;
+	//flags = cpu_irq_save();
+	REG_CPACR |= (0xFu << 20);
+	__DSB();
+	__ISB();
+	//cpu_irq_restore(flags);
+}
+__STATIC_INLINE void SCB_EnableDCache_custom (void)
+{
+	#if defined (__DCACHE_PRESENT) && (__DCACHE_PRESENT == 1U)
+	uint32_t ccsidr;
+	uint32_t sets;
+	uint32_t ways;
 
+	SCB->CSSELR = 0U; /*(0U << 1U) | 0U;*/  /* Level 1 data cache */
+	__DSB();
+
+	ccsidr = SCB->CCSIDR;
+
+	/* invalidate D-Cache */
+	sets = (uint32_t)(CCSIDR_SETS(ccsidr));
+	do {
+		ways = (uint32_t)(CCSIDR_WAYS(ccsidr));
+		do {
+			SCB->DCISW = (((sets << SCB_DCISW_SET_Pos) & SCB_DCISW_SET_Msk) |
+			((ways << SCB_DCISW_WAY_Pos) & SCB_DCISW_WAY_Msk)  );
+			#if defined ( __CC_ARM )
+			__schedule_barrier();
+			#endif
+		} while (ways-- != 0U);
+	} while(sets-- != 0U);
+	__DSB();
+
+	SCB->CCR |=  (uint32_t)SCB_CCR_DC_Msk;  /* enable D-Cache */
+
+	__DSB();
+	__ISB();
+	#endif
+}
+
+/*
+if(SCB->CCR & (uint32_t)SCB_CCR_DC_Msk)
+{
+	// D-cache already enabled, return
+	// (reenabling it will halt the system)
+	return;
+}
+*/
 int main(void)
 {
 	
@@ -32,6 +90,18 @@ int main(void)
 	atmel_start_init();
 	//CAN is currently disabled
 	//Temp 3 currently disabled as pin is shared with edbg com
+	
+	//enable performance optimising features
+	fpu_enable();
+	if(SCB->CCR & (uint32_t)SCB_CCR_DC_Msk){
+		// D-cache already enabled, return
+		// (reenabling it will halt the system)
+	}else{
+		SCB_EnableDCache();
+	}
+	SCB_EnableICache();
+	
+	
 	
 	/* Additional User initialisation */
 	dma_adc_init();
@@ -51,11 +121,17 @@ int main(void)
 	dma_adc_0_enable_continuously();
 	dma_adc_1_enable_continuously();
 	
+	delay_ms(2000);
+	printf("START \n");
+	delay_ms(2000);
+	
 	Init_Control();
+	init_LPF();
 	enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
-	Current_Offset_And_Timing_Test();
+	//Current_Offset_And_Timing_Test();
+	while(1){}
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();

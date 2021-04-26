@@ -9,8 +9,15 @@
 #include "ControlConfig.h"
 #include "ControlStartup.h"
 #include "EstimateTheta.h"
+#include "Time_Tester.h"
+
 
 #include <atmel_start.h>
+
+
+
+int cntrrr = 0;
+float control_time;
 
 void Init_Control(void) {
 	arm_mat_init_f32 (&A,A_rows,A_cols,(float32_t *)A_data);    //MATRIX EXAMPLE
@@ -29,9 +36,11 @@ void getIqId_r(float torquerequest, float* Iq_r, float* Id_r, float V_dc) {		//C
 	//float omega_base_e = V_dc*LST_SQ_OMEGA_BASE_E				//FIELD WEAKENING PART TO FINISH
 	//if(omega_e > omega_base_e ){}
 		
-	float I_m = 2*torquerequest/(3*PP*FLUX_PM);
+	float I_m = 2* torquerequest / (3*PP*FLUX_PM);
+	
 	if (I_m > I_MAX){I_m = I_MAX;}
 	*Id_r = C1 - sqrt(C1_SQR - 0.5*(I_m*I_m));
+	
 	*Iq_r = sqrt(I_m*I_m - (*Id_r)*(*Id_r));
 }	
 int cntrrar;
@@ -68,8 +77,11 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space V
 	}
 
 }
-int cntrrr = 0;
+
+
 void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
+	
+	
 	V_dc = 8;
 	
 	//Limit torque request rate
@@ -78,10 +90,12 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	oldtorquerequest = torquerequest;	//Update the new old value
 	
 	
+	
+	//time_record_timestamp();
 	float Iq_r, Id_r;
 	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
 	
-
+	
 	
 	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
 	float sintheta_e = sin(theta_e);
@@ -106,10 +120,13 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	
 	update_PWM((float32_t *)PWM_data);
 	
+	control_time = time_get_delta_us();
+	
 	cntrrr++;
 	if(cntrrr == 15000){
 		cntrrr = 0;
-		
+		printf("Time Control = %f us \n",control_time);
+		//printf("Torque request - %f \n",torquerequest);
 // 		printf("\n");
 // 		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
 // 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);

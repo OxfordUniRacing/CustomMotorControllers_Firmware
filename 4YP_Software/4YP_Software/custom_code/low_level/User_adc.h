@@ -11,13 +11,20 @@
 
 #include "User_Config.h"
 
+
+
+
+
+
 //for time diagram testing
 float time_delta_adc_0, time_delta_adc_1;
 int time_print_counter;
 
 //buffers for the DMA to put the output of the ADCs
-static uint32_t dma_adc_0_buff[ADC_0_NUM_ACTIVE_CHANNELS];
-static uint32_t dma_adc_1_buff[ADC_1_NUM_ACTIVE_CHANNELS];
+// for cache reasons (see the explanation in the dma callback function) the array needs 
+// to be aligned to the cache lines (32-byte) and have a size that is multiple of the cache size (aka 32)
+__attribute__ ((aligned (32))) static uint32_t dma_adc_0_buff[32];
+__attribute__ ((aligned (32))) static uint32_t dma_adc_1_buff[32];
 
 //variables for whether to enable continuous DMA or single transactions
 bool is_dma_adc_0_continuous;

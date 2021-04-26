@@ -86,8 +86,6 @@ void Current_Voltage_Inital_Test (void){
 }
 
 
-float y_z0, y_z1, x_z0, x_z1;
-
 	
 void Current_Offset_And_Timing_Test(void){
 	while(1){
@@ -99,11 +97,6 @@ void Current_Offset_And_Timing_Test(void){
 		//printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
 		//printf("%f %f %f \n",reconstruct_curr_A(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));
 		
-		x_z0 = reconstruct_curr_A(adc_read(ADC_CURRENT_A));
-		y_z0 = 0.023 * y_z1 + 0.511 * x_z0 + 0.511 * x_z1;
-		
-		x_z1 = x_z0;
-		y_z1 = y_z0;
 
 		
 		//printf("Curr A = %f \t Curr A = %f \t Curr A = %f \n", x_z0, reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));

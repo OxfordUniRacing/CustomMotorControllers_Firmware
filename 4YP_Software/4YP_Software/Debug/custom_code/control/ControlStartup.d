@@ -148,7 +148,8 @@ custom_code/control/ControlStartup.d custom_code/control/ControlStartup.o: \
  ../hal/include/hpl_usart_sync.h ../hal/include/hpl_usart.h \
  ../hal/include/hal_can_async.h ../hal/include/hpl_can.h \
  ../hal/include/hpl_can_async.h ../hal/utils/include/utils.h \
- ../atmel_start_pins.h ../custom_code/low_level/Encoder.h \
+ ../atmel_start_pins.h ../custom_code/control/Digital_Low_Pass_Filter.h \
+ ../custom_code/low_level/Encoder.h \
  ../custom_code/low_level/User_Config.h \
  ../custom_code/low_level/PositionSensors.h \
  ../custom_code/low_level/User_adc.h \
@@ -185,7 +186,8 @@ custom_code/control/ControlStartup.d custom_code/control/ControlStartup.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../custom_code/control/EstimateTheta.h ../custom_code/control/PID.h
+ ../custom_code/control/EstimateTheta.h ../custom_code/control/PID.h \
+ ../custom_code/testing/Time_Tester.h
 
 ../custom_code/control/ControlStartup.h:
 
@@ -577,6 +579,8 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b
 
 ../atmel_start_pins.h:
 
+../custom_code/control/Digital_Low_Pass_Filter.h:
+
 ../custom_code/low_level/Encoder.h:
 
 ../custom_code/low_level/User_Config.h:
@@ -658,3 +662,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/control/EstimateTheta.h:
 
 ../custom_code/control/PID.h:
+
+../custom_code/testing/Time_Tester.h:
