@@ -12,6 +12,8 @@
 
 #include "component/afec.h"
 #include "Time_Tester.h"
+#include "AnalogSensorConversion.h"
+#include "ControlStartup.h"
 
 
 
@@ -31,11 +33,7 @@ void disable_control(void){
 
 
 
-//arrays for passing on the values to the control functions
-float currents[3];
-float voltage;
-int currents_int[3];
-int voltage_int;
+
 
 //curr A,B,C are 0,1,2 and voltage is 3
 static char ready_values = 0;
@@ -48,7 +46,7 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	// the DMA writes to system memory. The data has probably been cached which would cause
 	// the processor to grab it from the cache and thus not have up to date information
 	// This command tells it to not trust this cache and instead fetch from system memory
-	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_0_buff, 32);	
+	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_0_buff, 4*16);	
 	
 	
 	//let other functions know that a write operation has occurred
@@ -97,6 +95,15 @@ static void dma_adc_0_callback(struct _dma_resource *resource){
 	time_delta_adc_0 = time_get_delta_us();
 	
 	
+	//for calibrating the current sensors
+	if(calibrate_curr_sensors_counter_0 > 0){
+		calibrate_curr_sensors_counter_0--;
+		curr_A_offset += raw_data_to_voltage((uint32_t) currents_int[0]);
+		curr_B_offset += raw_data_to_voltage((uint32_t) currents_int[1]);
+
+		dma_adc_0_enable_for_one_transaction();
+	}
+	
 	
 	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs
@@ -125,7 +132,7 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 	// the DMA writes to system memory. The data has probably been cached which would cause
 	// the processor to grab it from the cache and thus not have up to date information
 	// This command tells it to not trust this cache and instead fetch from system memory
-	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_1_buff, 32);
+	SCB_InvalidateDCache_by_Addr((uint32_t *) dma_adc_1_buff, 4*16);
 	
 	
 	//let other functions know that a write operation has occurred
@@ -170,6 +177,14 @@ static void dma_adc_1_callback(struct _dma_resource *resource){
 	
 	//for time diagram testing
 	time_delta_adc_1 = time_get_delta_us();
+	
+	//for calibrating the current sensors
+	if(calibrate_curr_sensors_counter_1 > 0){
+		calibrate_curr_sensors_counter_1--;
+		curr_C_offset += raw_data_to_voltage((uint32_t) currents_int[2]);
+		
+		//dma_adc_1_enable_for_one_transaction();
+	}
 	
 	if(ready_values == ALL_VALUES_READY && is_control_enabled){
 		//means we have collected the data from all ADCs

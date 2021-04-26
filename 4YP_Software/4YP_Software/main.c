@@ -9,6 +9,7 @@
 #include "PositionSensors.h"
 #include "AnalogSensorConversion.h"
 #include "Control.h"
+#include "ControlStartup.h"
 
 
 //add these 3 lines before every instance of arm_math.h ;
@@ -112,7 +113,40 @@ int main(void)
 	/* Enable all devices */
 	pwm_enable_all();
 	adc_enable_all();
-	calibrate_curr_sensors();	//both PWM and ADC need to be enabled to calibrate the current sensors
+	
+
+	calibrate_curr_sensors(10);	//both PWM and ADC need to be enabled to calibrate the current sensors
+	//enable the dma to get the offset. It will re enable itself for the other data points
+	dma_adc_0_enable_for_one_transaction();
+	//dma_adc_1_enable_for_one_transaction();
+	delay_ms(100);		//some time to get the data
+	curr_A_offset = curr_A_offset/10;
+	curr_B_offset = curr_B_offset/10;
+	
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	dma_adc_1_enable_for_one_transaction();
+	delay_ms(1);		//some time to get the data
+	
+	
+	curr_C_offset = curr_C_offset/10;
+	printf("offset %f %f\n",curr_A_offset,curr_C_offset);
 	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);		//enables the DC-DC converter for the HV side
 	
 	timer_start(&ENCODER_A);
@@ -121,21 +155,21 @@ int main(void)
 	dma_adc_0_enable_continuously();
 	dma_adc_1_enable_continuously();
 	
-	delay_ms(2000);
-	printf("START \n");
-	delay_ms(2000);
+	delay_ms(100);
+	printf("asdf\n");
 	
 	Init_Control();
 	init_LPF();
-	enable_control();
+	//enable_control();
 	//----------------------------------------End of Startup Code--------------------------------------------------
 	
 	//Current_Offset_And_Timing_Test();
-	while(1){}
+	
 	delay_ms(500);
 	printf("Initiated \n");
 	//first_slow_spin();
-	
+	//while(1){}
+		
 	printf("Starting D axis alignment \n");
 	pwm_set_duty(PWM_PHASE_A, 0);
 	pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));

@@ -183,7 +183,7 @@ custom_code/control/Control.d custom_code/control/Control.o: \
  ../custom_code/control/ControlStartup.h \
  ../custom_code/low_level/User_Config.h ../driver_init.h \
  ../atmel_start_pins.h ../custom_code/control/Digital_Low_Pass_Filter.h \
- ../custom_code/testing/Time_Tester.h
+ ../custom_code/testing/Time_Tester.h ../custom_code/low_level/User_pwm.h
 
 ../custom_code/control/Control.h:
 
@@ -652,3 +652,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/control/Digital_Low_Pass_Filter.h:
 
 ../custom_code/testing/Time_Tester.h:
+
+../custom_code/low_level/User_pwm.h:

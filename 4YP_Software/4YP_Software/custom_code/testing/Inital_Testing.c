@@ -24,6 +24,7 @@
 #include "Encoder.h"
 #include "AnalogSensorConversion.h"
 #include "ControlStartup.h"
+#include "Control.h"
 
 
 

@@ -15,6 +15,7 @@
 #include <hpl_pwm.h>
 #include <hpl_pwm_config.h>
 #include "Time_Tester.h"
+#include "ControlStartup.h"
 
 int counter = 0;
 

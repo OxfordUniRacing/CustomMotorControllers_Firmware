@@ -14,7 +14,9 @@
 
 
 
-
+//arrays for passing on the values to the control functions
+int currents_int[3];
+int voltage_int;
 
 //for time diagram testing
 float time_delta_adc_0, time_delta_adc_1;
@@ -22,9 +24,9 @@ int time_print_counter;
 
 //buffers for the DMA to put the output of the ADCs
 // for cache reasons (see the explanation in the dma callback function) the array needs 
-// to be aligned to the cache lines (32-byte) and have a size that is multiple of the cache size (aka 32)
-__attribute__ ((aligned (32))) static uint32_t dma_adc_0_buff[32];
-__attribute__ ((aligned (32))) static uint32_t dma_adc_1_buff[32];
+// to be aligned to the cache lines (32-byte) and have a size that is multiple of the cache size (aka 32 bytes)
+__attribute__ ((aligned (32))) static uint32_t dma_adc_0_buff[16];
+__attribute__ ((aligned (32))) static uint32_t dma_adc_1_buff[16];
 
 //variables for whether to enable continuous DMA or single transactions
 bool is_dma_adc_0_continuous;

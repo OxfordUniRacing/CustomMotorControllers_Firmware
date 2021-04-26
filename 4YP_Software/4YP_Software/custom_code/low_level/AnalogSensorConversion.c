@@ -9,34 +9,31 @@
 #include "AnalogSensorConversion.h"
 #include "User_Config.h"
 
+#include <atmel_start.h>
 
-void calibrate_curr_sensors(void){
+
+
+void calibrate_curr_sensors(int number_of_averages){
 	//measures the current sensor offset at no current
 	
-	dma_adc_0_enable_for_one_transaction();
-	dma_adc_1_enable_for_one_transaction();
-	//trigger conversion and wait for conversion to finish
+
+
 	//MAKE SURE THE PWMS ARE ENABLED TO DO THE ADC CONVERSION
-	delay_ms(1);
 	
 	
 	curr_A_offset = 0;
 	curr_B_offset = 0;
 	curr_C_offset = 0;
 	
-	//record the offsets; data being grabbed from the DMA buffer
-	for(int i =0; i<10; i++){
-			dma_adc_0_enable_for_one_transaction();
-			dma_adc_1_enable_for_one_transaction();
-			delay_ms(1);
-		curr_A_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_A));
-		curr_B_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_B));
-		curr_C_offset += raw_data_to_voltage(adc_read(ADC_CURRENT_C));
-		
-	}
-	curr_A_offset /= 10;
-	curr_B_offset /= 10;
-	curr_C_offset /= 10;
+	
+	//tell the adcs to record the data needed
+	calibrate_curr_sensors_counter_0 = number_of_averages;
+	calibrate_curr_sensors_counter_1 = number_of_averages;
+	
+	
+	
+
+
 }
 
 //allow seperate current conversion functions so we can calibrate the sensors

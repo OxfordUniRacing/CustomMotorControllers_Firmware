@@ -175,7 +175,9 @@ custom_code/low_level/User_pwm.d custom_code/low_level/User_pwm.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\_pthreadtypes.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\machine\types.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h \
- ../stdio_redirect/stdio_io.h
+ ../stdio_redirect/stdio_io.h ../custom_code/control/ControlStartup.h \
+ ../custom_code/low_level/User_Config.h \
+ ../custom_code/control/Digital_Low_Pass_Filter.h
 
 ../custom_code/low_level/User_pwm.h:
 
@@ -628,3 +630,9 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\stdio.h:
 
 ../stdio_redirect/stdio_io.h:
+
+../custom_code/control/ControlStartup.h:
+
+../custom_code/low_level/User_Config.h:
+
+../custom_code/control/Digital_Low_Pass_Filter.h:

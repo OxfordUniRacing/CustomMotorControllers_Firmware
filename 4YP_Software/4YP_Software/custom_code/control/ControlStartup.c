@@ -21,6 +21,9 @@ void init_LPF(void){
 	DLPF_Init(&DLPF_Curr_A,2,1500,15000);
 	DLPF_Init(&DLPF_Curr_B,2,1500,15000);
 	DLPF_Init(&DLPF_Curr_C,2,1500,15000);
+	
+	//do not remove this printf. For some reason it is fixing a linking error where if it isn't here control startup wont work and the program doesnt run. Idk why
+	printf("lpf init");
 }
 
 float gather_data_time, control_dummy_time;
@@ -95,7 +98,7 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 		fcntr =0;
 		//printf("gather data time %f \t control dummy time %f \n", gather_data_time, control_dummy_time);
 		
-		//printf("input current %i \n",currentsss[0]);
+		//printf("\n startup current %f \t %f",control_currents[0], control_currents[1]);
 		
 		// !!!!!!!!!!!!!!!!! DO NOT PRINT MULTIPLE OF THESE AT ONCE it breaks the program for some reason
 // 		printf("LPF A \n");

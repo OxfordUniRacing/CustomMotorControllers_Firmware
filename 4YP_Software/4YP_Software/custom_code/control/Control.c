@@ -10,6 +10,7 @@
 #include "ControlStartup.h"
 #include "EstimateTheta.h"
 #include "Time_Tester.h"
+#include "User_pwm.h"
 
 
 #include <atmel_start.h>
@@ -123,18 +124,18 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	control_time = time_get_delta_us();
 	
 	cntrrr++;
-	if(cntrrr == 15000){
+	if(cntrrr == 45000){
 		cntrrr = 0;
-		printf("Time Control = %f us \n",control_time);
-		//printf("Torque request - %f \n",torquerequest);
-// 		printf("\n");
-// 		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
-// 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
-// 		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
-// 		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
-// 		printf("\n Id_r = %f \t Iq_r = %f", Id_r, Iq_r);
-// 		
-		//printf("\n Ia = %f \t Ib = %f", I_alpha, I_beta);
+				printf("\n");
+		printf("\nTime Control = %f us ",control_time);
+		printf("\nTorque request - %f ",torquerequest);
+
+		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
+		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
+		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
+		printf("\n Id_r = %f \t Iq_r = %f", Id_r, Iq_r);
+		printf("\n Ia = %f \t Ib = %f", I_alpha, I_beta);
 	}
 }
 
@@ -144,7 +145,7 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 
 void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
 	
-	V_dc = 7;
+	V_dc = 8;
 	//Limit torque request rate
 	//if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
 	//if (torquerequest + T_RATE_DOWN < oldtorquerequest){torquerequest = oldtorquerequest - T_RATE_DOWN;} //Limit Decrease Rate

@@ -184,7 +184,9 @@ main.d main.o: .././main.c ../atmel_start.h ../driver_init.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\math.h \
- ../custom_code/control/EstimateTheta.h ../custom_code/control/PID.h
+ ../custom_code/control/EstimateTheta.h ../custom_code/control/PID.h \
+ ../custom_code/control/ControlStartup.h \
+ ../custom_code/control/Digital_Low_Pass_Filter.h
 
 ../atmel_start.h:
 
@@ -659,3 +661,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../custom_code/control/EstimateTheta.h:
 
 ../custom_code/control/PID.h:
+
+../custom_code/control/ControlStartup.h:
+
+../custom_code/control/Digital_Low_Pass_Filter.h:

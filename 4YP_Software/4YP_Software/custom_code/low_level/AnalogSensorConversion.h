@@ -14,8 +14,9 @@
 
 float curr_A_offset, curr_B_offset, curr_C_offset;	// measured in volts
 
-
-void calibrate_curr_sensors(void);
+int calibrate_curr_sensors_counter_0;
+int calibrate_curr_sensors_counter_1;
+void calibrate_curr_sensors(int number_of_averages);
 
 //allow seperate current conversion functions so we can calibrate the sensors
 float reconstruct_curr_A(uint32_t raw_current_data);
