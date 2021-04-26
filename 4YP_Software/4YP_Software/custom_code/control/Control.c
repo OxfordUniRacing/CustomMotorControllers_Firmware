@@ -124,13 +124,13 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	control_time = time_get_delta_us();
 	
 	cntrrr++;
-	if(cntrrr == 45000){
-		cntrrr = 0;
-				printf("\n");
-		printf("\nTime Control = %f us ",control_time);
+	if(cntrrr == 1){
+		cntrrr = -45000;
+		//printf("\n");
+		//printf("\nTime Control = %f us ",control_time);
 		printf("\nTorque request - %f ",torquerequest);
 
-		printf("\n Va_aim = %f \t Vb_aim = %f \t theta - %f; \t sintheta %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+		printf("\n Va_aim = %f \t Vb_aim = %f \t theta = %f; \t sintheta = %f", Va_aim, Vb_aim, theta_e, sintheta_e);
 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
 		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
 		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
@@ -191,8 +191,8 @@ void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1
 
 
 void update_PWM(float* PWM){
-	pwm_set_duty(PWM_PHASE_A, (int) ((PWM_PERIOD-1) * PWM[2]));
+	pwm_set_duty(PWM_PHASE_A, (int) ((PWM_PERIOD-1) * PWM[0]));
 	pwm_set_duty(PWM_PHASE_B, (int) ((PWM_PERIOD-1) * PWM[1]));
-	pwm_set_duty(PWM_PHASE_C, (int) ((PWM_PERIOD-1) * PWM[0]));
+	pwm_set_duty(PWM_PHASE_C, (int) ((PWM_PERIOD-1) * PWM[2]));
 	
 }

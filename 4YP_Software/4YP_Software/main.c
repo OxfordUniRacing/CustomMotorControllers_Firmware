@@ -171,13 +171,13 @@ int main(void)
 	//while(1){}
 		
 	printf("Starting D axis alignment \n");
-	pwm_set_duty(PWM_PHASE_A, 0);
-	pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));
-	pwm_set_duty(PWM_PHASE_C, (PWM_PERIOD-1));
+	//pwm_set_duty(PWM_PHASE_A, 500);
+	//pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));
+	//pwm_set_duty(PWM_PHASE_C, (PWM_PERIOD-1));
 	
 	
 
-	delay_ms(2000);
+	delay_ms(5000);
 	encoder_record_Daxis_offset();
 	printf("Finished D axis alignment \n");
 	/*

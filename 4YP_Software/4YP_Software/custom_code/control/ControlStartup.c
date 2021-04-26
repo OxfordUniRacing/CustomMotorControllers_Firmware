@@ -47,7 +47,7 @@ void gather_control_data(void){
 //float fx_z0, fx_z1, fx_z2, fx_z3, fx_z4;
 int fcntr;
 
-
+int control_delay;
 //process ADC data and start the control loop
 //this is being called from the ADC DMA, so we know that the analog sensor values passed are not going to change, hence use pointers instead of copyin data
 void start_control_loop_dummy(int * currentsss, int voltageee){
@@ -89,8 +89,8 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 	control_supply_voltage = reconstruct_bus_voltage( voltageee);
 	
 	//for testing
-	control_torque_request = 2.5;
-	
+	control_torque_request = 1.5;
+	//control_encoder_angle = 3.1416/(2*5*15);
 	
 	
 	fcntr++;
@@ -109,7 +109,11 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 // 		DLPF_Print_IO(&DLPF_Curr_C);
 	}
 	
-	//start control loop below
-	Control(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);
-	//controlV(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);
+	control_delay++;
+	if(control_delay >10){
+		control_delay = 10;
+		//start control loop below
+		Control(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);
+		//controlV(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);
+	}
 }
