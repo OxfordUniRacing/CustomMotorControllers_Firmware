@@ -25,17 +25,21 @@ float runPID(struct PID_instance* PID, float ref, float feedback){
 		//PID->time_step = getTimeStep();
 	//}
 	
-	float Ap, Ad, Ai;
+	float Ap, Ad;
 	float error = ref - feedback;
 	
 	Ap = error*PID->Kp;
 	//Ad = PID->Kd*(error - PID->previous_error)/PID->time_step;
-	Ai = PID->Ki*(error*PID->time_step) + PID->integral_v;
+	PID->integral_v += PID->Ki*(error*PID->time_step);
+	
+	if(PID->integral_v >  20) PID->integral_v = 5;
+	if(PID->integral_v < -20) PID->integral_v = -5;
+	//PID->integral_v =0;
 	
 	//if( ((Ai>=Ap) & (Ap>=0)) | ((Ai<=Ap) & (Ap<=0)) )   Ai = Ap;		//set anti-windup for integral action
 	
 	PID->previous_error = error;
-	return (Ap + Ai);		//+optional Ad
+	return (Ap + PID->integral_v);		//+optional Ad
 
 
 	

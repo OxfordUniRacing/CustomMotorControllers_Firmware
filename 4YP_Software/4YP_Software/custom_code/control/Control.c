@@ -25,10 +25,14 @@ void Init_Control(void) {
 	arm_mat_init_f32 (&I,I_rows,I_cols,(float32_t *)control_currents);    //create current vector
 	arm_mat_init_f32 (&PWM,PWM_rows,PWM_cols,(float32_t *)PWM_data);    //create pwm vector
 	
-	PID_init_cts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd,(float)1/15000);		//initialise the PID controller for d and q values
-	PID_init_cts(&PID_q, PID_q_Kp, PID_q_Ki, PID_q_Kd,(float)1/15000);
+	PID_init_cts(&PID_d, PID_d_Kp, PID_d_Ki, PID_d_Kd,(float)1.0/15000.0);		//initialise the PID controller for d and q values
+	PID_init_cts(&PID_q, PID_q_Kp, PID_q_Ki, PID_q_Kd,(float)1.0/15000.0);
 	
 	oldtorquerequest = 0;
+	
+		//do not remove this printf. For some reason it is fixing a linking error where if it isn't here control startup wont work and the program doesnt run. Idk why
+
+	printf("\n");
 }
 
 
@@ -79,11 +83,11 @@ void SVPWM(float Va_aim, float Vb_aim, float* PWM, float V_dc) {							//Space V
 
 }
 
-
+float ffake_angle;
 void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle) {
+	ffake_angle =  ffake_angle + 20.00 /(15000.0);
 	
-	
-	V_dc = 8;
+	V_dc = 20;
 	
 	//Limit torque request rate
 	if (torquerequest - T_RATE_UP > oldtorquerequest){torquerequest = oldtorquerequest + T_RATE_UP;} //Limit Increase Rate
@@ -95,10 +99,13 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	//time_record_timestamp();
 	float Iq_r, Id_r;
 	getIqId_r(torquerequest, &Iq_r, &Id_r, V_dc);	//Get the id and iq requested current
-	
+		//Iq_r = 10;
+		//Id_r = 0;
 	
 	
 	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
+	//theta_e = ffake_angle;
+	//theta_e = 0;
 	float sintheta_e = sin(theta_e);
 	float costheta_e = cos(theta_e);	//(Currently uses fast sin and cosine)
 	
@@ -110,7 +117,7 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	//float Vd_aim, Vq_aim;		//defined somewhre else
 	Vd_aim = runPID(&PID_d, Id_r, I_d);								//PID 
 	Vq_aim = runPID(&PID_q, Iq_r, I_q);
-	
+
 	float Valpha_aim, Vbeta_aim;
 	arm_inv_park_f32(Vd_aim,Vq_aim,&Valpha_aim,&Vbeta_aim,sintheta_e,costheta_e);	//Inverse Park transform
 	
@@ -125,17 +132,17 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 	
 	cntrrr++;
 	if(cntrrr == 1){
-		cntrrr = -45000;
-		//printf("\n");
-		//printf("\nTime Control = %f us ",control_time);
-		printf("\nTorque request - %f ",torquerequest);
-
-		printf("\n Va_aim = %f \t Vb_aim = %f \t theta = %f; \t sintheta = %f", Va_aim, Vb_aim, theta_e, sintheta_e);
-		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
-		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
-		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
-		printf("\n Id_r = %f \t Iq_r = %f", Id_r, Iq_r);
-		printf("\n Ia = %f \t Ib = %f", I_alpha, I_beta);
+		cntrrr = -15000;
+// 		printf("\n");
+// 		printf("\nTime Control = %f us ",control_time);
+// 		printf("\nTorque request - %f ",torquerequest);
+// 
+// 		printf("\n Va_aim = %f \t Vb_aim = %f \t theta = %f; \t sintheta = %f", Va_aim, Vb_aim, theta_e, sintheta_e);
+// 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
+//  		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
+//  		printf("\n Vd_aim = %f \t Vq_aim = %f", Vd_aim, Vq_aim);
+//  		printf("\n Id_r = %f \t Iq_r = %f", Id_r, Iq_r);
+// 		printf("\n Ia = %f \t Ib = %f", I_alpha, I_beta);
 	}
 }
 
