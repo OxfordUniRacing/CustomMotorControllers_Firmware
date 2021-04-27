@@ -22,7 +22,10 @@
 #include "User_adc.h"
 #include "PositionSensors.h"
 #include "Encoder.h"
+#include "AnalogSensorConversion.h"
+#include "ControlStartup.h"
 #include "Control.h"
+
 
 
 void Control_Function_Test(void){
@@ -83,12 +86,40 @@ void Current_Voltage_Inital_Test (void){
 	printf("Supply Voltage = %i  \n",voltage_test_data);
 }
 
+
+	
+void Current_Offset_And_Timing_Test(void){
+	while(1){
+		dma_adc_0_enable_for_one_transaction();
+		dma_adc_1_enable_for_one_transaction();
+		delay_ms(2);
+		printf("\n");
+		//printf("Curr A offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_A_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_A)));
+		//printf("Curr B offset (V) - %f \t voltage -  %f  \t current - %f\n",curr_B_offset, raw_data_to_voltage(adc_read(ADC_CURRENT_B)), reconstruct_curr_B(adc_read(ADC_CURRENT_B)));
+		//printf("%f %f %f \n",reconstruct_curr_A(adc_read(ADC_CURRENT_A)), reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));
+		
+
+		
+		//printf("Curr A = %f \t Curr A = %f \t Curr A = %f \n", x_z0, reconstruct_curr_A(adc_read(ADC_CURRENT_B)), reconstruct_curr_A(adc_read(ADC_CURRENT_C)));
+		//printf("LPF Curr A = %f\n",y_z0);
+		
+		//for time diagram testing 
+		//artificial delay to allow for the timings to be collected withouth the delay functions causing any problems with the systick
+		int k = 0;
+		for(int i=0; i<100000;i++){
+			k +=i;
+		}
+		printf("Time ADC_0 = %f us \t Time ADC_1 = %f us \n",time_delta_adc_0,time_delta_adc_1);
+		delay_ms(2000);
+	}
+}
+
 void first_slow_spin (void){
-	float omega = 94.25;    //Gives electrical frequency of 15Hz (one spin of the rotor every second)
+	float omega = 105;    //Gives electrical frequency of 15Hz (one spin of the rotor every second)
 	float T = 0;
-	float V_supply = 20;
-	float V_pp_test = 5;
-	while (1)
+	float V_supply = 5;
+	float V_pp_test = 2;
+	for(int i = 0; i<30000;i++)
 	{
 		float pwm_testing_a, pwm_testing_b, pwm_testing_c;
 		pwm_testing_a = 1000 - (sin(omega*T)+1)*500*V_pp_test/V_supply;
@@ -161,7 +192,8 @@ void Timer_Counter_Initial_Test (void){
 void Encoder_Initial_Test(void){
 	while(1){
 		int enccntr = encoder_get_counter();
-		float encangle = encoder_get_angle();
+		float encangle =0;
+		encoder_get_angle(&encangle);
 		printf("Encoder counter = %i \t; angle = %f \n", enccntr, encangle);
 		
 		//printf("Encoder A = \t %u ; \t %u \n"  , (unsigned int) hri_tc_read_CV_CV_bf(TC0,0) , (unsigned int) hri_tc_read_CV_CV_bf(TC0,1));

@@ -26,7 +26,7 @@
 
 #define PWM_PERIOD 1000
 
-#define PWM_DEADTIME 34
+#define PWM_DEADTIME 10
 
 /*
 PWM functions look like this:
@@ -112,6 +112,12 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define ADC_TEMP_MOTOR			&ADC_0, ADC_TEMP_MOTOR_CHANNEL
 
 
+// how many V/A is the sensor output. This can be tweaked for individual sensors
+#define CURR_A_SLOPE 0.005
+#define CURR_B_SLOPE 0.005
+#define CURR_C_SLOPE 0.005
+
+
 
 //--------------------------------------------------------------ENCODER------------------------------------------------------------------------------
 
@@ -119,11 +125,11 @@ adc_sync_read_channel  (ADC_CURRENT_A, buffer_ch0, 2);
 #define ENCODER_STEPS 4096*4
 
 //max delta (in steps) after which we start throwing errors;  accepted error 0+-delta
-#define ENCODER_MAX_DELTA 2
+#define ENCODER_MAX_DELTA 5
 
-//offset between the Z axis position and the axis that we are measuring from
-// offset is measured in radians
-#define ENCODER_MOUNTING_OFFSET 0.0
+//min counter change for a z pulse
+#define ENCODER_MIN_Z_DELTA ((ENCODER_STEPS)>>2)
+
 
 
 //--------------------------------------------------------------DMA for ADCs------------------------------------------------------------------------------

@@ -46,13 +46,13 @@ float omega_e;
 float PWM_data [PWM_cols*PWM_rows];
 arm_matrix_instance_f32 PWM;
 
-#define PID_q_Kp 0.6635081		//From Auto-Tuner 21/04/21
-#define PID_q_Ki 162.4788
+#define PID_q_Kp 0.0415//0.6635081		//From Auto-Tuner 21/04/21
+#define PID_q_Ki 33.8//162.4788
 #define PID_q_Kd 0
 struct PID_instance PID_q;
 
-#define PID_d_Kp 0.6040525
-#define PID_d_Ki 154.1546
+#define PID_d_Kp 0.03//0.6040525
+#define PID_d_Ki 32.5//154.1546
 #define PID_d_Kd 0
 struct PID_instance PID_d;
 
@@ -60,8 +60,10 @@ struct PID_instance PID_d;
 
 void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
 void Init_Control(void);
+void controlV(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1, float *pos_HS_dts, float pos_ENC_angle);
 
-
+void update_PWM(float* PWM);
+float Vd_aim, Vq_aim;
 
 
 #endif /* CONTROL_H_ */

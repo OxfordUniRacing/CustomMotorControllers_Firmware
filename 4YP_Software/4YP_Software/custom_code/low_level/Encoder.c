@@ -98,38 +98,44 @@ static void Encoder_Z_Interrupt (void){
 	//get counter value
 	int encoder_counter_no_offset = encoder_get_counter();
 	
-	//printf("Z interrupt - %i \t; offset = %i \n", encoder_counter_no_offset, encoder_inital_offset);
+	if(encoder_counter_no_offset - encoder_last_count > ENCODER_MIN_Z_DELTA || encoder_counter_no_offset - encoder_last_count < -ENCODER_MIN_Z_DELTA){
+	
+		//printf("Z interrupt - %i , number of Zs - %i\n", encoder_counter_no_offset,encoder_num_Z_interrupts);
 	
 	
-	//if first rotation then record the offset
-	if(encoder_num_Z_interrupts == 0){
-		encoder_inital_offset = encoder_counter_no_offset;
-	}else{
-		//if not first rotation, check if the number of pulses this rotation was within margin of counting error
+		//if first rotation then record the offset
+		if(encoder_num_Z_interrupts == 0){
+			encoder_Z_offset = encoder_counter_no_offset;
+		}else{
+			//if not first rotation, check if the number of pulses this rotation was within margin of counting error
 		
-		//we know that encoder steps is 2^x
-		// by doing the bitwise operation we effectively subtract the number of rotations* encoder steps
-		// and we also eliminate any problems with overflowing counters
-		unsigned int delta = encoder_counter_no_offset & (ENCODER_STEPS - 1);
+			//we know that encoder steps is 2^x
+			// by doing the bitwise operation we effectively subtract the number of rotations* encoder steps
+			// and we also eliminate any problems with overflowing counters
+			unsigned int delta = (encoder_counter_no_offset - encoder_Z_offset) & (ENCODER_STEPS - 1);
 		
-		//printf("Z interrupt - delta = %i \n", delta);
+			//printf("Z interrupt - delta = %i \n", delta);
 		
-		//ideally delta should be zero
-		// tolerance up to +2 (0<=delta <=2) or -2 (ENCODER_STEPS-3<=delta)
-		if( (delta <= ENCODER_MAX_DELTA) || (delta >= ENCODER_STEPS-1 - ENCODER_MAX_DELTA) ){
-			//all is good
-			}else{
-			//something is wrong
-			
-			//zero out the initial offset coutner to not corrupt future data
-			encoder_inital_offset += delta;
+			//ideally delta should be zero
+			// tolerance up to +2 (0<=delta <=2) or -2 (ENCODER_STEPS-3<=delta)
+			if( (delta <= ENCODER_MAX_DELTA) || (delta >= ENCODER_STEPS-1 - ENCODER_MAX_DELTA) ){
+				//all is good
+				}else{
+				//something is wrong
+				//printf("error = %i\n",(int) delta);
+				//zero out the initial offset coutner to not corrupt future data
+				//do this to both Z offset and D axis offset
+				encoder_Z_offset += delta;
+				encoder_Daxis_offset += delta;
+			}
+		
 		}
-		
+	
+	
+		//increment rotation counter
+		encoder_num_Z_interrupts ++;
 	}
-	
-	
-	//increment rotation counter
-	encoder_num_Z_interrupts ++;
+	encoder_last_count = encoder_counter_no_offset;
 }
 
 void encoder_init(void){
@@ -186,21 +192,28 @@ void encoder_enable(void){
 	encoder_num_Z_interrupts = 0;
 	encoder_inital_offset = 0;
 	
+	encoder_Z_offset = 0;
+	encoder_Daxis_offset = 0;
+	encoder_error_offset = 0;
 	
 }
 
-float encoder_get_angle(void){
+void encoder_get_angle(float * angl){
+	//gets the angle with respect to the D axis
+	//for some reason the function would return a random number if it was made to "float encoder_get_angle(void)". Therefore using a pointer to return the data
 	int encoder_counter_no_offset = encoder_get_counter();
 	
 	//we know that encoder steps is 2^x
 	// by doing the bitwise operation we effectively subtract the number of rotations* encoder steps
 	// and we also eliminate any problems with overflowing counters
-	int current_counter = encoder_counter_no_offset & (ENCODER_STEPS - 1);
+	int current_counter = (encoder_counter_no_offset - encoder_Daxis_offset) & (ENCODER_STEPS - 1);
+	
+	float current_counter_float = (float) current_counter;
 	
 	//convert to radians and scale
-	float angl  = (2 * PI * (float) current_counter / (ENCODER_STEPS)) + ENCODER_MOUNTING_OFFSET;
+	*angl  = (2 * PI * current_counter_float / (ENCODER_STEPS));
 	
-	return angl;
+
 }
 
 int encoder_get_counter(void){
@@ -211,15 +224,23 @@ int encoder_get_counter(void){
 	//get A (first line) and B (second line) counters
 	//note that rising and falling edges could be the other way round. It doesn't matter for the current implementation
 	int encoder_counter_no_offset =	  ( int) hri_tc_read_CV_CV_bf(TC0,0) + ( int) hri_tc_read_CV_CV_bf(TC0,1) \
-									+ ( int) hri_tc_read_CV_CV_bf(TC3,0) + ( int) hri_tc_read_CV_CV_bf(TC3,1) \
-									- encoder_inital_offset;														//get the number of steps normalised to the starting offset
-								
+									+ ( int) hri_tc_read_CV_CV_bf(TC3,0) + ( int) hri_tc_read_CV_CV_bf(TC3,1);						
 	
 	return encoder_counter_no_offset;
 }
 
 int encoder_get_rotations(void){
+	//MIGHT BE WRONG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//the D axis implementation was introduced later and this function was not revised
+	
 	//if the counter < initial offset that means we have not completed the rotation yet (Z interrupt probably triggers somewhere in the middle of the rotation)
-	return encoder_num_Z_interrupts - (encoder_get_counter () < encoder_inital_offset);
+	return encoder_num_Z_interrupts - (encoder_get_counter () < encoder_Z_offset);
+	
 }
 
+
+
+void encoder_record_Daxis_offset(void){
+	//records the value at which we have a D axis
+	encoder_Daxis_offset = encoder_get_counter();
+}

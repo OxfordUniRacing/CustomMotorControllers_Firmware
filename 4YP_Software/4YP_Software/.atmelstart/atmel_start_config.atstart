@@ -2,16 +2,16 @@ format_version: '2'
 name: My Project
 versions:
   api: '1.0'
-  backend: 1.8.491
-  commit: 605bd5a7663644fb84783aa2b00942b79b0d8955
+  backend: 1.8.543
+  commit: 931b2422bde1a793dea853de68547f48bf245b0f
   content: unknown
   content_pack_name: unknown
   format: '2'
-  frontend: 1.8.491
-  packs_version_avr8: 1.0.1446
+  frontend: 1.8.543
+  packs_version_avr8: 1.0.1457
   packs_version_qtouch: unknown
   packs_version_sam: 1.0.1726
-  version_backend: 1.8.491
+  version_backend: 1.8.543
   version_frontend: ''
 board:
   identifier: SAME70Xplained
@@ -34,7 +34,7 @@ drivers:
     functionality: ADC
     api: HAL:Driver:ADC_Async
     configuration:
-      afec_advanced_settings: false
+      afec_advanced_settings: true
       afec_channel0_enable: true
       afec_channel10_enable: true
       afec_channel11_enable: false
@@ -116,10 +116,10 @@ drivers:
       afec_freerunning_mode: false
       afec_gaincorr: 0
       afec_highthres: 0
-      afec_ibctl: 1
+      afec_ibctl: 3
       afec_lowthres: 0
       afec_offsetcorr: 0
-      afec_prescaler: 49
+      afec_prescaler: 8
       afec_resolution: 12-bit
       afec_sign_mode: 'All channels: Unsigned.'
       afec_sleep_mode: false
@@ -203,7 +203,7 @@ drivers:
     functionality: ADC
     api: HAL:Driver:ADC_Async
     configuration:
-      afec_advanced_settings: false
+      afec_advanced_settings: true
       afec_channel0_enable: true
       afec_channel10_enable: false
       afec_channel11_enable: false
@@ -285,10 +285,10 @@ drivers:
       afec_freerunning_mode: false
       afec_gaincorr: 0
       afec_highthres: 0
-      afec_ibctl: 1
+      afec_ibctl: 3
       afec_lowthres: 0
       afec_offsetcorr: 0
-      afec_prescaler: 49
+      afec_prescaler: 8
       afec_resolution: 12-bit
       afec_sign_mode: 'All channels: Unsigned.'
       afec_sleep_mode: false

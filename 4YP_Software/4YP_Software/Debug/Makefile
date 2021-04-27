@@ -69,6 +69,7 @@ C_SRCS +=  \
 ../atmel_start.c \
 ../custom_code/control/Control.c \
 ../custom_code/control/ControlStartup.c \
+../custom_code/control/Digital_Low_Pass_Filter.c \
 ../custom_code/control/EstimateTheta.c \
 ../custom_code/control/PID.c \
 ../custom_code/low_level/AnalogSensorConversion.c \
@@ -77,6 +78,7 @@ C_SRCS +=  \
 ../custom_code/low_level/User_adc.c \
 ../custom_code/low_level/User_pwm.c \
 ../custom_code/testing/Inital_Testing.c \
+../custom_code/testing/Time_Tester.c \
 ../Device_Startup/startup_same70q21b.c \
 ../Device_Startup/system_same70q21b.c \
 ../driver_init.c \
@@ -127,6 +129,7 @@ OBJS +=  \
 atmel_start.o \
 custom_code/control/Control.o \
 custom_code/control/ControlStartup.o \
+custom_code/control/Digital_Low_Pass_Filter.o \
 custom_code/control/EstimateTheta.o \
 custom_code/control/PID.o \
 custom_code/low_level/AnalogSensorConversion.o \
@@ -135,6 +138,7 @@ custom_code/low_level/PositionSensors.o \
 custom_code/low_level/User_adc.o \
 custom_code/low_level/User_pwm.o \
 custom_code/testing/Inital_Testing.o \
+custom_code/testing/Time_Tester.o \
 Device_Startup/startup_same70q21b.o \
 Device_Startup/system_same70q21b.o \
 driver_init.o \
@@ -178,6 +182,7 @@ OBJS_AS_ARGS +=  \
 atmel_start.o \
 custom_code/control/Control.o \
 custom_code/control/ControlStartup.o \
+custom_code/control/Digital_Low_Pass_Filter.o \
 custom_code/control/EstimateTheta.o \
 custom_code/control/PID.o \
 custom_code/low_level/AnalogSensorConversion.o \
@@ -186,6 +191,7 @@ custom_code/low_level/PositionSensors.o \
 custom_code/low_level/User_adc.o \
 custom_code/low_level/User_pwm.o \
 custom_code/testing/Inital_Testing.o \
+custom_code/testing/Time_Tester.o \
 Device_Startup/startup_same70q21b.o \
 Device_Startup/system_same70q21b.o \
 driver_init.o \
@@ -229,6 +235,7 @@ C_DEPS +=  \
 atmel_start.d \
 custom_code/control/Control.d \
 custom_code/control/ControlStartup.d \
+custom_code/control/Digital_Low_Pass_Filter.d \
 custom_code/control/EstimateTheta.d \
 custom_code/control/PID.d \
 custom_code/low_level/AnalogSensorConversion.d \
@@ -237,6 +244,7 @@ custom_code/low_level/PositionSensors.d \
 custom_code/low_level/User_adc.d \
 custom_code/low_level/User_pwm.d \
 custom_code/testing/Inital_Testing.d \
+custom_code/testing/Time_Tester.d \
 Device_Startup/startup_same70q21b.d \
 Device_Startup/system_same70q21b.d \
 driver_init.d \
@@ -280,6 +288,7 @@ C_DEPS_AS_ARGS +=  \
 atmel_start.d \
 custom_code/control/Control.d \
 custom_code/control/ControlStartup.d \
+custom_code/control/Digital_Low_Pass_Filter.d \
 custom_code/control/EstimateTheta.d \
 custom_code/control/PID.d \
 custom_code/low_level/AnalogSensorConversion.d \
@@ -288,6 +297,7 @@ custom_code/low_level/PositionSensors.d \
 custom_code/low_level/User_adc.d \
 custom_code/low_level/User_pwm.d \
 custom_code/testing/Inital_Testing.d \
+custom_code/testing/Time_Tester.d \
 Device_Startup/startup_same70q21b.d \
 Device_Startup/system_same70q21b.d \
 driver_init.d \
@@ -364,6 +374,13 @@ custom_code/control/ControlStartup.o: ../custom_code/control/ControlStartup.c
 	@echo Finished building: $<
 	
 
+custom_code/control/Digital_Low_Pass_Filter.o: ../custom_code/control/Digital_Low_Pass_Filter.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing" -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/tc" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 custom_code/control/EstimateTheta.o: ../custom_code/control/EstimateTheta.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
@@ -414,6 +431,13 @@ custom_code/low_level/User_pwm.o: ../custom_code/low_level/User_pwm.c
 	
 
 custom_code/testing/Inital_Testing.o: ../custom_code/testing/Inital_Testing.c
+	@echo Building file: $<
+	@echo Invoking: ARM/GNU C Compiler : 6.3.1
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing" -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/tc" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+custom_code/testing/Time_Tester.o: ../custom_code/testing/Time_Tester.c
 	@echo Building file: $<
 	@echo Invoking: ARM/GNU C Compiler : 6.3.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\arm\arm-gnu-toolchain\bin\arm-none-eabi-gcc.exe$(QUOTE)  -x c -mthumb -D__SAME70Q21B__ -DDEBUG -Dprintf=iprintf -Dscanf=iscanf  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\ARM\CMSIS\5.3.0\CMSIS\Include" -I"../custom_code" -I"../custom_code/control" -I"../custom_code/low_level" -I"../custom_code/testing" -I"../Config" -I".." -I"../examples" -I"../hal/include" -I"../hal/utils/include" -I"../hpl/afec" -I"../hpl/core" -I"../hpl/mcan" -I"../hpl/pio" -I"../hpl/pmc" -I"../hpl/pwm" -I"../hpl/systick" -I"../hpl/tc" -I"../hpl/usart" -I"../hpl/xdmac" -I"../hri" -I"../stdio_redirect" -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\Atmel\SAME70_DFP\2.4.166\same70b\include"  -Og -ffunction-sections -mlong-calls -g3 -Wall -mcpu=cortex-m7 -c -std=gnu99 -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

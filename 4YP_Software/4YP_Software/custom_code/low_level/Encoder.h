@@ -24,14 +24,20 @@ The .c file also contains an explanation of what needs to be modified in the sys
 
 int encoder_num_Z_interrupts;	//for total pulses on Z
 int encoder_inital_offset;	//to store the offet between the last reset point (start point) and the place where Z counts;
+int encoder_Z_offset;
+int encoder_Daxis_offset;
+int encoder_error_offset;
+int encoder_last_count;
 
 void encoder_init(void);
 void encoder_enable(void);
 
 //returns angle in radians
-float encoder_get_angle(void);
+void encoder_get_angle(float * angl);
 int encoder_get_counter(void);
 int encoder_get_rotations(void);
+
+void encoder_record_Daxis_offset(void);
 
 
 
