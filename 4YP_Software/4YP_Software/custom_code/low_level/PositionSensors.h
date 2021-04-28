@@ -30,7 +30,6 @@ Position convention:
 Step 1 <=> first 60 degree sector
 Step 2 <=> second 60 degree sector etc.
 
-this means that the moment we transition to state (POS1=1, POS2=0 POS3=0) we are at 0 electrical degrees
 */
 
 // sector_lookup_table[POS3][POS2][POS1];

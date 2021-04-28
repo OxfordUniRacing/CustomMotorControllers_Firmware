@@ -43,6 +43,7 @@ static inline void Position_General_Interrupt(void){
 	//systick clock frequency equals MCU clock at 300MHz
 	pos_sens_deltas [0] = (float) delta / 300;
 	
+	//printf("hall effect %f \n",pos_sens_deltas [0]);
 	// update previous systick value
 	pos_sens_last_SysTick_count = current_systick;
 	
@@ -120,16 +121,15 @@ void pos_sens_init (void){
 	Step 1 <=> first 60 degree sector
 	Step 2 <=> second 60 degree sector etc.
 
-	this means that the moment we transition to state (POS1=1, POS2=0 POS3=0) we are at 0 electrical degrees
 	*/
 
 	// sector_lookup_table[POS3][POS2][POS1];
-	sector_lookup_table[0][0][1] = 1;
-	sector_lookup_table[0][1][1] = 2;
-	sector_lookup_table[0][1][0] = 3;
-	sector_lookup_table[1][1][0] = 4;
-	sector_lookup_table[1][0][0] = 5;
-	sector_lookup_table[1][0][1] = 6;
+	sector_lookup_table[0][0][1] = 4;
+	sector_lookup_table[0][1][1] = 3;
+	sector_lookup_table[0][1][0] = 2;
+	sector_lookup_table[1][1][0] = 1;
+	sector_lookup_table[1][0][0] = 6;
+	sector_lookup_table[1][0][1] = 5;
 	//Error states
 	sector_lookup_table[0][0][0] = -1;
 	sector_lookup_table[1][1][1] = -1;

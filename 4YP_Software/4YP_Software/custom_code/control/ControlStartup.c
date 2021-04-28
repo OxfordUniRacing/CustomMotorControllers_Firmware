@@ -34,7 +34,7 @@ void gather_control_data(void){
 	//get torque request
 	control_torque_request = 0;
 	
-	get_Data_Pos(&(control_pos_sens_deltas[0]), &control_pos_sens_sector, &control_pos_sens_time_in_current_sector);
+	get_Data_Pos((float *) &control_pos_sens_deltas, &control_pos_sens_sector, &control_pos_sens_time_in_current_sector);
 	
 	
 	//do last as this is the most frequently updated data
@@ -92,12 +92,15 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 	control_supply_voltage = reconstruct_bus_voltage( voltageee);
 	
 	//for testing
-	control_torque_request = 1.0;
-	tcntr++;
-	if(tcntr == 45000){
-		tcntr = 45000-1;
-		control_torque_request = 2.0;
-	}
+	control_torque_request = 1.5;
+// 	tcntr++;
+// 	if(tcntr > 60000){
+// 		control_torque_request = 2.0;
+// 	}
+// 	if(tcntr > 120000){
+// 		tcntr = 0;
+// 		control_torque_request = 1.5;
+// 	}
 	//control_encoder_angle = 3.1416/(2*5*15);
 	fake_angle =  fake_angle + 1 /(5*15 * 15000);
 	
@@ -107,7 +110,7 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 		//printf("gather data time %f \t control dummy time %f \n", gather_data_time, control_dummy_time);
 		
 		//printf("\n startup current %f \t %f",control_currents[0], control_currents[1]);
-		
+		//printf("hall effect deltas %f \n", control_pos_sens_deltas[0]);
 		// !!!!!!!!!!!!!!!!! DO NOT PRINT MULTIPLE OF THESE AT ONCE it breaks the program for some reason
 // 		printf("LPF A \n");
 // 		DLPF_Print_IO(&DLPF_Curr_A);

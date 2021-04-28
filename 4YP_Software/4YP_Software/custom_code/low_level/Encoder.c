@@ -126,7 +126,7 @@ static void Encoder_Z_Interrupt (void){
 				//zero out the initial offset coutner to not corrupt future data
 				//do this to both Z offset and D axis offset
 				encoder_Z_offset += delta;
-				encoder_Daxis_offset += delta;
+				//encoder_Daxis_offset += delta;	//we are using hall effect sensors to reset. Way more accurate
 			}
 		
 		}

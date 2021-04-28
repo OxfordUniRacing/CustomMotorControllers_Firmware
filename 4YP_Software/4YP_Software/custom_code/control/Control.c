@@ -32,7 +32,7 @@ void Init_Control(void) {
 	
 		//do not remove this printf. For some reason it is fixing a linking error where if it isn't here control startup wont work and the program doesnt run. Idk why
 
-	printf("\n");
+	//printf("\n");
 }
 
 
@@ -103,7 +103,7 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 		//Id_r = 0;
 	
 	
-	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, &pos_HS_dts, pos_ENC_angle);
+	theta_e = EstimateTheta(pos_HS_state, pos_HS_t1, pos_HS_dts, pos_ENC_angle);
 	//theta_e = ffake_angle;
 	//theta_e = 0;
 	float sintheta_e = sin(theta_e);
@@ -136,7 +136,7 @@ void Control(float torquerequest, float V_dc, int pos_HS_state, float pos_HS_t1,
 // 		printf("\n");
 // 		printf("\nTime Control = %f us ",control_time);
 // 		printf("\nTorque request - %f ",torquerequest);
-// 
+//		printf("hall effec times from control %f \n",pos_HS_dts[0]);
 // 		printf("\n Va_aim = %f \t Vb_aim = %f \t theta = %f; \t sintheta = %f", Va_aim, Vb_aim, theta_e, sintheta_e);
 // 		printf("\n A amps = %f \t B amps = %f", control_currents[0],control_currents[1]);
 //  		printf("\n I_d = %f \t I_q = %f", I_d, I_q);
