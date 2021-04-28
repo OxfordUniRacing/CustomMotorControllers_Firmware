@@ -15,7 +15,7 @@
 #define FLUX_PM 0.0085						//Calculated from experiments 
 #define LQ_TAKE_LD 0.0000082
 //#define LST_SQ_OMEGA_BASE_E 37.62
-#define I_MAX 10 //max current amps
+#define I_MAX 30 //max current amps
 #define C1 259.1463				//FLUX_PM/4(LQ - LD)
 #define C1_SQR 67157				//C1 squared
 #define T_RATE_UP 0.001					//T_RATE 0.00666 = 1000Nm/s (torque limited rate of change) * Ts (1/switching frequency)

@@ -51,18 +51,25 @@ static inline void Position_General_Interrupt(void){
 }
 
 static void Position_1_Interrupt (void){
+	if(gpio_get_pin_level(PIN_GPIO_POS_1) == 1) encoder_set_Daxis_offset(146);
+	if(gpio_get_pin_level(PIN_GPIO_POS_1) == 0) encoder_set_Daxis_offset(36);
 	Position_General_Interrupt();
 	//printf("POS 1\n");
 }
 
 static void Position_2_Interrupt (void){
+	if(gpio_get_pin_level(PIN_GPIO_POS_2) == 1) encoder_record_Daxis_offset();
+	if(gpio_get_pin_level(PIN_GPIO_POS_2) == 0) encoder_set_Daxis_offset(109);
 	Position_General_Interrupt();
 	//printf("POS 2\n");
 }
 int cntr = 0;
 static void Position_3_Interrupt (void){
+	if(gpio_get_pin_level(PIN_GPIO_POS_3) == 0) encoder_set_Daxis_offset(182);
+	if(gpio_get_pin_level(PIN_GPIO_POS_3) == 1) encoder_set_Daxis_offset(73);
 	Position_General_Interrupt();
 	//printf("POS 3\n");
+	
 	
 	
 	// For calibrating the encoder offset
@@ -128,6 +135,7 @@ void pos_sens_init (void){
 	sector_lookup_table[1][1][1] = -1;
 	
 	has_triggered = false;
+	printf("\n");
 }
 
 //returns time spent in previous sectors

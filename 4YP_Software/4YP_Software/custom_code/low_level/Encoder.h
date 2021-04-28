@@ -38,6 +38,7 @@ int encoder_get_counter(void);
 int encoder_get_rotations(void);
 
 void encoder_record_Daxis_offset(void);
+void encoder_set_Daxis_offset(int offsett);
 
 
 

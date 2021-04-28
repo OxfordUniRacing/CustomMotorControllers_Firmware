@@ -15,7 +15,7 @@
 #include "Control.h"
 #include "Time_Tester.h"
 
-
+float fake_angle;
 // digital low pass filter stuff
 void init_LPF(void){
 	DLPF_Init(&DLPF_Curr_A,2,1500,15000);
@@ -24,6 +24,7 @@ void init_LPF(void){
 	
 	//do not remove this printf. For some reason it is fixing a linking error where if it isn't here control startup wont work and the program doesnt run. Idk why
 	printf("lpf init");
+	fake_angle = 0;
 }
 
 float gather_data_time, control_dummy_time;
@@ -46,6 +47,8 @@ void gather_control_data(void){
 //float fy_z0, fy_z1, fy_z2, fy_z3, fy_z4;
 //float fx_z0, fx_z1, fx_z2, fx_z3, fx_z4;
 int fcntr;
+int tcntr;
+
 
 int control_delay;
 //process ADC data and start the control loop
@@ -89,9 +92,14 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 	control_supply_voltage = reconstruct_bus_voltage( voltageee);
 	
 	//for testing
-	control_torque_request = 1.5;
+	control_torque_request = 1.0;
+	tcntr++;
+	if(tcntr == 45000){
+		tcntr = 45000-1;
+		control_torque_request = 2.0;
+	}
 	//control_encoder_angle = 3.1416/(2*5*15);
-	
+	fake_angle =  fake_angle + 1 /(5*15 * 15000);
 	
 	fcntr++;
 	if(fcntr == 10000){
@@ -112,6 +120,7 @@ void start_control_loop_dummy(int * currentsss, int voltageee){
 	control_delay++;
 	if(control_delay >10){
 		control_delay = 10;
+		//printf("fake %f \n", fake_angle);
 		//start control loop below
 		Control(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);
 		//controlV(control_torque_request, control_supply_voltage, control_pos_sens_sector, control_pos_sens_time_in_current_sector, (float *) control_pos_sens_deltas, control_encoder_angle);

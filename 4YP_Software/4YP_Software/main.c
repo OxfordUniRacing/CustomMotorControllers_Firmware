@@ -146,7 +146,7 @@ int main(void)
 	
 	
 	curr_C_offset = curr_C_offset/10;
-	printf("offset %f %f\n",curr_A_offset,curr_C_offset);
+	printf("offset A %f \t B %f \t C %f \n",curr_A_offset,curr_B_offset,curr_C_offset);
 	gpio_set_pin_level(PIN_GPIO_DCDC_ON_OFF, true);		//enables the DC-DC converter for the HV side
 	
 	timer_start(&ENCODER_A);
@@ -171,13 +171,16 @@ int main(void)
 	//while(1){}
 		
 	printf("Starting D axis alignment \n");
-	//pwm_set_duty(PWM_PHASE_A, 500);
-	//pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));
-	//pwm_set_duty(PWM_PHASE_C, (PWM_PERIOD-1));
 	
-	
+	pwm_set_duty(PWM_PHASE_A, 500);
+	pwm_set_duty(PWM_PHASE_B, (PWM_PERIOD-1));
+	pwm_set_duty(PWM_PHASE_C, (PWM_PERIOD-1));
+	delay_ms(2000);
 
-	delay_ms(5000);
+	
+	
+	
+	
 	encoder_record_Daxis_offset();
 	printf("Finished D axis alignment \n");
 	/*

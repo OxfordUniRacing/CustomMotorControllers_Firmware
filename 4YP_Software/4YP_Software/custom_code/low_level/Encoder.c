@@ -244,3 +244,9 @@ void encoder_record_Daxis_offset(void){
 	//records the value at which we have a D axis
 	encoder_Daxis_offset = encoder_get_counter();
 }
+
+
+void encoder_set_Daxis_offset(int offsett){
+	//records the value at which we have a D axis and adds an offset
+	encoder_Daxis_offset = encoder_get_counter() + offsett;
+}
