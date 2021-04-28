@@ -52,7 +52,7 @@ static inline void Position_General_Interrupt(void){
 
 static void Position_1_Interrupt (void){
 	if(gpio_get_pin_level(PIN_GPIO_POS_1) == 1) encoder_set_Daxis_offset(146);
-	if(gpio_get_pin_level(PIN_GPIO_POS_1) == 0) encoder_set_Daxis_offset(36);
+	if(gpio_get_pin_level(PIN_GPIO_POS_1) == 0) encoder_set_Daxis_offset(36); //in encoder steps
 	Position_General_Interrupt();
 	//printf("POS 1\n");
 }
