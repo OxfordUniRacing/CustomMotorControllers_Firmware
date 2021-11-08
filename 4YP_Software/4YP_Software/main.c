@@ -209,7 +209,7 @@ int main(void)
 	//POS_Sensor_Initial_Test();
 	
 
-	//for seeing the suqre waves on just one channel
+	//for seeing the square waves on just one channel
 	//pwm_disable(&PWM_0);
 	//pwm_set_duty(PWM_PHASE_C, 950);
 	//while(1){}
