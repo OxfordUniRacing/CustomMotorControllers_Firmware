@@ -203,3 +203,8 @@ void Encoder_Initial_Test(void){
 		delay_ms(3000);
 	}
 }
+
+void Basic_input_PWM_Test(void){
+	pwm_disable(&PWM_0);
+	pwm_set_duty(PWM_PHASE_C,500);
+}
